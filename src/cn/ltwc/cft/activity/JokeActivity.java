@@ -14,13 +14,9 @@ import android.widget.ListView;
 import cn.ltwc.cft.R;
 import cn.ltwc.cft.adapter.JokeAdapter;
 import cn.ltwc.cft.beans.JokeListBean;
-import cn.ltwc.cft.beans.ResBean;
 import cn.ltwc.cft.http.HttpFactory;
 import cn.ltwc.cft.http.ServiceResponce;
 import cn.ltwc.cft.view.TitleView;
-
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 /**
  * 

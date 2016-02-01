@@ -1,15 +1,26 @@
 package cn.ltwc.cft.beans;
+
 /**
  * 
  * TODO:记事本的JavaBean
- * @author huangshang
- * 2015-11-24 下午5:50:56
+ * 
+ * @author huangshang 2015-11-24 下午5:50:56
  * @Modified_By:
  */
 public class NoteBean {
 	private String noteTitle;
 	private String noteContent;
 	private String completeTime;
+	private String currentTime;
+
+	
+	public String getCurrentTime() {
+		return currentTime;
+	}
+
+	public void setCurrentTime(String currentTime) {
+		this.currentTime = currentTime;
+	}
 
 	public String getNoteTitle() {
 		return noteTitle;
@@ -35,15 +46,18 @@ public class NoteBean {
 		this.completeTime = completeTime;
 	}
 
-	public NoteBean(String noteTitle, String noteContent, String completeTime) {
+	
+	public NoteBean() {
+		super();
+	}
+
+	public NoteBean(String noteTitle, String noteContent, String completeTime,
+			String currentTime) {
 		super();
 		this.noteTitle = noteTitle;
 		this.noteContent = noteContent;
 		this.completeTime = completeTime;
-	}
-
-	public NoteBean() {
-		super();
+		this.currentTime = currentTime;
 	}
 
 	@Override

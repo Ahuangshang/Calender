@@ -1,6 +1,7 @@
 package cn.ltwc.cft.adapter;
 
 import java.util.ArrayList;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -13,7 +14,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import cn.ltwc.cft.MyApplication;
 import cn.ltwc.cft.R;
-import cn.ltwc.cft.beans.MeiNvIconBean;
 import cn.ltwc.cft.beans.TiangouBean;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -25,7 +25,7 @@ import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
 public class MeiNvAdapter extends BaseAdapter {
 	private String TAG = "MyAdapter";
-	private String SRC="http://tnfs.tngou.net/image";
+	private String SRC = "http://tnfs.tngou.net/image";
 	Context context;
 	ArrayList<TiangouBean> al;
 	// ImageLoader相关
@@ -85,7 +85,7 @@ public class MeiNvAdapter extends BaseAdapter {
 		}
 		hloder.title.setText(al.get(position).getTitle());// 标题
 		// 图像加载器.显示图片(图片地址,imageView,显示参数【DisplayImageOptions】)
-		imageLoader.displayImage(SRC+al.get(position).getImg(), hloder.Img,
+		imageLoader.displayImage(SRC + al.get(position).getImg(), hloder.Img,
 				displayImageOptions);
 
 		Log.e(TAG, al.get(position).getTitle() + al.get(position).getImg());

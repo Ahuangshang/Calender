@@ -33,7 +33,7 @@ public class NoteDB extends SQLiteOpenHelper {
 	public void onCreate(SQLiteDatabase db) {
 		String CreatTableSql = "create table "
 				+ noteTableName
-				+ "(title varchar(17),content varchar(1001),completeTime varchar(20))";
+				+ "(title varchar(17),content varchar(1001),completeTime varchar(20),currentTime varchar(100))";
 
 		db.execSQL(CreatTableSql);
 
@@ -54,12 +54,13 @@ public class NoteDB extends SQLiteOpenHelper {
 	public void addNote(NoteBean notebean) {
 
 		String sql = "insert into " + noteTableName
-				+ "(title,content,completeTime)values(?,?,?)";
+				+ "(title,content,completeTime,currentTime) values(?,?,?,?)";
 		SQLiteDatabase db = getWritableDatabase();
 		db.execSQL(
 				sql,
 				new String[] { notebean.getNoteTitle(),
-						notebean.getNoteContent(), notebean.getCompleteTime() });
+						notebean.getNoteContent(), notebean.getCompleteTime(),notebean.getCurrentTime() });
+		db.close();
 	}
 
 	/**
@@ -69,7 +70,7 @@ public class NoteDB extends SQLiteOpenHelper {
 	 */
 	public List<NoteBean> getAll() {
 		List<NoteBean> allNote = new ArrayList<NoteBean>();
-
+		List<NoteBean> temp = new ArrayList<NoteBean>();
 		String sql = "select * from " + noteTableName;
 		SQLiteDatabase db = getReadableDatabase();
 		Cursor cursor = db.rawQuery(sql, null);
@@ -78,9 +79,12 @@ public class NoteDB extends SQLiteOpenHelper {
 			String content = cursor.getString(cursor.getColumnIndex("content"));
 			String completeTime = cursor.getString(cursor
 					.getColumnIndex("completeTime"));
-
-			NoteBean noteBean = new NoteBean(title, content, completeTime);
-			allNote.add(noteBean);
+			String currentTime=cursor.getString(cursor.getColumnIndex("currentTime"));
+			NoteBean noteBean = new NoteBean(title, content, completeTime,currentTime);
+			temp.add(noteBean);
+		}
+		for (int i = temp.size() - 1; i >= 0; i--) {
+			allNote.add(temp.get(i));
 		}
 		return allNote;
 	}
@@ -90,26 +94,28 @@ public class NoteDB extends SQLiteOpenHelper {
 	 * 
 	 * @param notebean
 	 *            修改的笔记的bean
-	 * @param lastcompleteTime
+	 * @param currentTime
 	 *            通过上次完成的时间来匹配修改
 	 */
-	public void update(NoteBean notebean, String lastcompleteTime) {
+	public void update(NoteBean notebean, String currentTime) {
 
 		String sql = "update "
 				+ noteTableName
-				+ " set title='?',content='?',completeTime='?' where completeTime=''"
-				+ lastcompleteTime;
+				+ " set title='?',content='?',completeTime='?',currentTime='?' where currentTime=''"
+				+ currentTime;
 		SQLiteDatabase db = getWritableDatabase();
 
 		db.execSQL(
 				sql,
 				new String[] { notebean.getNoteTitle(),
-						notebean.getNoteContent(), notebean.getCompleteTime() });
-
+						notebean.getNoteContent(), notebean.getCompleteTime(),notebean.getCurrentTime() });
+		db.close();
 	}
-	
-	
-	
-	
-	
+
+	public void deleteItem(String currentTime) {
+		String sql = "DELETE FROM " + noteTableName + " where currentTime=?";
+		SQLiteDatabase db = getWritableDatabase();
+		db.execSQL(sql, new String[] { currentTime });
+		db.close();
+	}
 }

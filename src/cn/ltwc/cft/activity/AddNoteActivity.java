@@ -2,7 +2,6 @@ package cn.ltwc.cft.activity;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 import android.annotation.SuppressLint;
@@ -43,7 +42,6 @@ public class AddNoteActivity extends BaseActivity {
 	@Override
 	public void bindView() {
 		// TODO Auto-generated method stub
-		show(getCurrentTime());
 		SureClick();
 	}
 
@@ -63,11 +61,13 @@ public class AddNoteActivity extends BaseActivity {
 					// 如果输入框中有一个没有内容
 					show("请确认标题或内容不为空");
 				} else {
-					String time=getCurrentTime();
-					NoteBean notebean=new NoteBean(noteTitle, noteContent, time);
+					String time = getCurrentTime();
+					NoteBean notebean = new NoteBean(noteTitle, noteContent,
+							time, System.currentTimeMillis() + "");
 					NoteDB.getInstance().addNote(notebean);
-					}
-}
+					finish();
+				}
+			}
 		});
 	}
 

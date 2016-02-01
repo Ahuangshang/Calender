@@ -63,7 +63,7 @@ public class JokeListBean {
 	}
 
 	public void setType(String jokeType) {
-		Type = Type;
+		Type = jokeType;
 	}
 //
 //	public String getIsHtml() {
