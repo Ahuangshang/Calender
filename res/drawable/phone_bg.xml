@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android" >
+    <!-- 禁用的背景 -->
+    <item android:state_enabled="false" android:drawable="@drawable/btn_phone_no"></item>
+	<!-- 默认的 -->
+	<item android:drawable="@drawable/btn_phone_yes"></item>
+</selector>

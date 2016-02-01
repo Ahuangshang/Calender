@@ -1,0 +1,11 @@
+<resources>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="drag_min_distince">10dip</dimen>
+    <dimen name="correctWidth">30dip</dimen>
+    <dimen name="left_distince">200dip</dimen>
+    <!-- 菜单的宽度，该值为left_distince与correctWidth的和 -->
+	 <dimen name="menu_width">230dip</dimen>
+</resources>

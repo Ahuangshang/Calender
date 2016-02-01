@@ -1,0 +1,72 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:background="#31A9A5" >
+
+        <TextView
+            android:id="@+id/month"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="15dp"
+            android:text="@string/Current_mouth"
+            android:textColor="#ffffff"
+            android:textSize="20sp" />
+        <!-- 实现跑马灯效果显示需要设置以下属性(缺一不可) -->
+        <!-- android:ellipsize="marquee" -->
+        <!-- android:focusable="true" -->
+        <!-- android:focusableInTouchMode="true" -->
+        <!-- android:singleLine="true" -->
+        <!-- android:marqueeRepeatLimit="marquee_forever" 无限滚动 -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/month"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_toRightOf="@+id/month"
+            android:ellipsize="marquee"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:singleLine="true"
+            android:text="呼和浩特  大雨 转暴雨转冰雹  -1℃~17℃"
+            android:textColor="#ffffffff" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ffffff" >
+
+        <!-- 日历视图 -->
+
+        <include
+            android:id="@+id/rili"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/calendar" />
+
+        
+        
+        
+        <!-- 菜单组 -->
+
+        <GridView
+            android:id="@+id/main_menu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="#31A9A5"
+            android:numColumns="5" />
+    </RelativeLayout>
+
+</LinearLayout>
