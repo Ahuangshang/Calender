@@ -30,6 +30,7 @@ public class TodayonhistoryActivity extends BaseWebActivity {
 		title.setRightVisibility(View.GONE);
 		setWebView(R.id.todayonhistory);
 		setEmpty(R.id.tt_emptyview);
+		setTitle(title);
 	}
 
 	@Override

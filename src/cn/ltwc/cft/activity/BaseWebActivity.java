@@ -1,6 +1,7 @@
 package cn.ltwc.cft.activity;
 
 import cn.ltwc.cft.AppManager;
+import cn.ltwc.cft.view.TitleView;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -27,9 +28,14 @@ public abstract class BaseWebActivity extends Activity {
 	private WebView webView;
 	private View empty;
 	private String webURL;// 网络请求地址
+	private TitleView title;
 
 	public void setEmpty(int id) {
 		this.empty = findViewById(id);
+	}
+
+	public void setTitle(TitleView title) {
+		this.title = title;
 	}
 
 	public void setWebView(int id) {
@@ -50,10 +56,8 @@ public abstract class BaseWebActivity extends Activity {
 		super.onCreate(savedInstanceState);
 
 		// 沉浸式导航栏
-		getWindow()
-				.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-		getWindow().addFlags(
-				WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+		getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+		getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
 		AppManager.getInstance().addActivity(this);
 		if (layoutResId != -1) {
 			setContentView(layoutResId);
@@ -69,17 +73,18 @@ public abstract class BaseWebActivity extends Activity {
 	@SuppressLint("SetJavaScriptEnabled")
 	public void WebViewConfig(String webURL) {
 		webView.loadUrl(webURL);
-		 WebSettings settings = webView.getSettings();  
-	        settings.setSupportZoom(true);          //支持缩放  
-	        settings.setBuiltInZoomControls(true);  //启用内置缩放装置  
-	        settings.setJavaScriptEnabled(true);    //启用JS脚本  
+		WebSettings settings = webView.getSettings();
+		settings.setSupportZoom(true); // 支持缩放
+		settings.setBuiltInZoomControls(true); // 启用内置缩放装置
+		settings.setJavaScriptEnabled(true); // 启用JS脚本
 		webView.setWebViewClient(new WebViewClient());
 		webView.setWebChromeClient(new WebChromeClient() {
 			@Override
 			public void onProgressChanged(WebView view, int newProgress) {
 				// TODO Auto-generated method stub
-				if (newProgress == 100) {
+				if (newProgress > 70) {
 					empty.setVisibility(View.GONE);
+					//title.setVisibility(View.GONE);
 				}
 			}
 		});

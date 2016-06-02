@@ -28,6 +28,7 @@ public class JunshiActivity extends BaseWebActivity {
 		title.setRightVisibility(View.GONE);
 		setWebView(R.id.junshi_webview);
 		setEmpty(R.id.junshi_emptyview);
+		setTitle(title);
 	}
 
 	@Override

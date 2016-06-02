@@ -2,48 +2,55 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:orientation="vertical"
     android:background="#ffffffff"
-     >
-      <cn.ltwc.cft.view.TitleView
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin" >
+
+    <cn.ltwc.cft.view.TitleView
         android:id="@+id/zhainan_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-    
 
-  <ListView 
-      android:background="#ffffffff"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:id="@+id/zaina_listview"
-      />
-     <RelativeLayout
+    <ListView
+        android:id="@+id/zaina_listview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffffff" />
+
+    <RelativeLayout
         android:id="@+id/note_emptyview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#ffffff"
-        android:orientation="vertical"
-        android:visibility="gone" >
+        android:orientation="vertical" >
 
-        <ImageView
-            android:id="@+id/imageView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:contentDescription="@null"
-            android:src="@drawable/zhainan_empty" />
+        <RelativeLayout
+            android:id="@+id/relativeLayout"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/loading_bg" >
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/imageView1"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
-            android:text="@string/empty_zhainan"
-            android:textColor="#000000"
-            android:textSize="18sp" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:orientation="vertical" >
+
+                <ProgressBar
+                    style="@style/my_progressbar.small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="@string/loading_now"
+                    android:textColor="#ffffff"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </RelativeLayout>
     </RelativeLayout>
 
 </LinearLayout>
