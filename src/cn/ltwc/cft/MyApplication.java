@@ -33,6 +33,7 @@ public class MyApplication extends Application {
 
 	/**
 	 * 返回本类的操作对象
+	 * 
 	 * @return
 	 */
 	public static MyApplication getInstance() {
@@ -52,13 +53,10 @@ public class MyApplication extends Application {
 	 */
 	private void initImageLoaderConfiguration() {
 		// 配制文件被缓存的路径
-		File cacheDir = StorageUtils.getOwnCacheDirectory(
-				instance.getApplicationContext(), "/CalenderForTang/"
-						+ "imgCache");
+		File cacheDir = StorageUtils.getOwnCacheDirectory(instance.getApplicationContext(),
+				"/CalenderForTang/" + "imgCache");
 
-		imageLoaderConfiguration = new ImageLoaderConfiguration.Builder(
-				instance)
-				.threadPoolSize(3)
+		imageLoaderConfiguration = new ImageLoaderConfiguration.Builder(instance).threadPoolSize(3)
 				// 线程池内加载的数量
 
 				.threadPriority(Thread.NORM_PRIORITY - 2)
@@ -73,8 +71,7 @@ public class MyApplication extends Application {
 				// 缓存的文件数量
 				.discCache(new UnlimitedDiscCache(cacheDir))
 				// 自定义缓存路径
-				.imageDownloader(
-						new BaseImageDownloader(instance, 5 * 1000, 30 * 1000)) // connectTimeout
+				.imageDownloader(new BaseImageDownloader(instance, 5 * 1000, 30 * 1000)) // connectTimeout
 
 				// (5
 				// s)超时时间

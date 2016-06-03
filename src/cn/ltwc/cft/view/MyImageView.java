@@ -21,15 +21,13 @@ public class MyImageView extends ImageView {
 
 	private final Matrix mDisplayMatrix = new Matrix();
 
-
 	private final float[] mMatrixValues = new float[9];
-
 
 	protected Bitmap image = null;
 
 	protected Handler mHandler = new Handler();
 
-	int mThisWidth = -1, mThisHeight = -1;//布局后的宽度和高度，由于是全屏显示，这两个值等于屏幕分辨率
+	int mThisWidth = -1, mThisHeight = -1;// 布局后的宽度和高度，由于是全屏显示，这两个值等于屏幕分辨率
 
 	float mMaxZoom;// 最大缩放比例
 	float mMinZoom;// 最小缩放比例
@@ -37,7 +35,7 @@ public class MyImageView extends ImageView {
 	private int imageWidth;// 图片的原始宽度
 	private int imageHeight;// 图片的原始高度
 
-//	 float scaleRate;// 图片适应屏幕的缩放比例
+	// float scaleRate;// 图片适应屏幕的缩放比例
 
 	static final float SCALE_RATE = 1.5F;
 
@@ -62,6 +60,7 @@ public class MyImageView extends ImageView {
 			d.setDither(true);
 		}
 	}
+
 	protected void center(boolean horizontal, boolean vertical) {
 		if (image == null) {
 			return;
@@ -102,6 +101,7 @@ public class MyImageView extends ImageView {
 	private void init() {
 		setScaleType(ScaleType.MATRIX);
 	}
+
 	private void getProperBaseMatrix(Bitmap bitmap, Matrix matrix) {
 		float viewWidth = getWidth();
 		float viewHeight = getHeight();
@@ -110,36 +110,37 @@ public class MyImageView extends ImageView {
 		float h = bitmap.getHeight();
 		matrix.reset();
 		float scale = Math.min(viewWidth / w, viewHeight / h);
-		mMinZoom = 0.9f*scale;
-		mMaxZoom = 3*scale;
+		mMinZoom = 0.9f * scale;
+		mMaxZoom = 3 * scale;
 		matrix.postScale(scale, scale);
-		matrix.postTranslate((viewWidth - w * scale) / 2F, (viewHeight - h
-				* scale) / 2F);
+		matrix.postTranslate((viewWidth - w * scale) / 2F, (viewHeight - h * scale) / 2F);
 	}
 
 	protected float getValue(Matrix matrix, int whichValue) {
 		matrix.getValues(mMatrixValues);
 		return mMatrixValues[whichValue];
 	}
+
 	protected float getScale(Matrix matrix) {
 		return getValue(matrix, Matrix.MSCALE_X);
 	}
 
 	public float getScale() {
-		return getScale(mSuppMatrix)*mMinZoom;
+		return getScale(mSuppMatrix) * mMinZoom;
 	}
-	
+
 	public float getScaleRate() {
 		return getScale(mSuppMatrix);
 	}
-	
+
 	public float getMiniZoom() {
 		return mMinZoom;
 	}
-	
+
 	public float getMaxZoom() {
 		return mMaxZoom;
 	}
+
 	protected Matrix getImageViewMatrix() {
 		mDisplayMatrix.set(mBaseMatrix);
 		mDisplayMatrix.postConcat(mSuppMatrix);
@@ -147,14 +148,13 @@ public class MyImageView extends ImageView {
 	}
 
 	@Override
-	protected void onLayout(boolean changed, int left, int top, int right,
-			int bottom) {
+	protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
 		super.onLayout(changed, left, top, right, bottom);
 		mThisWidth = right - left;
 		mThisHeight = bottom - top;
 		if (image != null) {
 			getProperBaseMatrix(image, mBaseMatrix);
-			 setImageMatrix(getImageViewMatrix());
+			setImageMatrix(getImageViewMatrix());
 		}
 	}
 
@@ -172,8 +172,7 @@ public class MyImageView extends ImageView {
 		center(true, true);
 	}
 
-	protected void zoomTo(final float scale, final float centerX,
-			final float centerY, final float durationMs) {
+	protected void zoomTo(final float scale, final float centerX, final float centerY, final float durationMs) {
 		final float incrementPerMs = (scale - getScale()) / durationMs;
 		final float oldScale = getScale();
 		final long startTime = System.currentTimeMillis();
@@ -196,18 +195,22 @@ public class MyImageView extends ImageView {
 		float cy = getHeight() / 2F;
 		zoomTo(scale, cx, cy);
 	}
+
 	protected void zoomToPoint(float scale, float pointX, float pointY) {
 		float cx = getWidth() / 2F;
 		float cy = getHeight() / 2F;
 		panBy(cx - pointX, cy - pointY);
 		zoomTo(scale, cx, cy);
 	}
+
 	protected void zoomIn() {
 		zoomIn(SCALE_RATE);
 	}
+
 	protected void zoomOut() {
 		zoomOut(SCALE_RATE);
 	}
+
 	protected void zoomIn(float rate) {
 		if (getScale() >= mMaxZoom) {
 			return; // Don't let the user zoom into the molecular level.
@@ -304,8 +307,7 @@ public class MyImageView extends ImageView {
 
 	@Override
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
-		if (keyCode == KeyEvent.KEYCODE_BACK && event.isTracking()
-				&& !event.isCanceled()) {
+		if (keyCode == KeyEvent.KEYCODE_BACK && event.isTracking() && !event.isCanceled()) {
 			if (getScale() > mMinZoom) {
 				zoomTo(mMinZoom);
 				return true;

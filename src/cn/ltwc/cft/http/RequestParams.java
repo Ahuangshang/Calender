@@ -82,9 +82,8 @@ public class RequestParams {
 
 	@Override
 	public String toString() {
-		return "RequestParams [httpUrl=" + httpUrl + ", httpParam=" + httpParam
-				+ ", params=" + params + ", responce=" + responce
-				+ ", requestFlag=" + requestFlag + ", apiKey=" + apiKey
-				+ ", requestMethod=" + requestMethod + "]";
+		return "RequestParams [httpUrl=" + httpUrl + ", httpParam=" + httpParam + ", params=" + params + ", responce="
+				+ responce + ", requestFlag=" + requestFlag + ", apiKey=" + apiKey + ", requestMethod=" + requestMethod
+				+ "]";
 	}
 }

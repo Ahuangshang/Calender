@@ -13,7 +13,6 @@ public class NoteBean {
 	private String completeTime;
 	private String currentTime;
 
-	
 	public String getCurrentTime() {
 		return currentTime;
 	}
@@ -46,13 +45,11 @@ public class NoteBean {
 		this.completeTime = completeTime;
 	}
 
-	
 	public NoteBean() {
 		super();
 	}
 
-	public NoteBean(String noteTitle, String noteContent, String completeTime,
-			String currentTime) {
+	public NoteBean(String noteTitle, String noteContent, String completeTime, String currentTime) {
 		super();
 		this.noteTitle = noteTitle;
 		this.noteContent = noteContent;
@@ -62,8 +59,8 @@ public class NoteBean {
 
 	@Override
 	public String toString() {
-		return "NoteBean [noteTitle=" + noteTitle + ", noteContent="
-				+ noteContent + ", completeTime=" + completeTime + "]";
+		return "NoteBean [noteTitle=" + noteTitle + ", noteContent=" + noteContent + ", completeTime=" + completeTime
+				+ "]";
 	}
 
 }

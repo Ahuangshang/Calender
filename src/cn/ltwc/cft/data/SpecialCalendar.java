@@ -12,11 +12,13 @@ public class SpecialCalendar {
 
 	private int daysOfMonth = 0; // 某月的天数
 	private int dayOfWeek = 0; // 具体某一天是星期几
-	private static SpecialCalendar instance=new SpecialCalendar();
-	private SpecialCalendar(){
-		
+	private static SpecialCalendar instance = new SpecialCalendar();
+
+	private SpecialCalendar() {
+
 	}
-	public static SpecialCalendar getInstance(){
+
+	public static SpecialCalendar getInstance() {
 		return instance;
 	}
 

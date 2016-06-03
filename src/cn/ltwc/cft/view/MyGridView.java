@@ -20,10 +20,11 @@ public class MyGridView extends GridView {
 		super(context);
 		// TODO Auto-generated constructor stub
 	}
-@Override
-protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-	// TODO Auto-generated method stub
-	heightMeasureSpec=MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE>>2, MeasureSpec.AT_MOST);
-	super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-}
+
+	@Override
+	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+		// TODO Auto-generated method stub
+		heightMeasureSpec = MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE >> 2, MeasureSpec.AT_MOST);
+		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+	}
 }

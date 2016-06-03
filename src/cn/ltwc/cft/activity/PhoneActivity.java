@@ -27,8 +27,7 @@ import com.google.gson.reflect.TypeToken;
  * @Modified_By:
  */
 public class PhoneActivity extends BaseActivity implements ServiceResponce {
-	private TextView phonetext, citytext, provincetext, suppliertext, suittext,
-			retMsgtext;
+	private TextView phonetext, citytext, provincetext, suppliertext, suittext, retMsgtext;
 	private EditText getphone;
 	private LinearLayout linearLayout;
 	private RelativeLayout relativeLayout;
@@ -125,9 +124,8 @@ public class PhoneActivity extends BaseActivity implements ServiceResponce {
 
 			Gson gson = new Gson();
 
-			ReturnBack back = gson.fromJson(result,
-					new TypeToken<ReturnBack>() {
-					}.getType());
+			ReturnBack back = gson.fromJson(result, new TypeToken<ReturnBack>() {
+			}.getType());
 			if (back.getErrNum() == 0) {
 
 				BackDate retData = back.getRetData();
@@ -170,11 +168,12 @@ public class PhoneActivity extends BaseActivity implements ServiceResponce {
 		setEmpty("没有网络，请检查网络");
 
 	}
+
 	/**
 	 * 
 	 * TODO:内部类，接口返回的数据
-	 * @author huangshang
-	 * 2015-11-30 下午5:24:49
+	 * 
+	 * @author huangshang 2015-11-30 下午5:24:49
 	 * @Modified_By:
 	 */
 	class ReturnBack {
@@ -207,11 +206,12 @@ public class PhoneActivity extends BaseActivity implements ServiceResponce {
 		}
 
 	}
+
 	/**
 	 * 
 	 * TODO:内部类，接口返回的数据
-	 * @author huangshang
-	 * 2015-11-30 下午5:25:12
+	 * 
+	 * @author huangshang 2015-11-30 下午5:25:12
 	 * @Modified_By:
 	 */
 	class BackDate {

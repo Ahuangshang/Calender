@@ -127,12 +127,13 @@ public class TitleView extends LinearLayout {
 	public void setRightVisibility(int visibility) {
 		rightIcon.setVisibility(visibility);
 	}
-	
+
 	/**
 	 * 设置右边文字按钮是是否显示(默认不显示)
+	 * 
 	 * @param visibility
 	 */
-	public void setRightBtnTextVisibility(int visibility){
+	public void setRightBtnTextVisibility(int visibility) {
 		rightText.setVisibility(visibility);
 	}
 }

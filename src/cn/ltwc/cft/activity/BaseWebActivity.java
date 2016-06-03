@@ -84,7 +84,7 @@ public abstract class BaseWebActivity extends Activity {
 				// TODO Auto-generated method stub
 				if (newProgress > 70) {
 					empty.setVisibility(View.GONE);
-					//title.setVisibility(View.GONE);
+					// title.setVisibility(View.GONE);
 				}
 			}
 		});

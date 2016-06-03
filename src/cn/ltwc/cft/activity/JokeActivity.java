@@ -29,8 +29,9 @@ public class JokeActivity extends BaseActivity implements ServiceResponce {
 	private TitleView title;
 	private ListView listJoke;
 	private String TAG = "JokeActivity";
-	private List<JokeListBean> jokeList;//笑话的集合
-	private JokeAdapter jokeADApter;//适配器
+	private List<JokeListBean> jokeList;// 笑话的集合
+	private JokeAdapter jokeADApter;// 适配器
+
 	public JokeActivity() {
 		super(R.layout.activity_joke);
 		// TODO Auto-generated constructor stub
@@ -43,14 +44,14 @@ public class JokeActivity extends BaseActivity implements ServiceResponce {
 		title.setTitletext("内涵段子");
 		title.setRightVisibility(View.GONE);
 		listJoke = (ListView) findViewById(R.id.joke_list);
-		
+
 	}
 
 	@Override
 	public void initData() {
-		jokeList=new ArrayList<JokeListBean>();
-		Random random=new Random();
-		int d=random.nextInt(300);
+		jokeList = new ArrayList<JokeListBean>();
+		Random random = new Random();
+		int d = random.nextInt(300);
 		// TODO Auto-generated method stub
 		HttpFactory.Joke(this, d);
 		Log.i(TAG, jokeList.toString());
@@ -65,40 +66,40 @@ public class JokeActivity extends BaseActivity implements ServiceResponce {
 	@Override
 	public void httpSuccess(String result, int responseFlag) {
 		// TODO Auto-generated method stub
-		//Log.i(TAG, result);
+		// Log.i(TAG, result);
 		try {
-			JSONObject jsonObject=new JSONObject(result);
-			JSONObject jsonObject2=jsonObject.getJSONObject("showapi_res_body");
-			JSONArray array=jsonObject2.getJSONArray("contentlist");
+			JSONObject jsonObject = new JSONObject(result);
+			JSONObject jsonObject2 = jsonObject.getJSONObject("showapi_res_body");
+			JSONArray array = jsonObject2.getJSONArray("contentlist");
 			for (int i = 0; i < array.length(); i++) {
-				JSONObject jsonObject3=array.getJSONObject(i);
-				String text=jsonObject3.getString("text");
-				String title=jsonObject3.getString("title");
-				String ct=jsonObject3.getString("ct");
-				String type=jsonObject3.getString("type");
-				JokeListBean bean=new JokeListBean(ct, title, text, type);
+				JSONObject jsonObject3 = array.getJSONObject(i);
+				String text = jsonObject3.getString("text");
+				String title = jsonObject3.getString("title");
+				String ct = jsonObject3.getString("ct");
+				String type = jsonObject3.getString("type");
+				JokeListBean bean = new JokeListBean(ct, title, text, type);
 				jokeList.add(bean);
 			}
-			//	Log.e(TAG, jokeList.toString()+1232144);
-			
-			//jokeADApter=new JokeAdapter(c, jokeList);
-			
-			jokeADApter=new JokeAdapter(c, jokeList);
+			// Log.e(TAG, jokeList.toString()+1232144);
+
+			// jokeADApter=new JokeAdapter(c, jokeList);
+
+			jokeADApter = new JokeAdapter(c, jokeList);
 			listJoke.setAdapter(jokeADApter);
-			
+
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-//		Gson gosn = new Gson();
-//
-//		ResBean resbean = gosn.fromJson(result, new TypeToken<ResBean>() {
-//		}.getType());
-//
-//		jokeList.addAll(resbean.getRes_body().getJokeList());
-//		jokeADApter.notifyDataSetChanged();
-//		Log.i(TAG, jokeList.get(0).getJokeTitle());
-//		Log.i(TAG, jokeList.get(0).getJokeContent());
+		// Gson gosn = new Gson();
+		//
+		// ResBean resbean = gosn.fromJson(result, new TypeToken<ResBean>() {
+		// }.getType());
+		//
+		// jokeList.addAll(resbean.getRes_body().getJokeList());
+		// jokeADApter.notifyDataSetChanged();
+		// Log.i(TAG, jokeList.get(0).getJokeTitle());
+		// Log.i(TAG, jokeList.get(0).getJokeContent());
 	}
 
 	@Override

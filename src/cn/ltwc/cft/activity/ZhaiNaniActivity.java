@@ -60,10 +60,10 @@ public class ZhaiNaniActivity extends BaseActivity implements ServiceResponce {
 
 	@Override
 	public void bindView() {
-		Random random=new Random();
-		int s=random.nextInt(10);
-		int d=random.nextInt(5);
-		
+		Random random = new Random();
+		int s = random.nextInt(10);
+		int d = random.nextInt(5);
+
 		HttpFactory.meinvTPatiangou(this, s, 50, d, 1);
 		titleView.getLeftIcon().setOnClickListener(new OnClickListener() {
 
@@ -85,38 +85,36 @@ public class ZhaiNaniActivity extends BaseActivity implements ServiceResponce {
 		try {
 			Log.e(TAG, "********" + result);
 			JSONObject jsonObject = new JSONObject(result);
-			JSONArray JSONArray=jsonObject.getJSONArray("tngou");
+			JSONArray JSONArray = jsonObject.getJSONArray("tngou");
 			for (int i = 0; i < JSONArray.length(); i++) {
-				JSONObject jsonObject2=JSONArray.getJSONObject(i);
+				JSONObject jsonObject2 = JSONArray.getJSONObject(i);
 				String title = jsonObject2.getString("title");
-				
+
 				String img = jsonObject2.getString("img");
 				TiangouBean bean = new TiangouBean(img, title);
 				al.add(bean);
-				
-				
-			
+
 			}
-		
-//			int len = jsonObject.length();
-//			JSONObject jsonObject2 = null;
-//			for (int i = 0; i < len; i++) {
-//				try {
-//
-//					jsonObject2 = jsonObject.getJSONObject(i + "");
-//				} catch (Exception e) {
-//					Log.i(TAG, "json键值对解析异常");
-//					continue;
-//				}
-//				if (jsonObject2 == null) {
-//					continue;
-//
-//				}
-//				String title = jsonObject2.getString("title");
-//				String img = jsonObject2.getString("picUrl");
-//				TiangouBean bean = new TiangouBean(title, img);
-//				al.add(bean);
-//			}
+
+			// int len = jsonObject.length();
+			// JSONObject jsonObject2 = null;
+			// for (int i = 0; i < len; i++) {
+			// try {
+			//
+			// jsonObject2 = jsonObject.getJSONObject(i + "");
+			// } catch (Exception e) {
+			// Log.i(TAG, "json键值对解析异常");
+			// continue;
+			// }
+			// if (jsonObject2 == null) {
+			// continue;
+			//
+			// }
+			// String title = jsonObject2.getString("title");
+			// String img = jsonObject2.getString("picUrl");
+			// TiangouBean bean = new TiangouBean(title, img);
+			// al.add(bean);
+			// }
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -34,8 +34,7 @@ public class HttpCore extends AsyncTask<RequestParams, Integer, String> {
 		String result = null;// 服务器的返回结果
 
 		if (requestMethod == HttpConfig.METHOD_GET_HUC_JSON) {
-			result = HttpUtils.getInstance().sendHUCGet(httpUrl, httpParam,
-					apiKey);
+			result = HttpUtils.getInstance().sendHUCGet(httpUrl, httpParam, apiKey);
 		} else if (requestMethod == HttpConfig.METHOD_POST_HUC_JSON) {
 
 			result = HttpUtils.getInstance().sendHUCPost(httpUrl, httpParam);
@@ -46,8 +45,7 @@ public class HttpCore extends AsyncTask<RequestParams, Integer, String> {
 
 		} else if (requestMethod == HttpConfig.METHOD_POST_HC_JSON) {
 
-			result = HttpUtils.getInstance().sendHCPost(httpUrl,
-					requestParams.getParams(), httpParam);
+			result = HttpUtils.getInstance().sendHCPost(httpUrl, requestParams.getParams(), httpParam);
 
 		} else if (requestMethod == HttpConfig.METHOD_DOWNLOAD) {
 
