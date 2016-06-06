@@ -14,6 +14,7 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -159,7 +160,7 @@ public class CalendarAdapter extends BaseAdapter {
 		sp.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, d.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 		sp.setSpan(new RelativeSizeSpan(1.2f), 0, d.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 		if (dv != null || dv != "") {
-			sp.setSpan(new RelativeSizeSpan(0.75f), d.length() + 1, dayNumber[position].length(),
+			sp.setSpan(new RelativeSizeSpan(0.65f), d.length() + 1, dayNumber[position].length(),
 					Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 		}
 		// sp.setSpan(new ForegroundColorSpan(Color.MAGENTA), 14, 16,
@@ -213,7 +214,6 @@ public class CalendarAdapter extends BaseAdapter {
 							list.add(j + 6);
 							list.add(j + 7);
 						}
-
 						if (lh.contains("我的生日")) {
 							list.add(j + 0);
 						}

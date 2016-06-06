@@ -266,13 +266,13 @@ public class LunarCalendar {
 					lday_v = "0" + day;
 				}
 				lmd = lmonth_v + lday_v;
-				if (ld.trim().equals(lmd.trim())) {
+				if (!leap && ld.trim().equals(lmd.trim())) {
 					return ldv;
 				}
 			}
 		}
 		if (day == 1)
-			return chineseLNumber[month - 1] + "月";
+			return leap ? "闰" + chineseLNumber[month - 1] + "月" : chineseLNumber[month - 1] + "月";
 		else
 			return getChinaDayString(day);
 

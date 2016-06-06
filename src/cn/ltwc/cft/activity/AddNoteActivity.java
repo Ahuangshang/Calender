@@ -59,7 +59,7 @@ public class AddNoteActivity extends BaseActivity {
 	public void bindView() {
 		// TODO Auto-generated method stub
 		SureClick();
-		//addContent.setMovementMethod(ScrollingMovementMethod.getInstance());
+		// addContent.setMovementMethod(ScrollingMovementMethod.getInstance());
 		addContent.setSelection(addContent.getText().length(), addContent.getText().length());
 		ViewTreeObserver vto = root.getViewTreeObserver();
 		vto.addOnGlobalLayoutListener(new OnGlobalLayoutListener() {
@@ -104,7 +104,7 @@ public class AddNoteActivity extends BaseActivity {
 
 			}
 		});
-			}
+	}
 
 	/**
 	 * 右侧完成按钮的点击事件

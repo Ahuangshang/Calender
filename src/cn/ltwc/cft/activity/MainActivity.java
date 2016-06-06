@@ -244,7 +244,6 @@ public class MainActivity extends BaseActivity {
 		gridView.setAdapter(calV);
 		flipper.addView(gridView, 0);
 		addTextToTopTextView(currentMonth);
-
 		show(LunarCalendar.getInstance().getCalendarInfoByChooseDay(chooseYear, chooseMonth, chooseDay));// 得到跳转后的农历信息
 	}
 
@@ -358,7 +357,6 @@ public class MainActivity extends BaseActivity {
 		gridView = new MyGridView(c);
 		gridView.setNumColumns(7);
 		gridView.setColumnWidth(40);
-
 		// gridView.setStretchMode(GridView.STRETCH_COLUMN_WIDTH);
 		if (width == 720 && height == 1280) {
 			gridView.setColumnWidth(40);
@@ -366,8 +364,8 @@ public class MainActivity extends BaseActivity {
 		gridView.setGravity(Gravity.CENTER_VERTICAL);
 		gridView.setSelector(new ColorDrawable(android.R.color.black));
 		// 去除gridView边框
-		gridView.setVerticalSpacing(1);
-		gridView.setHorizontalSpacing(1);
+		gridView.setVerticalSpacing(0);
+		gridView.setHorizontalSpacing(0);
 		gridView.setOnTouchListener(new OnTouchListener() {
 			// 将GridView中的触摸事件回传给gestureDetector
 			public boolean onTouch(View v, MotionEvent event) {
@@ -400,7 +398,7 @@ public class MainActivity extends BaseActivity {
 					// String scheduleMonth = calV.getShowMonth();
 					// show(scheduleYear + "-" + scheduleMonth + "-"
 					// + scheduleDay);
-					show(getCalendarInfo(position));
+					// show(getCalendarInfo(position));
 
 				}
 				if (position < startPosition - 7) {

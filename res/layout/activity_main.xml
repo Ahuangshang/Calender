@@ -65,8 +65,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:background="#31A9A5"
+            android:background="#ffffff"
             android:numColumns="5" />
+        <View android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#26000000"
+            android:layout_above="@id/main_menu"/>
     </RelativeLayout>
 
 </LinearLayout>
