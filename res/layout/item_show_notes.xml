@@ -13,37 +13,37 @@
         android:gravity="center_vertical"
         android:paddingLeft="3dp"
         android:text="2016-2"
-        android:textColor="#95a2aa"
+        android:textColor="#88000000"
         android:textSize="14sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?android:attr/selectableItemBackground" 
-        android:orientation="vertical">
+        android:background="?android:attr/selectableItemBackground"
+        android:orientation="vertical" >
 
         <TextView
             android:id="@+id/show_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:maxLines="5"
-            android:text="我手机开发进度世界级的感觉都是干活是关键还是的感觉啊酒店价格哈就的话价格哈就激活工具啊好高级回到房间啊哈喝过酒啊后感觉啊还"
             android:textColor="#484848"
-            android:textSize="16sp" />
+            android:textSize="13sp" />
 
         <TextView
             android:id="@+id/show_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
             android:gravity="right"
-            android:paddingRight="16dp"
-            android:text="2016-2-1"
             android:textColor="#95a2aa"
-            android:textSize="14sp" />
+            android:textSize="13sp" />
     </LinearLayout>
-<View android:layout_width="match_parent"
-    android:layout_height="1px"
-    android:background="#c8c7cc"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#c8c7cc" />
+
 </LinearLayout>

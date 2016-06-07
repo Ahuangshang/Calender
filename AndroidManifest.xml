@@ -63,8 +63,9 @@
         <activity
             android:name="cn.ltwc.cft.activity.AddNoteActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize">
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" >
         </activity>
+       
     </application>
 
 </manifest>

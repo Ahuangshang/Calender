@@ -6,10 +6,7 @@ import java.util.Date;
 
 import android.annotation.SuppressLint;
 import android.graphics.Rect;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
-import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -18,9 +15,9 @@ import android.view.ViewTreeObserver;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import cn.ltwc.cft.R;
 import cn.ltwc.cft.beans.NoteBean;
+import cn.ltwc.cft.data.Constant;
 import cn.ltwc.cft.db.NoteDB;
 import cn.ltwc.cft.utils.BitMapUtil;
 import cn.ltwc.cft.view.TitleView;
@@ -31,6 +28,8 @@ public class AddNoteActivity extends BaseActivity {
 	private LinearLayout root;
 	private int topHeight;
 	private View top;
+	private boolean flag;// false为新建记事，true为查看修改记事
+	private NoteBean bean;// 修改记事的bean
 
 	public AddNoteActivity() {
 		super(R.layout.activity_addnote);
@@ -41,18 +40,25 @@ public class AddNoteActivity extends BaseActivity {
 	public void initView() {
 		// TODO Auto-generated method stub
 		title = (TitleView) findViewById(R.id.addnote_title);
-		title.setTitletext("新建记事");
 		title.setRightBtnTextVisibility(View.VISIBLE);
 		addTitle = (EditText) findViewById(R.id.addnote_addtitle);
 		addContent = (EditText) findViewById(R.id.addnote_content);
 		root = (LinearLayout) findViewById(R.id.root);
 		top = findViewById(R.id.top);
+		if (flag) {
+			title.setTitletext("修改记事");
+			addTitle.setText(bean.getNoteTitle());
+			addContent.setText(bean.getNoteContent());
+		} else {
+			title.setTitletext("新建记事");
+		}
 	}
 
 	@Override
 	public void initData() {
 		// TODO Auto-generated method stub
-
+		flag = getIntent().getBooleanExtra(Constant.FLAG, false);
+		bean = getIntent().getParcelableExtra(Constant.NOTE_BEAN);
 	}
 
 	@Override
@@ -123,7 +129,12 @@ public class AddNoteActivity extends BaseActivity {
 				} else {
 					String time = getCurrentTime();
 					NoteBean notebean = new NoteBean(noteTitle, noteContent, time, System.currentTimeMillis() + "");
-					NoteDB.getInstance().addNote(notebean);
+					if (flag) {
+						// 修改记事
+						NoteDB.getInstance().update(notebean, bean.getCurrentTime());
+					} else {
+						NoteDB.getInstance().addNote(notebean);
+					}
 					finish();
 				}
 			}

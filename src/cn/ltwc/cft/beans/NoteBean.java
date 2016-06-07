@@ -1,5 +1,8 @@
 package cn.ltwc.cft.beans;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * 
  * TODO:记事本的JavaBean
@@ -7,7 +10,7 @@ package cn.ltwc.cft.beans;
  * @author huangshang 2015-11-24 下午5:50:56
  * @Modified_By:
  */
-public class NoteBean {
+public class NoteBean implements Parcelable {
 	private String noteTitle;
 	private String noteContent;
 	private String completeTime;
@@ -61,6 +64,44 @@ public class NoteBean {
 	public String toString() {
 		return "NoteBean [noteTitle=" + noteTitle + ", noteContent=" + noteContent + ", completeTime=" + completeTime
 				+ "]";
+	}
+
+	@Override
+	public int describeContents() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		// TODO Auto-generated method stub
+		dest.writeString(noteTitle);
+		dest.writeString(noteContent);
+		dest.writeString(completeTime);
+		dest.writeString(currentTime);
+
+	}
+
+	public static final Parcelable.Creator<NoteBean> CREATOR = new Creator<NoteBean>() {
+
+		@Override
+		public NoteBean[] newArray(int size) {
+			// TODO Auto-generated method stub
+			return new NoteBean[size];
+		}
+
+		@Override
+		public NoteBean createFromParcel(Parcel source) {
+			// TODO Auto-generated method stub
+			return new NoteBean(source);
+		}
+	};
+
+	public NoteBean(Parcel source) {
+		noteTitle = source.readString();
+		noteContent = source.readString();
+		completeTime = source.readString();
+		currentTime = source.readString();
 	}
 
 }

@@ -15,6 +15,7 @@ import android.widget.ListView;
 import cn.ltwc.cft.R;
 import cn.ltwc.cft.adapter.ShowNotesAdapter;
 import cn.ltwc.cft.beans.NoteBean;
+import cn.ltwc.cft.data.Constant;
 import cn.ltwc.cft.db.NoteDB;
 import cn.ltwc.cft.view.TitleView;
 
@@ -82,7 +83,10 @@ public class NotepadActivity extends BaseActivity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				// TODO Auto-generated method stub
-
+				Intent intent = new Intent(c, AddNoteActivity.class);
+				intent.putExtra(Constant.NOTE_BEAN, notes.get(position));
+				intent.putExtra(Constant.FLAG, true);
+				startActivity(intent);
 			}
 		});
 		list.setOnItemLongClickListener(new OnItemLongClickListener() {
@@ -91,7 +95,7 @@ public class NotepadActivity extends BaseActivity {
 			public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 				// TODO Auto-generated method stub
 				dialog(position);
-				return false;
+				return true;
 			}
 		});
 	}
@@ -103,14 +107,17 @@ public class NotepadActivity extends BaseActivity {
 		title.getRightIcon().setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				startActivity(new Intent(c, AddNoteActivity.class));
+				Intent intent = new Intent(c, AddNoteActivity.class);
+				intent.putExtra(Constant.NOTE_BEAN, new NoteBean());
+				intent.putExtra(Constant.FLAG, false);
+				startActivity(intent);
 			}
 		});
 	}
 
 	protected void dialog(final int position) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		String dialogTitle = "提示";
+		String dialogTitle = "删除此记事？";
 		builder.setMessage(dialogTitle);
 		builder.setTitle(dialogTitle);
 		builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {

@@ -95,7 +95,7 @@ public class NoteDB extends SQLiteOpenHelper {
 	public void update(NoteBean notebean, String currentTime) {
 
 		String sql = "update " + noteTableName
-				+ " set title='?',content='?',completeTime='?',currentTime='?' where currentTime=''" + currentTime;
+				+ " set title=?,content=?,completeTime=?,currentTime=? where currentTime='" + currentTime + "'";
 		SQLiteDatabase db = getWritableDatabase();
 
 		db.execSQL(sql, new String[] { notebean.getNoteTitle(), notebean.getNoteContent(), notebean.getCompleteTime(),
