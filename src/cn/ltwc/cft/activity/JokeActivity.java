@@ -10,6 +10,7 @@ import org.json.JSONObject;
 
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ListView;
 import cn.ltwc.cft.R;
 import cn.ltwc.cft.adapter.JokeAdapter;
@@ -43,12 +44,15 @@ public class JokeActivity extends BaseActivity implements ServiceResponce {
 		title = (TitleView) findViewById(R.id.joke_title);
 		title.setTitletext("内涵段子");
 		title.setRightVisibility(View.GONE);
+		title.setRightText("换一组");
+		title.setRightBtnTextVisibility(View.VISIBLE);
 		listJoke = (ListView) findViewById(R.id.joke_list);
 
 	}
 
 	@Override
 	public void initData() {
+		showWaitingDialog(this);
 		jokeList = new ArrayList<JokeListBean>();
 		Random random = new Random();
 		int d = random.nextInt(300);
@@ -60,13 +64,20 @@ public class JokeActivity extends BaseActivity implements ServiceResponce {
 	@Override
 	public void bindView() {
 		// TODO Auto-generated method stub
+		title.getRightText().setOnClickListener(new OnClickListener() {
 
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				initData();
+			}
+		});
 	}
 
 	@Override
 	public void httpSuccess(String result, int responseFlag) {
 		// TODO Auto-generated method stub
 		// Log.i(TAG, result);
+		hideWaitingDialog();
 		try {
 			JSONObject jsonObject = new JSONObject(result);
 			JSONObject jsonObject2 = jsonObject.getJSONObject("showapi_res_body");
@@ -105,12 +116,14 @@ public class JokeActivity extends BaseActivity implements ServiceResponce {
 	@Override
 	public void httpTimeOut(int responseFlag) {
 		// TODO Auto-generated method stub
+		hideWaitingDialog();
 		Log.i(TAG, "连接超时");
 	}
 
 	@Override
 	public void httpError(int responseFlag) {
 		// TODO Auto-generated method stub
+		hideWaitingDialog();
 		Log.i(TAG, "错误异常");
 	}
 

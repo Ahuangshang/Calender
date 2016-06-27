@@ -119,7 +119,6 @@ public class NotepadActivity extends BaseActivity {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		String dialogTitle = "删除此记事？";
 		builder.setMessage(dialogTitle);
-		builder.setTitle(dialogTitle);
 		builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {

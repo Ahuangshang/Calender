@@ -10,6 +10,7 @@ import android.util.DisplayMetrics;
 import android.view.WindowManager;
 import android.widget.Toast;
 import cn.ltwc.cft.AppManager;
+import cn.ltwc.cft.view.LoadingDialog;
 
 /**
  * 
@@ -25,7 +26,7 @@ public abstract class BaseActivity extends FragmentActivity {
 	// 定义当前屏幕的宽高
 	public int width;
 	public int height;
-
+	protected LoadingDialog lDialog;
 	public BaseActivity(int layoutResID) {
 		this.layoutResId = layoutResID;
 	}
@@ -45,6 +46,7 @@ public abstract class BaseActivity extends FragmentActivity {
 		if (layoutResId != -1) {
 			setContentView(layoutResId);
 		}
+		initCustomWaitingDialog(c);
 		initData();
 		initView();
 		bindView();
@@ -87,4 +89,25 @@ public abstract class BaseActivity extends FragmentActivity {
 		intent.setData(data);
 		startActivity(intent);
 	}
+	 public void showWaitingDialog(Context context) {
+	        if (lDialog == null) {
+	            initCustomWaitingDialog(context);
+	        }
+
+	        if (!lDialog.isShowing()) {
+	            lDialog.show();
+	        }
+	    }
+
+	    private void initCustomWaitingDialog(Context context) {
+	        lDialog = new LoadingDialog(context);
+	        lDialog.setCancelable(true);
+	        lDialog.setCanceledOnTouchOutside(true);
+	    }
+
+	    public void hideWaitingDialog() {
+	        if (lDialog != null && lDialog.isShowing()) {
+	            lDialog.dismiss();
+	        }
+	    }
 }
