@@ -201,4 +201,16 @@ public class HttpFactory {
 		core.execute(params);
 	}
 
+	public static void History(ServiceResponce responce, String data) {
+		RequestParams params = new RequestParams();
+		//params.setApiKey("145da38f81409");
+		String httpParam = "key=145da38f81409&"+"day=" + data;
+		params.setHttpParam(httpParam);
+		params.setHttpUrl(HttpUrls.URL_HISTORY_TODAY);
+		params.setRequestMethod(HttpConfig.METHOD_GET_HUC_JSON);
+		params.setResponce(responce);
+		HttpCore core = new HttpCore();
+		core.execute(params);
+
+	}
 }

@@ -1,42 +1,152 @@
 package cn.ltwc.cft.activity;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import android.content.Intent;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ListView;
 import cn.ltwc.cft.R;
+import cn.ltwc.cft.adapter.HistoryOnTodayAdapter;
+import cn.ltwc.cft.beans.HistoryOnTodayBean;
+import cn.ltwc.cft.http.HttpFactory;
+import cn.ltwc.cft.http.ServiceResponce;
 import cn.ltwc.cft.view.TitleView;
 
 /**
- * 
  * TODO:历史上的今天
  * 
- * @author huangshang 2015-11-23 下午3:33:18
- * @Modified_By:
+ * @author LZL
+ *
  */
-public class TodayonhistoryActivity extends BaseWebActivity {
-
-	private static String webURL = "http://www.todayonhistory.com/";// 历史上的今天官网
+public class TodayonhistoryActivity extends BaseActivity implements ServiceResponce {
+	private int month_c = 0;
+	private int day_c = 0;
+	private String currentDate = "";
 	private TitleView title;
+	private ListView historyLv;
+	private List<HistoryOnTodayBean> list;
+	private HistoryOnTodayAdapter adapter;
 
 	public TodayonhistoryActivity() {
-		super(R.layout.activity_todayonhistory, webURL);
+		super(R.layout.activity_todayonhistory);
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void initView() {
 		// TODO Auto-generated method stub
-
-		title = (TitleView) findViewById(R.id.tt_title);
-		title.setTitletext("历史上的今天");
-		title.setRightVisibility(View.GONE);
-		setWebView(R.id.todayonhistory);
-		setEmpty(R.id.tt_emptyview);
-		setTitle(title);
+		title = (TitleView) findViewById(R.id.title);
+		historyLv = (ListView) findViewById(R.id.history_lv);
 	}
 
 	@Override
 	public void initData() {
 		// TODO Auto-generated method stub
+		list = new ArrayList<HistoryOnTodayBean>();
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-d");
+		currentDate = sdf.format(date); // 当期日期
+		month_c = Integer.parseInt(currentDate.split("-")[1]);
+		day_c = Integer.parseInt(currentDate.split("-")[2]);
+		getDataFromSerice();
+	}
 
+	/**
+	 * 获取网络数据
+	 */
+	private void getDataFromSerice() {
+		showWaitingDialog(this);
+		String data = "";
+		if (month_c < 10 && day_c < 10) {
+			data = "0" + month_c + "0" + day_c;
+		} else if (month_c < 10 && day_c >= 10) {
+			data = "0" + month_c + day_c;
+		} else if (month_c >= 10 && day_c < 10) {
+			data = month_c + "0" + day_c;
+		} else if (month_c >= 10 && day_c >= 10) {
+			data = month_c + "" + day_c;
+		}
+		HttpFactory.History(this, data);
+	}
+
+	@Override
+	public void bindView() {
+		// TODO Auto-generated method stub
+		title.setTitletext("历史上的今天");
+		title.setRightText("更多");
+		title.setRightBtnTextVisibility(View.VISIBLE);
+		adapter = new HistoryOnTodayAdapter(this, list);
+		historyLv.setAdapter(adapter);
+		title.getRightText().setOnClickListener(new OnClickListener() {
+
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				startActivity(new Intent(TodayonhistoryActivity.this, TodayonhistoryWebDitailActivity.class));
+			}
+		});
+		historyLv.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(TodayonhistoryActivity.this, HistoryDetailActivity.class);
+				intent.putExtra("bean", list.get(position));
+				startActivity(intent);
+			}
+		});
+	}
+
+	@Override
+	public void httpSuccess(String result, int responseFlag) {
+		// TODO Auto-generated method stub
+		hideWaitingDialog();
+
+		list.clear();
+		try {
+			JSONObject obj = new JSONObject(result);
+			JSONArray array = obj.optJSONArray("result");
+			if (array != null) {
+				for (int i = array.length() - 1; i > -1; i--) {
+					JSONObject object = array.getJSONObject(i);
+					String title = object.optString("title");
+					String event = object.optString("event");
+					String year = object.optString("date");
+					year = year.substring(0, year.length() - 4);
+					HistoryOnTodayBean bean = new HistoryOnTodayBean();
+					bean.setEvent(event);
+					bean.setTitle(title);
+					bean.setYear(year + "年");
+					list.add(bean);
+				}
+				adapter.notifyDataSetChanged();
+
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+
+	@Override
+	public void httpTimeOut(int responseFlag) {
+		// TODO Auto-generated method stub
+		hideWaitingDialog();
+		show("网络连接超时，请稍后再试");
+	}
+
+	@Override
+	public void httpError(int responseFlag) {
+		// TODO Auto-generated method stub
+		hideWaitingDialog();
+		show("未知异常");
 	}
 
 }
