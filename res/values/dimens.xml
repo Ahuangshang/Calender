@@ -8,4 +8,5 @@
     <dimen name="left_distince">200dip</dimen>
     <!-- 菜单的宽度，该值为left_distince与correctWidth的和 -->
 	 <dimen name="menu_width">230dip</dimen>
+	
 </resources>

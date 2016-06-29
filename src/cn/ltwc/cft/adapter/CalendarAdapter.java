@@ -181,16 +181,18 @@ public class CalendarAdapter extends BaseAdapter {
 				// drawable = new ColorDrawable(Color.rgb(238, 113, 113));
 			}
 			if (currentFlag_ == position) {
-				drawable = new ColorDrawable(Color.rgb(198, 226, 255));
-				convertView.setBackgroundDrawable(drawable);
+				drawable = new ColorDrawable(Color.rgb(198, 226, 255));//#C6E2FF
+				//convertView.setBackgroundDrawable(drawable);
+				convertView.setBackgroundResource(R.drawable.select_bg);
 			}
 			if (currentFlag == position) {
 				// 设置当天的背景
 				// drawable =
 				// res.getDrawable(R.drawable.calendar_item_selected_bg);
 
-				drawable = new ColorDrawable(Color.rgb(79, 210, 190));
-				convertView.setBackgroundDrawable(drawable);
+				drawable = new ColorDrawable(Color.rgb(79, 210, 190));//#4FD2BE
+				//convertView.setBackgroundDrawable(drawable);
+				convertView.setBackgroundResource(R.drawable.current_bg);
 				// textView.setTextColor(Color.WHITE);
 			}
 			// =================得到中国传统节假日=========================

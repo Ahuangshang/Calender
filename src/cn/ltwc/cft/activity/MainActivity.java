@@ -97,8 +97,8 @@ public class MainActivity extends BaseActivity {
 		gridView.setAdapter(calV);
 		flipper.addView(gridView, 0);
 		addTextToTopTextView(currentMonth);
-		show(LunarCalendar.getInstance().getCalendarInfoByChooseDay(Integer.parseInt(calV.getShowYear()),
-				Integer.parseInt(calV.getShowMonth()), day_c));// 显示农历信息
+		//show(LunarCalendar.getInstance().getCalendarInfoByChooseDay(Integer.parseInt(calV.getShowYear()),
+		//		Integer.parseInt(calV.getShowMonth()), day_c));// 显示农历信息
 
 	}
 
@@ -244,7 +244,7 @@ public class MainActivity extends BaseActivity {
 		gridView.setAdapter(calV);
 		flipper.addView(gridView, 0);
 		addTextToTopTextView(currentMonth);
-		show(LunarCalendar.getInstance().getCalendarInfoByChooseDay(chooseYear, chooseMonth, chooseDay));// 得到跳转后的农历信息
+		//show(LunarCalendar.getInstance().getCalendarInfoByChooseDay(chooseYear, chooseMonth, chooseDay));// 得到跳转后的农历信息
 	}
 
 	/**
@@ -256,14 +256,18 @@ public class MainActivity extends BaseActivity {
 		for (int i = 0; i < gridView.getChildCount(); i++) {
 			gridView.getChildAt(i).setBackgroundColor(0XffEDEDED);// 设置背景
 		}
-		Drawable drawable;
+		//Drawable drawable;
+		int resid;
 		if (position == calV.currentFlag) {
-			drawable = new ColorDrawable(Color.rgb(79, 210, 190));
+			//drawable = new ColorDrawable(Color.rgb(79, 210, 190));
+			resid=R.drawable.current_bg;
 		} else {
 			// 设置选中日期的背景
-			drawable = new ColorDrawable(Color.rgb(198, 226, 255));
+			//drawable = new ColorDrawable(Color.rgb(198, 226, 255));
+			resid=R.drawable.select_bg;
 		}
-		gridView.getChildAt(position).setBackgroundDrawable(drawable);
+		//gridView.getChildAt(position).setBackgroundDrawable(drawable);
+		gridView.getChildAt(position).setBackgroundResource(resid);
 	}
 
 	private class MyGestureListener extends SimpleOnGestureListener {
@@ -316,8 +320,8 @@ public class MainActivity extends BaseActivity {
 		flipper.setOutAnimation(outAnimation);
 		flipper.showNext();
 		flipper.removeViewAt(0);
-		show(LunarCalendar.getInstance().getCalendarInfoByChooseDay(Integer.parseInt(calV.getShowYear()),
-				Integer.parseInt(calV.getShowMonth()), chooseday));
+		//show(LunarCalendar.getInstance().getCalendarInfoByChooseDay(Integer.parseInt(calV.getShowYear()),
+				//Integer.parseInt(calV.getShowMonth()), chooseday));
 	}
 
 	/**
