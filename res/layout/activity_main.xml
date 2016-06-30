@@ -1,6 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical" >
 
     <RelativeLayout
@@ -44,20 +45,21 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#ffffff" >
+        android:layout_height="match_parent" >
 
         <!-- 日历视图 -->
 
-        <include
-            android:id="@+id/rili"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            layout="@layout/calendar" />
+            android:layout_height="wrap_content" >
 
-        
-        
-        
+            <include
+                android:id="@+id/rili"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                layout="@layout/calendar" />
+        </ScrollView>
+
         <!-- 菜单组 -->
 
         <GridView
@@ -67,10 +69,12 @@
             android:layout_alignParentBottom="true"
             android:background="#ffffff"
             android:numColumns="5" />
-        <View android:layout_width="match_parent"
+
+        <View
+            android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="#26000000"
-            android:layout_above="@id/main_menu"/>
+            android:layout_above="@id/main_menu"
+            android:background="#26000000" />
     </RelativeLayout>
 
 </LinearLayout>

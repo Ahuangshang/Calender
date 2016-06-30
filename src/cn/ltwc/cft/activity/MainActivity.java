@@ -67,6 +67,7 @@ public class MainActivity extends BaseActivity {
 	private long lasttime = 0;// 上次点击时间
 	public static MainActivity instance;
 	public int chooseday;
+	private TextView nongli, nongliDetail;// 选中日期的农历信息
 
 	public MainActivity() {
 		super(R.layout.activity_main);
@@ -97,11 +98,19 @@ public class MainActivity extends BaseActivity {
 		gridView.setAdapter(calV);
 		flipper.addView(gridView, 0);
 		addTextToTopTextView(currentMonth);
-		//show(LunarCalendar.getInstance().getCalendarInfoByChooseDay(Integer.parseInt(calV.getShowYear()),
-		//		Integer.parseInt(calV.getShowMonth()), day_c));// 显示农历信息
-
+		 //show(LunarCalendar.getInstance().getCalendarInfoByChooseDay(Integer.parseInt(calV.getShowYear()),
+		 //Integer.parseInt(calV.getShowMonth()), day_c));// 显示农历信息
+		nongli=(TextView)findViewById(R.id.nongli);
+		nongliDetail=(TextView)findViewById(R.id.nongli_detail);
+		showNongLi(LunarCalendar.getInstance().getCalendarInfoByChooseDay(Integer.parseInt(calV.getShowYear()), Integer.parseInt(calV.getShowMonth()), day_c));
 	}
-
+	
+	
+	public void showNongLi(String nongliStr){
+		nongli.setText(nongliStr);
+	}
+	
+	
 	@Override
 	public void initData() {
 		// 初始化菜单集合
@@ -244,7 +253,8 @@ public class MainActivity extends BaseActivity {
 		gridView.setAdapter(calV);
 		flipper.addView(gridView, 0);
 		addTextToTopTextView(currentMonth);
-		//show(LunarCalendar.getInstance().getCalendarInfoByChooseDay(chooseYear, chooseMonth, chooseDay));// 得到跳转后的农历信息
+		// show(LunarCalendar.getInstance().getCalendarInfoByChooseDay(chooseYear,
+		// chooseMonth, chooseDay));// 得到跳转后的农历信息
 	}
 
 	/**
@@ -256,17 +266,17 @@ public class MainActivity extends BaseActivity {
 		for (int i = 0; i < gridView.getChildCount(); i++) {
 			gridView.getChildAt(i).setBackgroundColor(0XffEDEDED);// 设置背景
 		}
-		//Drawable drawable;
+		// Drawable drawable;
 		int resid;
 		if (position == calV.currentFlag) {
-			//drawable = new ColorDrawable(Color.rgb(79, 210, 190));
-			resid=R.drawable.current_bg;
+			// drawable = new ColorDrawable(Color.rgb(79, 210, 190));
+			resid = R.drawable.current_bg;
 		} else {
 			// 设置选中日期的背景
-			//drawable = new ColorDrawable(Color.rgb(198, 226, 255));
-			resid=R.drawable.select_bg;
+			// drawable = new ColorDrawable(Color.rgb(198, 226, 255));
+			resid = R.drawable.select_bg;
 		}
-		//gridView.getChildAt(position).setBackgroundDrawable(drawable);
+		// gridView.getChildAt(position).setBackgroundDrawable(drawable);
 		gridView.getChildAt(position).setBackgroundResource(resid);
 	}
 
@@ -320,8 +330,8 @@ public class MainActivity extends BaseActivity {
 		flipper.setOutAnimation(outAnimation);
 		flipper.showNext();
 		flipper.removeViewAt(0);
-		//show(LunarCalendar.getInstance().getCalendarInfoByChooseDay(Integer.parseInt(calV.getShowYear()),
-				//Integer.parseInt(calV.getShowMonth()), chooseday));
+		// show(LunarCalendar.getInstance().getCalendarInfoByChooseDay(Integer.parseInt(calV.getShowYear()),
+		// Integer.parseInt(calV.getShowMonth()), chooseday));
 	}
 
 	/**
@@ -357,7 +367,7 @@ public class MainActivity extends BaseActivity {
 	private void addGridView() {
 		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT,
 				LayoutParams.MATCH_PARENT);
-
+		
 		gridView = new MyGridView(c);
 		gridView.setNumColumns(7);
 		gridView.setColumnWidth(40);
@@ -366,7 +376,8 @@ public class MainActivity extends BaseActivity {
 			gridView.setColumnWidth(40);
 		}
 		gridView.setGravity(Gravity.CENTER_VERTICAL);
-		gridView.setSelector(new ColorDrawable(android.R.color.black));
+		//gridView.setSelector(new ColorDrawable(android.R.color.black));
+		//gridView.setBackgroundColor(R.color.white);
 		// 去除gridView边框
 		gridView.setVerticalSpacing(0);
 		gridView.setHorizontalSpacing(0);
@@ -430,7 +441,7 @@ public class MainActivity extends BaseActivity {
 
 		});
 		gridView.setLayoutParams(params);
-	}
+		}
 
 	// /**
 	// * 通过选定的阳历日期得到日期农历信息
