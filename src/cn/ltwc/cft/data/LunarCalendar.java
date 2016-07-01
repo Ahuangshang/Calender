@@ -375,7 +375,7 @@ public class LunarCalendar {
 		}
 
 		//return (cyYeay + animal + "年" + lunarMonth + lunarDate + week);
-		return ("农历" + lunarMonth + lunarDate);
+		return (cyYeay + animal + "年" +  lunarMonth + lunarDate);
 
 	}
 

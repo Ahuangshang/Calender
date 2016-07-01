@@ -8,7 +8,7 @@
 
     android:useLevel="false">
 
- <solid android:color="#4FD2BE"/>
+ <solid android:color="#f45531"/>
 <size android:width="10dp"
     android:height="10dp"/>
 </shape>

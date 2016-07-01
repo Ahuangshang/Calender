@@ -26,4 +26,5 @@ public class Constant {
 	};
 	public static final String NOTE_BEAN = "note_bean";
 	public static final String FLAG = "flag";
+	public static final String APPPACKAGENAME = "cn.ltwc.cft";
 }

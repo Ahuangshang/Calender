@@ -6,9 +6,13 @@ import java.util.Date;
 import java.util.List;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.Gravity;
@@ -33,12 +37,16 @@ import cn.ltwc.cft.R;
 import cn.ltwc.cft.adapter.CalendarAdapter;
 import cn.ltwc.cft.adapter.MenuAdp;
 import cn.ltwc.cft.beans.MenuBean;
+import cn.ltwc.cft.beans.YiJiBean;
 import cn.ltwc.cft.data.Constant;
 import cn.ltwc.cft.data.LunarCalendar;
 import cn.ltwc.cft.data.Variable;
 import cn.ltwc.cft.datapick.PickUtils;
 import cn.ltwc.cft.datapick.PickUtils.CallBack;
+import cn.ltwc.cft.db.HuangLi;
+import cn.ltwc.cft.myinterface.ScrollViewListener;
 import cn.ltwc.cft.view.MyGridView;
+import cn.ltwc.cft.view.MyScrollView;
 
 /**
  * 
@@ -48,7 +56,7 @@ import cn.ltwc.cft.view.MyGridView;
  * @Modified_By:
  */
 @SuppressLint({ "ResourceAsColor", "SimpleDateFormat" })
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements ScrollViewListener {
 	public GridView menu;// 菜单
 	private List<MenuBean> MenuList;// 菜单的集合
 	// ---------------------------------
@@ -67,7 +75,8 @@ public class MainActivity extends BaseActivity {
 	private long lasttime = 0;// 上次点击时间
 	public static MainActivity instance;
 	public int chooseday;
-	private TextView nongli, nongliDetail;// 选中日期的农历信息
+	private TextView nongli, yi, ji;// 选中日期的农历信息
+	private MyScrollView myscrollview;
 
 	public MainActivity() {
 		super(R.layout.activity_main);
@@ -98,19 +107,25 @@ public class MainActivity extends BaseActivity {
 		gridView.setAdapter(calV);
 		flipper.addView(gridView, 0);
 		addTextToTopTextView(currentMonth);
-		 //show(LunarCalendar.getInstance().getCalendarInfoByChooseDay(Integer.parseInt(calV.getShowYear()),
-		 //Integer.parseInt(calV.getShowMonth()), day_c));// 显示农历信息
-		nongli=(TextView)findViewById(R.id.nongli);
-		nongliDetail=(TextView)findViewById(R.id.nongli_detail);
-		showNongLi(LunarCalendar.getInstance().getCalendarInfoByChooseDay(Integer.parseInt(calV.getShowYear()), Integer.parseInt(calV.getShowMonth()), day_c));
+		// show(LunarCalendar.getInstance().getCalendarInfoByChooseDay(Integer.parseInt(calV.getShowYear()),
+		// Integer.parseInt(calV.getShowMonth()), day_c));// 显示农历信息
+		nongli = (TextView) findViewById(R.id.nongli);
+		yi = (TextView) findViewById(R.id.yi);
+		ji = (TextView) findViewById(R.id.ji);
+		myscrollview = (MyScrollView) findViewById(R.id.scrollview);
+		showNongLi(
+				LunarCalendar.getInstance().getCalendarInfoByChooseDay(Integer.parseInt(calV.getShowYear()),
+						Integer.parseInt(calV.getShowMonth()), day_c),
+				calV.getShowYear(), calV.getShowMonth(), day_c + "");
 	}
-	
-	
-	public void showNongLi(String nongliStr){
+
+	public void showNongLi(String nongliStr, String year, String month, String day) {
 		nongli.setText(nongliStr);
+		YiJiBean bean = HuangLi.getInstance().quearHuangli(year, month, day);
+		yi.setText(TextUtils.isEmpty(bean.getYi()) ? "诸事不宜" : bean.getYi());
+		ji.setText(TextUtils.isEmpty(bean.getJi()) ? "黄道吉日，诸事大吉" : bean.getJi());
 	}
-	
-	
+
 	@Override
 	public void initData() {
 		// 初始化菜单集合
@@ -131,7 +146,7 @@ public class MainActivity extends BaseActivity {
 		menuClickeListenner();
 		// 标题栏里的日期的点击事件(实现轮子选择日期控件)
 		currentMonthClickListenner();
-
+		myscrollview.setScrollViewListener(this);
 	}
 
 	/**
@@ -255,6 +270,8 @@ public class MainActivity extends BaseActivity {
 		addTextToTopTextView(currentMonth);
 		// show(LunarCalendar.getInstance().getCalendarInfoByChooseDay(chooseYear,
 		// chooseMonth, chooseDay));// 得到跳转后的农历信息
+		showNongLi(LunarCalendar.getInstance().getCalendarInfoByChooseDay(chooseYear, chooseMonth, chooseDay),
+				chooseYear + "", chooseMonth + "", chooseDay + "");
 	}
 
 	/**
@@ -264,7 +281,7 @@ public class MainActivity extends BaseActivity {
 	private void setChooseBg(int position) {
 		// 循环遍历GridView里面所有的子项，将背景设为默认状态
 		for (int i = 0; i < gridView.getChildCount(); i++) {
-			gridView.getChildAt(i).setBackgroundColor(0XffEDEDED);// 设置背景
+			gridView.getChildAt(i).setBackgroundColor(0Xffffff);// 设置背景
 		}
 		// Drawable drawable;
 		int resid;
@@ -322,7 +339,9 @@ public class MainActivity extends BaseActivity {
 	private void flushView(int gvFlag, Animation inAnimation, Animation outAnimation) {
 		calV = new CalendarAdapter(c, this.getResources(), jumpMonth, jumpYear, year_c, month_c, chooseday);
 		gridView.setAdapter(calV);
-
+		if (calV.flag) {
+			chooseday = 1;
+		}
 		addTextToTopTextView(currentMonth); // 移动到下一月后，将当月显示在头标题中
 		gvFlag++;
 		flipper.addView(gridView, gvFlag);
@@ -332,6 +351,10 @@ public class MainActivity extends BaseActivity {
 		flipper.removeViewAt(0);
 		// show(LunarCalendar.getInstance().getCalendarInfoByChooseDay(Integer.parseInt(calV.getShowYear()),
 		// Integer.parseInt(calV.getShowMonth()), chooseday));
+		showNongLi(
+				LunarCalendar.getInstance().getCalendarInfoByChooseDay(Integer.parseInt(calV.getShowYear()),
+						Integer.parseInt(calV.getShowMonth()), chooseday),
+				calV.getShowYear(), calV.getShowMonth(), chooseday + "");
 	}
 
 	/**
@@ -367,7 +390,7 @@ public class MainActivity extends BaseActivity {
 	private void addGridView() {
 		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT,
 				LayoutParams.MATCH_PARENT);
-		
+
 		gridView = new MyGridView(c);
 		gridView.setNumColumns(7);
 		gridView.setColumnWidth(40);
@@ -376,8 +399,6 @@ public class MainActivity extends BaseActivity {
 			gridView.setColumnWidth(40);
 		}
 		gridView.setGravity(Gravity.CENTER_VERTICAL);
-		//gridView.setSelector(new ColorDrawable(android.R.color.black));
-		//gridView.setBackgroundColor(R.color.white);
 		// 去除gridView边框
 		gridView.setVerticalSpacing(0);
 		gridView.setHorizontalSpacing(0);
@@ -403,17 +424,8 @@ public class MainActivity extends BaseActivity {
 				String scheduleDay = calV.getDateByClickItem(position).split("\\.")[0]; // 这一天的阳历
 				chooseday = Integer.parseInt(scheduleDay);// 点击日历的哪一天时为选择日期
 				if (startPosition <= position + 7 && position <= endPosition - 7) {
-					// String scheduleDay = calV.getDateByClickItem(position)
-					// .split("\\.")[0]; // 这一天的阳历
-					// String scheduleLunarDay =
-					// calV.getDateByClickItem(position).split("\\.")[1];
-					// 这一天的阴历
-
-					// String scheduleYear = calV.getShowYear();
-					// String scheduleMonth = calV.getShowMonth();
-					// show(scheduleYear + "-" + scheduleMonth + "-"
-					// + scheduleDay);
-					// show(getCalendarInfo(position));
+					showNongLi(getCalendarInfo(position), calV.getShowYear(), calV.getShowMonth(),
+							calV.getDateByClickItem(position).split("\\.")[0]);
 
 				}
 				if (position < startPosition - 7) {
@@ -441,64 +453,8 @@ public class MainActivity extends BaseActivity {
 
 		});
 		gridView.setLayoutParams(params);
-		}
 
-	// /**
-	// * 通过选定的阳历日期得到日期农历信息
-	// *
-	// * @param chooseYear
-	// * 选中的阳历年份
-	// * @param chooseMonth
-	// * 选中的阳历月份
-	// * @param chooseDay
-	// * 选中的阳历日期
-	// * @return 农历信息(包含农历年份月份日期以及周几)
-	// */
-	// private String getCalendarInfoByChooseDay(int chooseYear, int
-	// chooseMonth,
-	// int chooseDay) {
-	// String lunarDate = LunarCalendar.getInstance().getLunarDate(chooseYear,
-	// chooseMonth, chooseDay, true);// 得到当前的农历的日期(先执行此方法，通过传入阳历数据计算得到农历信息)
-	// String lunarMonth = LunarCalendar.getInstance().getLunarMonth();//
-	// 得到当前的农历的月份
-	// if (lunarMonth.equals(lunarDate)) {
-	// // 如果当前的农历日期是月份，则返回初一
-	// lunarDate = "初一";
-	// }
-	// int year = LunarCalendar.getInstance().getYear();// 得到当前的农历的年份
-	// String cyYeay = LunarCalendar.getInstance().cyclical(year);// 天干地支纪年的年份
-	// String animal = LunarCalendar.getInstance().animalsYear(year);// 生肖
-	// int temp = SpecialCalendar.getInstance().getWeekdayOfMonth(chooseYear,
-	// chooseMonth, chooseDay);// 得到该天星期几
-	// String week = "";
-	// switch (temp) {
-	// case 0:
-	// week = "星期日";
-	// break;
-	// case 1:
-	// week = "星期一";
-	// break;
-	// case 2:
-	// week = "星期二";
-	// break;
-	// case 3:
-	// week = "星期三";
-	// break;
-	// case 4:
-	// week = "星期四";
-	// break;
-	// case 5:
-	// week = "星期五";
-	// break;
-	// case 6:
-	// week = "星期六";
-	// break;
-	//
-	// }
-	//
-	// return (cyYeay + animal + "年" + lunarMonth + lunarDate + week);
-	//
-	// }
+	}
 
 	/**
 	 * 通过日历视图的下标得到日期农历信息
@@ -535,5 +491,14 @@ public class MainActivity extends BaseActivity {
 			return true;
 		}
 		return super.onKeyDown(keyCode, event);
+	}
+
+	@Override
+	public void onScrollChanged(MyScrollView scrollView, int x, int y, int oldx, int oldy) {
+		// TODO Auto-generated method stub
+		if (y - oldy > 200 || y - oldy < -200) {
+			myscrollview.scrollTo(x, y);
+		}
+
 	}
 }

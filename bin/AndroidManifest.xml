@@ -9,6 +9,7 @@
         android:targetSdkVersion="23" />
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <!-- 杀死后台进程需要的权限 -->
     <uses-permission android:name="android.permission.RESTART_PACKAGES" />
 

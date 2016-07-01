@@ -52,6 +52,7 @@ public class CalendarAdapter extends BaseAdapter {
 	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-d");
 	public int currentFlag = -1; // 用于标记系统的当天
 	public int currentFlag_ = -1; // 用于标记当天
+	public boolean flag;// 如果日期强制回到1号，就置为true
 	@SuppressWarnings("unused")
 	private int[] schDateTagFlag = null; // 存储当月所有的日程日期
 
@@ -149,7 +150,7 @@ public class CalendarAdapter extends BaseAdapter {
 
 		if (convertView == null) {
 			convertView = LayoutInflater.from(context).inflate(R.layout.calendar_item, null);
-			convertView.setBackgroundColor(0XffEDEDED);// 设置背景
+			convertView.setBackgroundColor(0Xffffff);// 设置背景
 		}
 		TextView textView = (TextView) convertView.findViewById(R.id.tvtext);
 		String d = dayNumber[position].split("\\.")[0];
@@ -180,9 +181,10 @@ public class CalendarAdapter extends BaseAdapter {
 				// res.getDrawable(R.drawable.calendar_item_selected_bg);
 				// drawable = new ColorDrawable(Color.rgb(238, 113, 113));
 			}
+			Log.d("AA", "currentFlag_=" + currentFlag_);
 			if (currentFlag_ == position) {
-				drawable = new ColorDrawable(Color.rgb(198, 226, 255));//#C6E2FF
-				//convertView.setBackgroundDrawable(drawable);
+				drawable = new ColorDrawable(Color.rgb(198, 226, 255));// #C6E2FF
+				// convertView.setBackgroundDrawable(drawable);
 				convertView.setBackgroundResource(R.drawable.select_bg);
 			}
 			if (currentFlag == position) {
@@ -190,8 +192,8 @@ public class CalendarAdapter extends BaseAdapter {
 				// drawable =
 				// res.getDrawable(R.drawable.calendar_item_selected_bg);
 
-				drawable = new ColorDrawable(Color.rgb(79, 210, 190));//#4FD2BE
-				//convertView.setBackgroundDrawable(drawable);
+				drawable = new ColorDrawable(Color.rgb(79, 210, 190));// #4FD2BE
+				// convertView.setBackgroundDrawable(drawable);
 				convertView.setBackgroundResource(R.drawable.current_bg);
 				// textView.setTextColor(Color.WHITE);
 			}
@@ -307,6 +309,10 @@ public class CalendarAdapter extends BaseAdapter {
 				dayNumber[i] = j + "." + lunarDay;
 				j++;
 			}
+		}
+		if (currentFlag_ == -1) {
+			currentFlag_ = dayOfWeek;
+			flag = true;
 		}
 
 		String abc = "";
