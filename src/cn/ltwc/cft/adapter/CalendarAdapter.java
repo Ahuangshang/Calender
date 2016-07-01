@@ -76,8 +76,8 @@ public class CalendarAdapter extends BaseAdapter {
 
 	}
 
-	public CalendarAdapter(Context context, Resources rs, int jumpMonth, int jumpYear, int year_c, int month_c,
-			int day_c) {
+	public CalendarAdapter(Context context, Resources rs, int jumpMonth,
+			int jumpYear, int year_c, int month_c, int day_c) {
 		this();
 		this.context = context;
 		sc = SpecialCalendar.getInstance();
@@ -109,11 +109,13 @@ public class CalendarAdapter extends BaseAdapter {
 													// （jumpMonth为滑动的次数，每滑动一次就增加一月或减一月）
 		currentDay = String.valueOf(day_c); // 得到当前日期是哪天
 
-		getCalendar(Integer.parseInt(currentYear), Integer.parseInt(currentMonth));
+		getCalendar(Integer.parseInt(currentYear),
+				Integer.parseInt(currentMonth));
 
 	}
 
-	public CalendarAdapter(Context context, Resources rs, int year, int month, int day) {
+	public CalendarAdapter(Context context, Resources rs, int year, int month,
+			int day) {
 		this();
 		this.context = context;
 		sc = SpecialCalendar.getInstance();
@@ -122,7 +124,8 @@ public class CalendarAdapter extends BaseAdapter {
 		currentYear = String.valueOf(year);// 得到跳转到的年份
 		currentMonth = String.valueOf(month); // 得到跳转到的月份
 		currentDay = String.valueOf(day); // 得到跳转到的天
-		getCalendar(Integer.parseInt(currentYear), Integer.parseInt(currentMonth));
+		getCalendar(Integer.parseInt(currentYear),
+				Integer.parseInt(currentMonth));
 	}
 
 	@Override
@@ -149,7 +152,8 @@ public class CalendarAdapter extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 
 		if (convertView == null) {
-			convertView = LayoutInflater.from(context).inflate(R.layout.calendar_item, null);
+			convertView = LayoutInflater.from(context).inflate(
+					R.layout.calendar_item, null);
 			convertView.setBackgroundColor(0Xffffff);// 设置背景
 		}
 		TextView textView = (TextView) convertView.findViewById(R.id.tvtext);
@@ -158,10 +162,13 @@ public class CalendarAdapter extends BaseAdapter {
 
 		SpannableString sp = new SpannableString(d + "\n" + dv);
 		// 设置字体
-		sp.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, d.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-		sp.setSpan(new RelativeSizeSpan(1.2f), 0, d.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+		sp.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0,
+				d.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+		sp.setSpan(new RelativeSizeSpan(1.2f), 0, d.length(),
+				Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 		if (dv != null || dv != "") {
-			sp.setSpan(new RelativeSizeSpan(0.65f), d.length() + 1, dayNumber[position].length(),
+			sp.setSpan(new RelativeSizeSpan(0.65f), d.length() + 1,
+					dayNumber[position].length(),
 					Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 		}
 		// sp.setSpan(new ForegroundColorSpan(Color.MAGENTA), 14, 16,
@@ -172,30 +179,24 @@ public class CalendarAdapter extends BaseAdapter {
 		if (position < daysOfMonth + dayOfWeek && position >= dayOfWeek) {
 			// 当前月信息显示
 			textView.setTextColor(Color.BLACK);// 当月字体设黑
-			// drawable = res.getDrawable(R.drawable.calendar_item_selected_bg);
+
 			drawable = new ColorDrawable(Color.rgb(23, 126, 214));
 			if (position % 7 == 0 || position % 7 == 6) {
-
 				textView.setTextColor(Color.rgb(238, 113, 113));// 周末字体设置为红色
-				// drawable =
-				// res.getDrawable(R.drawable.calendar_item_selected_bg);
-				// drawable = new ColorDrawable(Color.rgb(238, 113, 113));
+
 			}
-			Log.d("AA", "currentFlag_=" + currentFlag_);
 			if (currentFlag_ == position) {
 				drawable = new ColorDrawable(Color.rgb(198, 226, 255));// #C6E2FF
-				// convertView.setBackgroundDrawable(drawable);
+
 				convertView.setBackgroundResource(R.drawable.select_bg);
 			}
 			if (currentFlag == position) {
 				// 设置当天的背景
-				// drawable =
-				// res.getDrawable(R.drawable.calendar_item_selected_bg);
 
 				drawable = new ColorDrawable(Color.rgb(79, 210, 190));// #4FD2BE
-				// convertView.setBackgroundDrawable(drawable);
+
 				convertView.setBackgroundResource(R.drawable.current_bg);
-				// textView.setTextColor(Color.WHITE);
+
 			}
 			// =================得到中国传统节假日=========================
 			List<Integer> list = new ArrayList<Integer>();// 保存当月中国的传统节日
@@ -288,10 +289,12 @@ public class CalendarAdapter extends BaseAdapter {
 
 			} else if (i < daysOfMonth + dayOfWeek) { // 本月
 				String day = String.valueOf(i - dayOfWeek + 1); // 得到的日期
-				lunarDay = lc.getLunarDate(year, month, i - dayOfWeek + 1, false);
+				lunarDay = lc.getLunarDate(year, month, i - dayOfWeek + 1,
+						false);
 				dayNumber[i] = i - dayOfWeek + 1 + "." + lunarDay;
 				// 对于当前月才去标记当前日期
-				if (sys_year.equals(String.valueOf(year)) && sys_month.equals(String.valueOf(month))
+				if (sys_year.equals(String.valueOf(year))
+						&& sys_month.equals(String.valueOf(month))
 						&& sys_day.equals(day)) {
 					currentFlag = i;
 				}
@@ -302,7 +305,8 @@ public class CalendarAdapter extends BaseAdapter {
 				setShowYear(String.valueOf(year));
 				setShowMonth(String.valueOf(month));
 				setAnimalsYear(lc.animalsYear(year));
-				setLeapMonth(lc.leapMonth == 0 ? "" : String.valueOf(lc.leapMonth));
+				setLeapMonth(lc.leapMonth == 0 ? "" : String
+						.valueOf(lc.leapMonth));
 				setCyclical(lc.cyclical(year));
 			} else { // 下一个月
 				lunarDay = lc.getLunarDate(year, month + 1, j, false);

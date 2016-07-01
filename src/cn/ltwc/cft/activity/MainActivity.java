@@ -252,6 +252,8 @@ public class MainActivity extends BaseActivity implements ScrollViewListener {
 			int pos = ((CalendarAdapter) gridView.getAdapter()).currentFlag;
 			if (pos != -1 && istotoday) {
 				setChooseBg(pos);
+				showNongLi(LunarCalendar.getInstance().getCalendarInfoByChooseDay(chooseYear, chooseMonth, chooseDay),
+						chooseYear + "", chooseMonth + "", chooseDay + "");
 				return;
 			}
 		} else {// 如果当前界面不在本年本月
