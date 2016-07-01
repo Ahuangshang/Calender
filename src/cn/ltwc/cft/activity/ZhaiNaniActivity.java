@@ -6,16 +6,20 @@ import java.util.Random;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.ListView;
 import cn.ltwc.cft.R;
+import cn.ltwc.cft.adapter.MeNvAdapter;
 import cn.ltwc.cft.adapter.MeiNvAdapter;
-import cn.ltwc.cft.beans.MeiNvIconBean;
 import cn.ltwc.cft.beans.TiangouBean;
 import cn.ltwc.cft.http.HttpFactory;
 import cn.ltwc.cft.http.ServiceResponce;
+import cn.ltwc.cft.view.SpacesItemDecoration;
 import cn.ltwc.cft.view.TitleView;
 
 /**
@@ -27,10 +31,10 @@ import cn.ltwc.cft.view.TitleView;
 public class ZhaiNaniActivity extends BaseActivity implements ServiceResponce {
 
 	private String TAG = "ZhaiNaniActivity";
-	private ListView listView;//
 	private ArrayList<TiangouBean> al = null;// 存放数据的集合
 	private TitleView titleView;
-	private View emptyView;
+
+	private RecyclerView rv;
 
 	public ZhaiNaniActivity() {
 		super(R.layout.activity_zhainan);
@@ -40,15 +44,25 @@ public class ZhaiNaniActivity extends BaseActivity implements ServiceResponce {
 	@Override
 	public void initView() {
 		// TODO Auto-generated method stub
-		listView = (ListView) findViewById(R.id.zaina_listview);
+		// listView = (ListView) findViewById(R.id.zaina_listview);
 		titleView = (TitleView) findViewById(R.id.zhainan_title);
 		titleView.setLeftIcon(R.drawable.title_back);
 		titleView.setRightVisibility(View.GONE);
 
 		titleView.setTitletext("宅男天堂");
 
-		emptyView = findViewById(R.id.note_emptyview);
-		listView.setEmptyView(emptyView);
+		// emptyView = findViewById(R.id.note_emptyview);
+		// listView.setEmptyView(emptyView);
+		rv = (RecyclerView) findViewById(R.id.rv);
+		// LinearLayoutManager manager = new LinearLayoutManager(this);
+		// manager.setOrientation(LinearLayoutManager.VERTICAL);
+		// rv.setLayoutManager(manager);
+		// 设置为瀑布流
+		rv.setLayoutManager(new StaggeredGridLayoutManager(2,
+				StaggeredGridLayoutManager.VERTICAL));
+		 //设置item之间的间隔
+        SpacesItemDecoration decoration=new SpacesItemDecoration(12);
+        rv.addItemDecoration(decoration);
 	}
 
 	@Override
@@ -63,23 +77,15 @@ public class ZhaiNaniActivity extends BaseActivity implements ServiceResponce {
 		Random random = new Random();
 		int s = random.nextInt(10);
 		int d = random.nextInt(5);
-
+		showWaitingDialog(this);
 		HttpFactory.meinvTPatiangou(this, s, 50, d, 1);
-		titleView.getLeftIcon().setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				finish();
-
-			}
-		});
-
 	}
 
 	/**
 	 * 成功时
 	 */
 	public void httpSuccess(String result, int responseFlag) {
+		hideWaitingDialog();
 		al = new ArrayList<TiangouBean>();
 		Log.e(TAG, "1231546");
 		try {
@@ -123,8 +129,8 @@ public class ZhaiNaniActivity extends BaseActivity implements ServiceResponce {
 			// getAttachAct().showMessage(getString(R.string.server_error));
 		}
 
-		MeiNvAdapter Adapter = new MeiNvAdapter(c, al);
-		listView.setAdapter(Adapter);
+		MeNvAdapter adapter = new MeNvAdapter(c, al);
+		rv.setAdapter(adapter);
 	}
 
 	/**
@@ -133,7 +139,7 @@ public class ZhaiNaniActivity extends BaseActivity implements ServiceResponce {
 	@Override
 	public void httpTimeOut(int responseFlag) {
 		// TODO Auto-generated method stub
-
+		hideWaitingDialog();
 	}
 
 	/**
@@ -141,7 +147,7 @@ public class ZhaiNaniActivity extends BaseActivity implements ServiceResponce {
 	 */
 	public void httpError(int responseFlag) {
 		// TODO Auto-generated method stub
-
+		hideWaitingDialog();
 	}
 
 }

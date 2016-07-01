@@ -629,6 +629,7 @@ int id rili 0x7f090060
 int id rmimg 0x7f09008d
 int id rmtxt 0x7f09008e
 int id root 0x7f090050
+int id rv 0x7f09007a
 int id screen 0x7f090015
 int id scrollIndicatorDown 0x7f090035
 int id scrollIndicatorUp 0x7f090032
@@ -682,7 +683,6 @@ int id withText 0x7f09001d
 int id wrap_content 0x7f090009
 int id year 0x7f09007e
 int id yi 0x7f09008b
-int id zaina_listview 0x7f09007a
 int id zainan_img 0x7f0900a2
 int id zainan_title 0x7f0900a3
 int id zhainan_title 0x7f090079

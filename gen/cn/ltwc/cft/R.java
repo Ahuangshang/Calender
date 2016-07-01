@@ -2224,6 +2224,7 @@ containing a value of this type.
         public static final int rmimg=0x7f09008d;
         public static final int rmtxt=0x7f09008e;
         public static final int root=0x7f090050;
+        public static final int rv=0x7f09007a;
         public static final int screen=0x7f090015;
         public static final int scrollIndicatorDown=0x7f090035;
         public static final int scrollIndicatorUp=0x7f090032;
@@ -2277,7 +2278,6 @@ containing a value of this type.
         public static final int wrap_content=0x7f090009;
         public static final int year=0x7f09007e;
         public static final int yi=0x7f09008b;
-        public static final int zaina_listview=0x7f09007a;
         public static final int zainan_img=0x7f0900a2;
         public static final int zainan_title=0x7f0900a3;
         public static final int zhainan_title=0x7f090079;
