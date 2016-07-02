@@ -15,6 +15,7 @@ public class JokeListBean {
 	// private String Count;// 0,
 	// private String Collect;// 0,
 	private String Type;// 26,
+
 	// private String IsHtml;// false,
 	// private String AddTime;// /Date(-62135596800000)/
 
@@ -65,6 +66,7 @@ public class JokeListBean {
 	public void setType(String jokeType) {
 		Type = jokeType;
 	}
+
 	//
 	// public String getIsHtml() {
 	// return IsHtml;
@@ -85,11 +87,12 @@ public class JokeListBean {
 
 	@Override
 	public String toString() {
-		return "JokeListBean [BillNo=" + BillNo + ", JokeTitle=" + JokeTitle + ", JokeContent=" + JokeContent
-				+ ", Type=" + Type + "]";
+		return "JokeListBean [BillNo=" + BillNo + ", JokeTitle=" + JokeTitle
+				+ ", JokeContent=" + JokeContent + ", Type=" + Type + "]";
 	}
 
-	public JokeListBean(String billNo, String jokeTitle, String jokeContent, String type) {
+	public JokeListBean(String billNo, String jokeTitle, String jokeContent,
+			String type) {
 		super();
 		BillNo = billNo;
 		JokeTitle = jokeTitle;

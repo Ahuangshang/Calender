@@ -60,9 +60,9 @@ public class ZhaiNaniActivity extends BaseActivity implements ServiceResponce {
 		// 设置为瀑布流
 		rv.setLayoutManager(new StaggeredGridLayoutManager(2,
 				StaggeredGridLayoutManager.VERTICAL));
-		 //设置item之间的间隔
-        SpacesItemDecoration decoration=new SpacesItemDecoration(12);
-        rv.addItemDecoration(decoration);
+		// 设置item之间的间隔
+		SpacesItemDecoration decoration = new SpacesItemDecoration(12);
+		rv.addItemDecoration(decoration);
 	}
 
 	@Override

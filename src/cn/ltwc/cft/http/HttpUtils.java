@@ -215,7 +215,8 @@ public class HttpUtils {
 	 *            参数拼接
 	 * @return
 	 */
-	public String sendHCPost(String httpURL, List<NameValuePair> params, String httpParam) {
+	public String sendHCPost(String httpURL, List<NameValuePair> params,
+			String httpParam) {
 		StringBuffer sb = new StringBuffer();
 
 		// 1.创建HttpClent对象
@@ -279,13 +280,15 @@ public class HttpUtils {
 			// 2.创建UrlConnection对象
 			URL url = new URL(urlPath);
 			// Url连接
-			HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+			HttpURLConnection urlConnection = (HttpURLConnection) url
+					.openConnection();
 
 			// 3.获取输入流
 			InputStream is = urlConnection.getInputStream();
 
 			// 4.保存到sd卡中
-			File file = new File(Environment.getExternalStorageDirectory() + File.separator + fileNameStr);
+			File file = new File(Environment.getExternalStorageDirectory()
+					+ File.separator + fileNameStr);
 			file.createNewFile();
 			FileOutputStream fos = new FileOutputStream(file);
 
@@ -353,7 +356,8 @@ public class HttpUtils {
 			// 设置请求属性是否支持中文(字符集)
 			uc.setRequestProperty("Charset", "UTF-8");
 			// 设置请求的属性(内容-类型,相关内容数据,分界字符串等)
-			uc.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + Boundary);
+			uc.setRequestProperty("Content-Type",
+					"multipart/form-data;boundary=" + Boundary);
 			// ====================================
 
 			// 获得网络输出流
@@ -367,7 +371,8 @@ public class HttpUtils {
 			// 写入头文件，验证头("--******\r\n")
 			dos.writeBytes(Dps + Boundary + end);
 			// 内容解析
-			dos.writeBytes("Content-Disposition:form-data;name=\"file\";filename=\"" + fileName + "\"" + end);
+			dos.writeBytes("Content-Disposition:form-data;name=\"file\";filename=\""
+					+ fileName + "\"" + end);
 			// 写入(回车/换行)
 			dos.writeBytes(end);
 			// =============================================

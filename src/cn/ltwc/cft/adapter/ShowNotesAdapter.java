@@ -58,14 +58,17 @@ public class ShowNotesAdapter extends BaseAdapter {
 		String time = bean.getCompleteTime();
 		String title = time.substring(0, time.lastIndexOf("-"));
 		hodler.title.setText(title);
-		hodler.content.setText("     "+bean.getNoteContent());
+		hodler.content.setText("     " + bean.getNoteContent());
 		hodler.time.setText(time);
 		String sh = "";
 		if (position == 0) {
 			hodler.title.setVisibility(View.VISIBLE);
 		} else {
-			sh = ((NoteBean) getItem(position - 1)).getCompleteTime().substring(0,
-					((NoteBean) getItem(position - 1)).getCompleteTime().lastIndexOf("-"));
+			sh = ((NoteBean) getItem(position - 1)).getCompleteTime()
+					.substring(
+							0,
+							((NoteBean) getItem(position - 1))
+									.getCompleteTime().lastIndexOf("-"));
 			if (sh.equals(title)) {
 				hodler.title.setVisibility(View.GONE);
 			} else {

@@ -5,7 +5,7 @@ import android.content.Context;
 public class BitMapUtil {
 	/**
 	 * 将dip或dp值转换为px值，保证尺寸大小不变
-	 *
+	 * 
 	 * @param dipValue
 	 *            （DisplayMetrics类中属性density）
 	 * @return
@@ -17,7 +17,7 @@ public class BitMapUtil {
 
 	/**
 	 * 将px值转换为dip或dp值，保证尺寸大小不变
-	 *
+	 * 
 	 * @param pxValue
 	 *            （DisplayMetrics类中属性density）
 	 * @return
@@ -29,7 +29,7 @@ public class BitMapUtil {
 
 	/**
 	 * 将px值转换为sp值，保证文字大小不变
-	 *
+	 * 
 	 * @param pxValue
 	 *            （DisplayMetrics类中属性scaledDensity）
 	 * @return
@@ -41,7 +41,7 @@ public class BitMapUtil {
 
 	/**
 	 * 将sp值转换为px值，保证文字大小不变
-	 *
+	 * 
 	 * @param spValue
 	 *            （DisplayMetrics类中属性scaledDensity）
 	 * @return

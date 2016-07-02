@@ -24,9 +24,9 @@ public class TodayonhistoryWebDitailActivity extends BaseWebActivity {
 	@Override
 	public void initView() {
 		// TODO Auto-generated method stub
-//		title = (TitleView) findViewById(R.id.tt_title);
-//		title.setTitletext("历史上的今天");
-//		title.setRightVisibility(View.GONE);
+		// title = (TitleView) findViewById(R.id.tt_title);
+		// title.setTitletext("历史上的今天");
+		// title.setRightVisibility(View.GONE);
 		setWebView(R.id.todayonhistory);
 		setEmpty(R.id.tt_emptyview);
 		setTitle(title);

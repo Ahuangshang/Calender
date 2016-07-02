@@ -31,7 +31,8 @@ public class NoteDB extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		String CreatTableSql = "create table " + noteTableName
+		String CreatTableSql = "create table "
+				+ noteTableName
 				+ "(title varchar(17),content varchar(1001),completeTime varchar(20),currentTime varchar(100))";
 
 		db.execSQL(CreatTableSql);
@@ -52,10 +53,14 @@ public class NoteDB extends SQLiteOpenHelper {
 	 */
 	public void addNote(NoteBean notebean) {
 
-		String sql = "insert into " + noteTableName + "(title,content,completeTime,currentTime) values(?,?,?,?)";
+		String sql = "insert into " + noteTableName
+				+ "(title,content,completeTime,currentTime) values(?,?,?,?)";
 		SQLiteDatabase db = getWritableDatabase();
-		db.execSQL(sql, new String[] { notebean.getNoteTitle(), notebean.getNoteContent(), notebean.getCompleteTime(),
-				notebean.getCurrentTime() });
+		db.execSQL(
+				sql,
+				new String[] { notebean.getNoteTitle(),
+						notebean.getNoteContent(), notebean.getCompleteTime(),
+						notebean.getCurrentTime() });
 		db.close();
 	}
 
@@ -73,9 +78,12 @@ public class NoteDB extends SQLiteOpenHelper {
 		while (cursor.moveToNext()) {
 			String title = cursor.getString(cursor.getColumnIndex("title"));
 			String content = cursor.getString(cursor.getColumnIndex("content"));
-			String completeTime = cursor.getString(cursor.getColumnIndex("completeTime"));
-			String currentTime = cursor.getString(cursor.getColumnIndex("currentTime"));
-			NoteBean noteBean = new NoteBean(title, content, completeTime, currentTime);
+			String completeTime = cursor.getString(cursor
+					.getColumnIndex("completeTime"));
+			String currentTime = cursor.getString(cursor
+					.getColumnIndex("currentTime"));
+			NoteBean noteBean = new NoteBean(title, content, completeTime,
+					currentTime);
 			temp.add(noteBean);
 		}
 		for (int i = temp.size() - 1; i >= 0; i--) {
@@ -94,12 +102,17 @@ public class NoteDB extends SQLiteOpenHelper {
 	 */
 	public void update(NoteBean notebean, String currentTime) {
 
-		String sql = "update " + noteTableName
-				+ " set title=?,content=?,completeTime=?,currentTime=? where currentTime='" + currentTime + "'";
+		String sql = "update "
+				+ noteTableName
+				+ " set title=?,content=?,completeTime=?,currentTime=? where currentTime='"
+				+ currentTime + "'";
 		SQLiteDatabase db = getWritableDatabase();
 
-		db.execSQL(sql, new String[] { notebean.getNoteTitle(), notebean.getNoteContent(), notebean.getCompleteTime(),
-				notebean.getCurrentTime() });
+		db.execSQL(
+				sql,
+				new String[] { notebean.getNoteTitle(),
+						notebean.getNoteContent(), notebean.getCompleteTime(),
+						notebean.getCurrentTime() });
 		db.close();
 	}
 

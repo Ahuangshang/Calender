@@ -80,7 +80,8 @@ public class JokeActivity extends BaseActivity implements ServiceResponce {
 		hideWaitingDialog();
 		try {
 			JSONObject jsonObject = new JSONObject(result);
-			JSONObject jsonObject2 = jsonObject.getJSONObject("showapi_res_body");
+			JSONObject jsonObject2 = jsonObject
+					.getJSONObject("showapi_res_body");
 			JSONArray array = jsonObject2.getJSONArray("contentlist");
 			for (int i = 0; i < array.length(); i++) {
 				JSONObject jsonObject3 = array.getJSONObject(i);

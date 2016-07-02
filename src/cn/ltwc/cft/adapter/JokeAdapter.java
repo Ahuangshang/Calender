@@ -47,19 +47,26 @@ public class JokeAdapter extends BaseAdapter {
 		// TODO Auto-generated method stub
 		ViewHodle viewHodle = null;
 		if (convertView == null) {
-			convertView = LayoutInflater.from(c).inflate(R.layout.joke_item, null);
+			convertView = LayoutInflater.from(c).inflate(R.layout.joke_item,
+					null);
 			viewHodle = new ViewHodle();
-			viewHodle.title = (TextView) convertView.findViewById(R.id.joke_item_title);
-			viewHodle.content = (TextView) convertView.findViewById(R.id.joke_item_content);
+			viewHodle.title = (TextView) convertView
+					.findViewById(R.id.joke_item_title);
+			viewHodle.content = (TextView) convertView
+					.findViewById(R.id.joke_item_content);
 			convertView.setTag(viewHodle);
 		} else {
 			viewHodle = (ViewHodle) convertView.getTag();
 		}
 		JokeListBean bean = (JokeListBean) getItem(position);
 		viewHodle.title.setText(bean.getJokeTitle());
-		String contenText = bean.getJokeContent().replaceAll("\\　", "").replaceAll("\\<p>", "").replaceAll("\\</p>", "\r\n").replaceAll("\\<br />", "").replaceAll("\\&hellip;", "...").replaceAll("\\\t", "").replaceAll("\r\n", "\r\n\r\r\r\r\r\r\r\r");
-		//Log.d("AA", contenText);
-		viewHodle.content.setText("\r\r\r\r\r\r\r\r"+contenText);
+		String contenText = bean.getJokeContent().replaceAll("\\　", "")
+				.replaceAll("\\<p>", "").replaceAll("\\</p>", "\r\n")
+				.replaceAll("\\<br />", "").replaceAll("\\&hellip;", "...")
+				.replaceAll("\\\t", "")
+				.replaceAll("\r\n", "\r\n\r\r\r\r\r\r\r\r");
+		// Log.d("AA", contenText);
+		viewHodle.content.setText("\r\r\r\r\r\r\r\r" + contenText);
 		return convertView;
 	}
 

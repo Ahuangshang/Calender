@@ -1,12 +1,15 @@
 package cn.ltwc.cft.beans;
 
+import java.io.Serializable;
+
 /**
  * 宜忌bean
  * 
  * @author LZL
- *
+ * 
  */
-public class YiJiBean {
+@SuppressWarnings("serial")
+public class YiJiBean implements Serializable {
 	private String yi;
 	private String ji;
 

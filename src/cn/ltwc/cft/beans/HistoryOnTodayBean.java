@@ -2,7 +2,8 @@ package cn.ltwc.cft.beans;
 
 import java.io.Serializable;
 
-public class HistoryOnTodayBean implements Serializable{
+@SuppressWarnings("serial")
+public class HistoryOnTodayBean implements Serializable {
 	private String title;
 	private String event;
 	String year;
@@ -44,9 +45,8 @@ public class HistoryOnTodayBean implements Serializable{
 
 	@Override
 	public String toString() {
-		return "HistoryOnTodayBean [title=" + title + ", event=" + event + ", year=" + year + "]";
+		return "HistoryOnTodayBean [title=" + title + ", event=" + event
+				+ ", year=" + year + "]";
 	}
-
-	
 
 }

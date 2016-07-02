@@ -56,7 +56,8 @@ public class AppManager {
 		// 清空集合
 		allActivity.clear();
 		// 2.重启包
-		ActivityManager manager = (ActivityManager) context.getSystemService(Activity.ACTIVITY_SERVICE);
+		ActivityManager manager = (ActivityManager) context
+				.getSystemService(Activity.ACTIVITY_SERVICE);
 		manager.restartPackage(context.getPackageName());
 		// 2.系统退出
 		System.exit(0);

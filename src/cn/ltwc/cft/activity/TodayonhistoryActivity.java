@@ -25,9 +25,10 @@ import cn.ltwc.cft.view.TitleView;
  * TODO:历史上的今天
  * 
  * @author LZL
- *
+ * 
  */
-public class TodayonhistoryActivity extends BaseActivity implements ServiceResponce {
+public class TodayonhistoryActivity extends BaseActivity implements
+		ServiceResponce {
 	private int month_c = 0;
 	private int day_c = 0;
 	private String currentDate = "";
@@ -90,15 +91,18 @@ public class TodayonhistoryActivity extends BaseActivity implements ServiceRespo
 
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				startActivity(new Intent(TodayonhistoryActivity.this, TodayonhistoryWebDitailActivity.class));
+				startActivity(new Intent(TodayonhistoryActivity.this,
+						TodayonhistoryWebDitailActivity.class));
 			}
 		});
 		historyLv.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
 				// TODO Auto-generated method stub
-				Intent intent = new Intent(TodayonhistoryActivity.this, HistoryDetailActivity.class);
+				Intent intent = new Intent(TodayonhistoryActivity.this,
+						HistoryDetailActivity.class);
 				intent.putExtra("bean", list.get(position));
 				startActivity(intent);
 			}

@@ -27,6 +27,7 @@ public abstract class BaseActivity extends FragmentActivity {
 	public int width;
 	public int height;
 	protected LoadingDialog lDialog;
+
 	public BaseActivity(int layoutResID) {
 		this.layoutResId = layoutResID;
 	}
@@ -40,8 +41,10 @@ public abstract class BaseActivity extends FragmentActivity {
 		width = dm.widthPixels;
 		height = dm.heightPixels;
 		// 沉浸式导航栏
-		getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-		getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+		getWindow()
+				.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+		getWindow().addFlags(
+				WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
 		AppManager.getInstance().addActivity(this);
 		if (layoutResId != -1) {
 			setContentView(layoutResId);
@@ -89,25 +92,26 @@ public abstract class BaseActivity extends FragmentActivity {
 		intent.setData(data);
 		startActivity(intent);
 	}
-	 public void showWaitingDialog(Context context) {
-	        if (lDialog == null) {
-	            initCustomWaitingDialog(context);
-	        }
 
-	        if (!lDialog.isShowing()) {
-	            lDialog.show();
-	        }
-	    }
+	public void showWaitingDialog(Context context) {
+		if (lDialog == null) {
+			initCustomWaitingDialog(context);
+		}
 
-	    private void initCustomWaitingDialog(Context context) {
-	        lDialog = new LoadingDialog(context);
-	        lDialog.setCancelable(true);
-	        lDialog.setCanceledOnTouchOutside(true);
-	    }
+		if (!lDialog.isShowing()) {
+			lDialog.show();
+		}
+	}
 
-	    public void hideWaitingDialog() {
-	        if (lDialog != null && lDialog.isShowing()) {
-	            lDialog.dismiss();
-	        }
-	    }
+	private void initCustomWaitingDialog(Context context) {
+		lDialog = new LoadingDialog(context);
+		lDialog.setCancelable(true);
+		lDialog.setCanceledOnTouchOutside(true);
+	}
+
+	public void hideWaitingDialog() {
+		if (lDialog != null && lDialog.isShowing()) {
+			lDialog.dismiss();
+		}
+	}
 }

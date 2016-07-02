@@ -26,8 +26,8 @@ public class MoreActivity extends BaseActivity {
 	private TitleView title;
 	private ListView list;
 	private String al[] = { "手机号码归属地查询", "中华军事", "内涵段子", "宅男天堂", "历史上的今天" };// 数据集合
-	private int al2[] = { R.drawable.phone, R.drawable.zhonghuajunshi, R.drawable.joke, R.drawable.zhainan,
-			R.drawable.todayonhistory };
+	private int al2[] = { R.drawable.phone, R.drawable.zhonghuajunshi,
+			R.drawable.joke, R.drawable.zhainan, R.drawable.todayonhistory };
 
 	public MoreActivity() {
 		super(R.layout.activity_more);
@@ -66,7 +66,8 @@ public class MoreActivity extends BaseActivity {
 		list.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
 				switch (position) {
 				case 0:
 					startActivity(new Intent(c, PhoneActivity.class));
@@ -122,10 +123,13 @@ public class MoreActivity extends BaseActivity {
 			// TODO Auto-generated method stub
 
 			if (convertView == null) {
-				convertView = LayoutInflater.from(c).inflate(R.layout.more_adapter, null);
+				convertView = LayoutInflater.from(c).inflate(
+						R.layout.more_adapter, null);
 			}
-			TextView text = (TextView) convertView.findViewById(R.id.more_adapter_txt);
-			ImageView icon = (ImageView) convertView.findViewById(R.id.more_adapter_img);
+			TextView text = (TextView) convertView
+					.findViewById(R.id.more_adapter_txt);
+			ImageView icon = (ImageView) convertView
+					.findViewById(R.id.more_adapter_img);
 			text.setText(al[position]);
 			icon.setImageResource(al2[position]);
 			return convertView;

@@ -18,7 +18,8 @@ public class ResBodyBean {
 		super();
 	}
 
-	public ResBodyBean(String counts, String pageCount, List<JokeListBean> jokeList) {
+	public ResBodyBean(String counts, String pageCount,
+			List<JokeListBean> jokeList) {
 		super();
 		Counts = counts;
 		PageCount = pageCount;
@@ -51,7 +52,8 @@ public class ResBodyBean {
 
 	@Override
 	public String toString() {
-		return "ResBodyBean [Counts=" + Counts + ", PageCount=" + PageCount + ", JokeList=" + JokeList + "]";
+		return "ResBodyBean [Counts=" + Counts + ", PageCount=" + PageCount
+				+ ", JokeList=" + JokeList + "]";
 	}
 
 }

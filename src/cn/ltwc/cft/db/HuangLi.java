@@ -20,14 +20,15 @@ import cn.ltwc.cft.utils.FileUtils;
  * 从assets里面复制数据库到手机内存
  * 
  * @author LZL
- *
+ * 
  */
 public class HuangLi {
 	private SQLiteDatabase db;// 数据库操作类
 	private String dbName = "Huangli.db";// 数据库的名字
 	private String tableName = "huangli";// 数据库的表名
 	private String dbAssetsPath = "db/Huangli.db";// 数据库在Assets中存在的路径
-	private String dbSdcardPath = Environment.getDataDirectory() + File.separator + "data" + File.separator
+	private String dbSdcardPath = Environment.getDataDirectory()
+			+ File.separator + "data" + File.separator
 			+ Constant.APPPACKAGENAME + File.separator + dbName;// 数据库在Sdcard中存在的路径
 
 	private static Integer loc = 1;
@@ -47,7 +48,8 @@ public class HuangLi {
 		}
 
 		// 2.实例化db
-		db = MyApplication.getInstance().openOrCreateDatabase(dbSdcardPath, Context.MODE_PRIVATE, null);
+		db = MyApplication.getInstance().openOrCreateDatabase(dbSdcardPath,
+				Context.MODE_PRIVATE, null);
 	}
 
 	// 1 2 3
@@ -80,7 +82,8 @@ public class HuangLi {
 	 */
 	public YiJiBean quearHuangli(String year, String month, String day) {
 		YiJiBean bean = new YiJiBean();
-		String sql = "SELECT * FROM " + tableName + " WHERE y=? and m=? and d=?";
+		String sql = "SELECT * FROM " + tableName
+				+ " WHERE y=? and m=? and d=?";
 		Cursor c = db.rawQuery(sql, new String[] { year, month, day });
 		while (c.moveToNext()) {
 			String yi = c.getString(c.getColumnIndex("yi"));
