@@ -49,11 +49,17 @@
 
         <!-- 日历视图 -->
 
-        <include
-            android:id="@+id/rili"
+        <cn.ltwc.cft.view.MyScrollView
+            android:id="@+id/scrollview"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            layout="@layout/calendar" />
+            android:layout_height="wrap_content" >
+
+            <include
+                android:id="@+id/rili"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                layout="@layout/calendar" />
+        </cn.ltwc.cft.view.MyScrollView>
 
         <!-- 菜单组 -->
 

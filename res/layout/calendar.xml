@@ -61,15 +61,11 @@
         android:layout_width="match_parent"
         android:layout_height="12dp" />
 
-    <cn.ltwc.cft.view.MyScrollView
-        android:id="@+id/scrollview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
+ 
         <include
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             layout="@layout/main_more" />
-    </cn.ltwc.cft.view.MyScrollView>
+   
 
 </LinearLayout>

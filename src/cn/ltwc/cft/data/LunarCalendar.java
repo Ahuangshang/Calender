@@ -227,7 +227,7 @@ public class LunarCalendar {
 			--monCyl;
 		}
 		month = iMonth;
-		setLunarMonth(chineseLNumber[month - 1] + "月"); // 设置对应的阴历月份
+		setLunarMonth(leap ? "闰" + chineseLNumber[month - 1] + "月" : chineseLNumber[month - 1] + "月"); // 设置对应的阴历月份
 		day = offset + 1;
 
 		if (!isday) {
