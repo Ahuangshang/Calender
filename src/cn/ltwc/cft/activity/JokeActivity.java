@@ -13,9 +13,7 @@ import android.content.Context;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnLongClickListener;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
 import cn.ltwc.cft.R;
@@ -79,6 +77,7 @@ public class JokeActivity extends BaseActivity implements ServiceResponce {
 		});
 		listJoke.setOnItemLongClickListener(new OnItemLongClickListener() {
 
+			@SuppressWarnings("deprecation")
 			@Override
 			public boolean onItemLongClick(AdapterView<?> parent, View view,
 					int position, long id) {
@@ -89,9 +88,6 @@ public class JokeActivity extends BaseActivity implements ServiceResponce {
 				
 				cm.setText(bean.getJokeContent().replaceAll(" ", ""));
 				show("内容已复制到粘贴板，请到第三方应用分享给好友吧。");
-				
-				
-				
 				return false;
 			}
 		});
