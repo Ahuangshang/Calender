@@ -2,7 +2,7 @@
 
 <dimen name="text_lineSpacingExtra">6dp</dimen>
 <dimen name="rili_h">300dp</dimen>
-
+<dimen name="day_detail_yiji_min_h">180dp</dimen>
 
 
 </resources>

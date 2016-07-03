@@ -67,29 +67,10 @@
             <RelativeLayout
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_gravity="center_vertical"
                 android:layout_weight="5"
-                android:gravity="center"
+                android:gravity="center_vertical"
                 android:padding="5dp" >
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:orientation="vertical" >
-
-                    <TextView
-                        android:id="@+id/day_detail_nongli_yue"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="15sp" />
-
-                    <TextView
-                        android:id="@+id/day_detail_holiday"
-                        android:layout_width="130dp"
-                        android:layout_height="wrap_content"
-                        android:textSize="13sp" />
-                </LinearLayout>
 
                 <TextView
                     android:id="@+id/day_detail_nongli_day"
@@ -100,6 +81,29 @@
                     android:layout_marginRight="2dp"
                     android:textSize="26sp"
                     android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_toLeftOf="@id/day_detail_nongli_day"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:orientation="vertical" 
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/day_detail_nongli_yue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="15sp" 
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:id="@+id/day_detail_holiday"
+                        android:layout_width="130dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="13sp" 
+                        android:gravity="center"/>
+                </LinearLayout>
             </RelativeLayout>
 
             <View
@@ -251,7 +255,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="180dp"
+        android:minHeight="@dimen/day_detail_yiji_min_h"
         android:orientation="vertical" >
 
         <LinearLayout

@@ -1971,6 +1971,7 @@ containing a value of this type.
         public static final int activity_horizontal_margin=0x7f07004b;
         public static final int activity_vertical_margin=0x7f07004c;
         public static final int correctWidth=0x7f07004e;
+        public static final int day_detail_yiji_min_h=0x7f070053;
         public static final int disabled_alpha_material_dark=0x7f070001;
         public static final int disabled_alpha_material_light=0x7f070000;
         public static final int drag_min_distince=0x7f07004d;
@@ -2171,14 +2172,14 @@ containing a value of this type.
         public static final int customPanel=0x7f090036;
         public static final int day=0x7f090082;
         public static final int day_detail_day=0x7f09008f;
-        public static final int day_detail_holiday=0x7f09008b;
+        public static final int day_detail_holiday=0x7f09008c;
         public static final int day_detail_month=0x7f090086;
         public static final int day_detail_month_en=0x7f090087;
         public static final int day_detail_nian_fenge=0x7f090088;
         public static final int day_detail_nongli=0x7f090089;
-        public static final int day_detail_nongli_day=0x7f09008c;
+        public static final int day_detail_nongli_day=0x7f09008a;
         public static final int day_detail_nongli_fenge=0x7f09008d;
-        public static final int day_detail_nongli_yue=0x7f09008a;
+        public static final int day_detail_nongli_yue=0x7f09008b;
         public static final int day_detail_scrollView=0x7f090057;
         public static final int day_detail_title=0x7f090056;
         public static final int day_detail_vf=0x7f090058;
