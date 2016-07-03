@@ -137,7 +137,7 @@ public class LunarCalendar {
 	}
 
 	public static String getChinaDayString(int day) {
-		String chineseTen[] = { "初", "十", "廿", "卅" };
+		String chineseTen[] = { "初", "十", "廿", "三" };
 		int n = day % 10 == 0 ? 9 : day % 10 - 1;
 		if (day > 30)
 			return "";
