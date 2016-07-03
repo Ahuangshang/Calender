@@ -284,9 +284,16 @@ public class LunarCalendar {
 				if (day < 10) {
 					lday_v = "0" + day;
 				}
+
 				lmd = lmonth_v + lday_v;
 				if (!leap && ld.trim().equals(lmd.trim())) {
 					return ldv;
+				}
+				if (!leap && month == 12) {
+					int total = monthDays(year, month);
+					if (total == 29 && day == 29) {
+						return "除夕";
+					}
 				}
 			}
 		}
