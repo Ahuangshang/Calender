@@ -11,6 +11,7 @@ import cn.ltwc.cft.R;
  */
 public class LoadingDialog extends AlertDialog {
 
+	@SuppressWarnings("unused")
 	private Context context;
 	private boolean cancelable = true;
 

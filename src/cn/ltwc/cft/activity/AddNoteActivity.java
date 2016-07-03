@@ -110,6 +110,7 @@ public class AddNoteActivity extends BaseActivity {
 		top.getViewTreeObserver().addOnGlobalLayoutListener(
 				new OnGlobalLayoutListener() {
 
+					@SuppressWarnings("deprecation")
 					@Override
 					public void onGlobalLayout() {
 						// TODO Auto-generated method stub

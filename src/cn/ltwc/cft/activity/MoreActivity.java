@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import cn.ltwc.cft.R;
+import cn.ltwc.cft.data.Constant;
 import cn.ltwc.cft.view.TitleView;
 
 /**
@@ -73,7 +74,11 @@ public class MoreActivity extends BaseActivity {
 					startActivity(new Intent(c, PhoneActivity.class));
 					break;
 				case 1:
-					startActivity(new Intent(c, JunshiActivity.class));
+					Intent intent = new Intent(c, MyWebViewActivity.class);
+					intent.putExtra(Constant.WEBURL,
+							"http://military.china.com/");
+					intent.putExtra(Constant.WEBTITLE, "中华军事");
+					startActivity(intent);
 					break;
 				case 2:
 					startActivity(new Intent(c, JokeActivity.class));

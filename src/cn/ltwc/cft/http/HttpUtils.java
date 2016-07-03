@@ -32,6 +32,7 @@ import android.text.TextUtils;
  * 功能:用于发送get和post请求(httpUrlConnection/httpClient) 作者:mike 时间：2015-11-16
  * 上午9:12:43 修改:
  */
+@SuppressWarnings("deprecation")
 public class HttpUtils {
 	@SuppressWarnings("unused")
 	private String TAG = "HttpUtils";

@@ -28,6 +28,7 @@ public abstract class BaseWebActivity extends Activity {
 	private WebView webView;
 	private View empty;
 	private String webURL;// 网络请求地址
+	@SuppressWarnings("unused")
 	private TitleView title;
 
 	public void setEmpty(int id) {
@@ -43,10 +44,17 @@ public abstract class BaseWebActivity extends Activity {
 
 	}
 
-	public BaseWebActivity(int layoutResId, String webURL) {
-		this.layoutResId = layoutResId;
+	public String getWebURL() {
+		return webURL;
+	}
+
+	public void setWebURL(String webURL) {
 		this.webURL = webURL;
 	}
+
+	public BaseWebActivity(int layoutResId) {
+		this.layoutResId = layoutResId;
+		}
 
 	@TargetApi(Build.VERSION_CODES.KITKAT)
 	@SuppressLint("InlinedApi")
@@ -84,9 +92,11 @@ public abstract class BaseWebActivity extends Activity {
 			@Override
 			public void onProgressChanged(WebView view, int newProgress) {
 				// TODO Auto-generated method stub
-				if (newProgress > 70) {
+				if (newProgress > 80) {
 					empty.setVisibility(View.GONE);
 					// title.setVisibility(View.GONE);
+				} else {
+					empty.setVisibility(View.VISIBLE);
 				}
 			}
 		});

@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
@@ -14,7 +15,6 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,6 +45,7 @@ public class CalendarAdapter extends BaseAdapter {
 	private LunarCalendar lc = null;
 	@SuppressWarnings("unused")
 	private Resources res = null;
+	@SuppressWarnings("unused")
 	private Drawable drawable = null;
 	private String currentYear = "";// 当前年份
 	private String currentMonth = "";// 当前月份
@@ -146,7 +147,6 @@ public class CalendarAdapter extends BaseAdapter {
 		return position;
 	}
 
-	@SuppressWarnings("deprecation")
 	@SuppressLint("InflateParams")
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {

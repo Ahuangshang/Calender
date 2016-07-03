@@ -1,6 +1,5 @@
 package cn.ltwc.cft.activity;
 
-import android.view.View;
 import cn.ltwc.cft.R;
 import cn.ltwc.cft.view.TitleView;
 
@@ -17,7 +16,7 @@ public class TodayonhistoryWebDitailActivity extends BaseWebActivity {
 	private TitleView title;
 
 	public TodayonhistoryWebDitailActivity() {
-		super(R.layout.activity_todayonhistory_web_ditail, webURL);
+		super(R.layout.activity_todayonhistory_web_ditail);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -35,7 +34,7 @@ public class TodayonhistoryWebDitailActivity extends BaseWebActivity {
 	@Override
 	public void initData() {
 		// TODO Auto-generated method stub
-
+		setWebURL(webURL);
 	}
 
 }

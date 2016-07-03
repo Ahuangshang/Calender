@@ -7,15 +7,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.View;
-import android.widget.ListView;
 import cn.ltwc.cft.R;
 import cn.ltwc.cft.adapter.MeNvAdapter;
-import cn.ltwc.cft.adapter.MeiNvAdapter;
 import cn.ltwc.cft.beans.TiangouBean;
 import cn.ltwc.cft.http.HttpFactory;
 import cn.ltwc.cft.http.ServiceResponce;

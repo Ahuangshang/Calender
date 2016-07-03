@@ -8,7 +8,6 @@ import java.util.List;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.Gravity;
@@ -583,7 +582,5 @@ public class MainActivity extends BaseActivity implements ScrollViewListener,
 				Integer.parseInt(day));
 		rbean.setYi(TextUtils.isEmpty(bean.getYi()) ? "诸事不宜" : bean.getYi());
 		rbean.setJi(TextUtils.isEmpty(bean.getJi()) ? "黄道吉日，诸事大吉" : bean.getJi());
-		Log.d("AA", rbean.getnHolidayDay());
-		//setRbean(rbean);
 	}
 }

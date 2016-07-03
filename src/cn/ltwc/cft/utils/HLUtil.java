@@ -1,6 +1,12 @@
 package cn.ltwc.cft.utils;
 
+import android.text.TextUtils;
+import cn.ltwc.cft.beans.RiqiBean;
+import cn.ltwc.cft.beans.YiJiBean;
 import cn.ltwc.cft.data.Constant;
+import cn.ltwc.cft.data.LunarCalendar;
+import cn.ltwc.cft.data.SpecialCalendar;
+import cn.ltwc.cft.db.HuangLi;
 
 /**
  * 
@@ -94,4 +100,93 @@ public class HLUtil {
 		return m;
 	}
 
+	/**
+	 * 滑动到下一天
+	 * 
+	 * @param bean
+	 * @return
+	 */
+	public static RiqiBean nextDay(RiqiBean bean) {
+		int year = bean.getYear();
+		int month = bean.getyMonth();
+		int day = bean.getyDay();
+		int totalDay = getDayOfMonth(year, month);
+		if (day < totalDay) {
+			day++;
+		} else {
+			day = 1;
+			if (month < 12) {
+				month++;
+				totalDay = getDayOfMonth(year, month);
+			} else {
+				month = 1;
+				year++;
+				totalDay = getDayOfMonth(year, month);
+			}
+
+		}
+
+		RiqiBean newBean = setRiQIBean(year, month, day);
+		return newBean;
+
+	}
+
+	/**
+	 * 滑动到上一天
+	 * 
+	 * @param bean
+	 * @return
+	 */
+	public static RiqiBean preDay(RiqiBean bean) {
+		int year = bean.getYear();
+		int month = bean.getyMonth();
+		int day = bean.getyDay();
+		int totalDay = getDayOfMonth(year, month);
+		if (day > 1) {
+			day--;
+		} else {
+			if (month > 1) {
+				month--;
+				totalDay = getDayOfMonth(year, month);
+				day = totalDay;
+			} else {
+				year--;
+				month = 12;
+				totalDay = getDayOfMonth(year, month);
+				day = totalDay;
+			}
+		}
+
+		RiqiBean newBean = setRiQIBean(year, month, day);
+
+		return newBean;
+
+	}
+
+	/**
+	 * 获取当前月份的天数
+	 * 
+	 * @param bean
+	 * @return
+	 */
+	private static int getDayOfMonth(int year, int month) {
+		boolean isLeapyear;
+		int totalDay;
+		isLeapyear = SpecialCalendar.getInstance().isLeapYear(year);
+		totalDay = SpecialCalendar.getInstance().getDaysOfMonth(isLeapyear,
+				month);
+		return totalDay;
+	}
+
+	private static RiqiBean setRiQIBean(int year, int month, int day) {
+		RiqiBean newBean = new RiqiBean();
+		newBean = LunarCalendar.getInstance().getRiqiBeanInfo(year, month, day);
+		YiJiBean yibean = HuangLi.getInstance().quearHuangli(year + "",
+				month + "", day + "");
+		newBean.setYi(TextUtils.isEmpty(yibean.getYi()) ? "诸事不宜" : yibean
+				.getYi());
+		newBean.setJi(TextUtils.isEmpty(yibean.getJi()) ? "黄道吉日，诸事大吉" : yibean
+				.getJi());
+		return newBean;
+	}
 }

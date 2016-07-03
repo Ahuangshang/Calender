@@ -39,12 +39,16 @@ public class Constant {
 	public final static String[] FANGJIAHOLIDAY = new String[] { "春节", "皇上生辰",
 			"端午", "中秋节", "除夕", "元旦", "妇女节", "劳动节", "儿童节", "国庆节", };
 
-	public final static String[] YUEEN = new String[] { "January", "February",
-			"March", "April", "May", "June", "July", "August", "September",
-			"October", "November", "December" };
+	public final static String[] YUEEN = new String[] { "Jan.", "Feb.",
+			"Mar.", "Apr.", "May.", "Jun.", "Jul.", "Aug.", "Sept.",
+			"Oct.", "Nov.", "Dec." };
 
 	public static final String NOTE_BEAN = "note_bean";
 	public static final String FLAG = "flag";
 	public static final String RILIINFO = "rili_info";
 	public static final String APPPACKAGENAME = "cn.ltwc.cft";
+	public static final String WEBURL="web_url";
+	public static final String WEBTITLE="web_title";
+	
+	
 }

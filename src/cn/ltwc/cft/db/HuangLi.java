@@ -1,16 +1,11 @@
 package cn.ltwc.cft.db;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 
 import android.content.Context;
-import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Environment;
-import android.util.Log;
 import cn.ltwc.cft.MyApplication;
 import cn.ltwc.cft.beans.YiJiBean;
 import cn.ltwc.cft.data.Constant;

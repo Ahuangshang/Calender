@@ -46,7 +46,7 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="cn.ltwc.cft.activity.JunshiActivity"
+            android:name="cn.ltwc.cft.activity.MyWebViewActivity"
             android:screenOrientation="portrait" >
         </activity>
         <activity

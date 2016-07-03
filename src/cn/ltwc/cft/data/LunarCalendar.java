@@ -357,6 +357,7 @@ public class LunarCalendar {
 	 *            选中的阳历日期
 	 * @return 农历信息(包含农历年份月份日期以及周几)
 	 */
+	@SuppressWarnings("unused")
 	public String getCalendarInfoByChooseDay(int chooseYear, int chooseMonth,
 			int chooseDay) {
 		String lunarDate = getLunarDate(chooseYear, chooseMonth, chooseDay,

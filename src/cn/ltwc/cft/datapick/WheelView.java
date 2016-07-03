@@ -36,7 +36,6 @@ import android.text.Layout;
 import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.util.AttributeSet;
-import android.util.FloatMath;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.MotionEvent;
@@ -414,6 +413,7 @@ public class WheelView extends View {
 	/**
 	 * Initializes resources
 	 */
+	@SuppressWarnings("deprecation")
 	private void initResourcesIfNecessary() {
 		if (itemsPaint == null) {
 			itemsPaint = new TextPaint(Paint.ANTI_ALIAS_FLAG

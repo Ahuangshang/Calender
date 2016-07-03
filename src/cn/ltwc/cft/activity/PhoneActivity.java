@@ -27,6 +27,7 @@ import com.google.gson.reflect.TypeToken;
  * @Modified_By:
  */
 public class PhoneActivity extends BaseActivity implements ServiceResponce {
+	@SuppressWarnings("unused")
 	private TextView phonetext, citytext, provincetext, suppliertext, suittext,
 			retMsgtext;
 	private EditText getphone;
@@ -97,6 +98,7 @@ public class PhoneActivity extends BaseActivity implements ServiceResponce {
 	 * 
 	 * @see cn.ltwc.cft.http.ServiceResponce#httpSuccess(java.lang.String, int)
 	 */
+	@SuppressWarnings("deprecation")
 	public void httpSuccess(String result, int responseFlag) {
 		Log.i(TAG, "result" + result);
 

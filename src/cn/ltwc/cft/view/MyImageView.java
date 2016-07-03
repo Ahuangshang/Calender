@@ -49,6 +49,7 @@ public class MyImageView extends ImageView {
 		init();
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void setImageBitmap(Bitmap bitmap) {
 		super.setImageBitmap(bitmap);

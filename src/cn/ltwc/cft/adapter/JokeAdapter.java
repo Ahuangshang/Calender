@@ -1,9 +1,9 @@
 package cn.ltwc.cft.adapter;
 
 import java.util.List;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,13 +60,9 @@ public class JokeAdapter extends BaseAdapter {
 		}
 		JokeListBean bean = (JokeListBean) getItem(position);
 		viewHodle.title.setText(bean.getJokeTitle());
-		String contenText = bean.getJokeContent().replaceAll("\\　", "")
-				.replaceAll("\\<p>", "").replaceAll("\\</p>", "\r\n")
-				.replaceAll("\\<br />", "").replaceAll("\\&hellip;", "...")
-				.replaceAll("\\\t", "")
-				.replaceAll("\r\n", "\r\n\r\r\r\r\r\r\r\r");
+		String contenText = bean.getJokeContent();
 		// Log.d("AA", contenText);
-		viewHodle.content.setText("\r\r\r\r\r\r\r\r" + contenText);
+		viewHodle.content.setText(contenText);
 		return convertView;
 	}
 

@@ -8,9 +8,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
 import cn.ltwc.cft.R;
 import cn.ltwc.cft.adapter.JokeAdapter;
@@ -71,6 +77,24 @@ public class JokeActivity extends BaseActivity implements ServiceResponce {
 				initData();
 			}
 		});
+		listJoke.setOnItemLongClickListener(new OnItemLongClickListener() {
+
+			@Override
+			public boolean onItemLongClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				
+				JokeListBean bean=jokeList.get(position);
+				// 为了兼容低版本我们这里使用旧版的android.text.ClipboardManager，虽然提示deprecated，但不影响使用。 
+				ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+				
+				cm.setText(bean.getJokeContent().replaceAll(" ", ""));
+				show("内容已复制到粘贴板，请到第三方应用分享给好友吧。");
+				
+				
+				
+				return false;
+			}
+		});
 	}
 
 	@Override
@@ -85,11 +109,16 @@ public class JokeActivity extends BaseActivity implements ServiceResponce {
 			JSONArray array = jsonObject2.getJSONArray("contentlist");
 			for (int i = 0; i < array.length(); i++) {
 				JSONObject jsonObject3 = array.getJSONObject(i);
-				String text = jsonObject3.getString("text");
+				String text = jsonObject3.getString("text").replace("&nbsp", "").replaceAll("\\　", "").replaceAll("\\<p>", "")
+						.replaceAll("\\</p>", "\r\n")
+						.replaceAll("\\<br />", "")
+						.replaceAll("\\&hellip;", "...").replaceAll("\\\t", "")
+						.replaceAll("\r\n", "\r\n\r\r\r\r\r\r\r\r");;
 				String title = jsonObject3.getString("title");
 				String ct = jsonObject3.getString("ct");
 				String type = jsonObject3.getString("type");
-				JokeListBean bean = new JokeListBean(ct, title, text, type);
+			JokeListBean bean = new JokeListBean(ct, title,
+						"\r\r\r\r\r\r\r\r" + text, type);
 				jokeList.add(bean);
 			}
 			// Log.e(TAG, jokeList.toString()+1232144);
