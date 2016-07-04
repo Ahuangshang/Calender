@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -54,7 +55,7 @@ public abstract class BaseWebActivity extends Activity {
 
 	public BaseWebActivity(int layoutResId) {
 		this.layoutResId = layoutResId;
-		}
+	}
 
 	@TargetApi(Build.VERSION_CODES.KITKAT)
 	@SuppressLint("InlinedApi")
@@ -64,10 +65,8 @@ public abstract class BaseWebActivity extends Activity {
 		super.onCreate(savedInstanceState);
 
 		// 沉浸式导航栏
-		getWindow()
-				.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-		getWindow().addFlags(
-				WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+		getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+		getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
 		AppManager.getInstance().addActivity(this);
 		if (layoutResId != -1) {
 			setContentView(layoutResId);
@@ -77,6 +76,21 @@ public abstract class BaseWebActivity extends Activity {
 		initData();
 		initView();
 		WebViewConfig(webURL);
+		if (title != null) {
+
+			title.getLeftIcon().setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					if (webView.canGoBack()) {
+						webView.goBack();
+					} else {
+						finish();
+					}
+				}
+			});
+		}
 
 	}
 

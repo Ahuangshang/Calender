@@ -1,6 +1,7 @@
 package cn.ltwc.cft.activity;
 
 import android.view.View;
+import android.view.View.OnClickListener;
 import cn.ltwc.cft.R;
 import cn.ltwc.cft.data.Constant;
 import cn.ltwc.cft.view.TitleView;
@@ -27,10 +28,19 @@ public class MyWebViewActivity extends BaseWebActivity {
 		// TODO Auto-generated method stub
 		title = (TitleView) findViewById(R.id.junshi_title);
 		title.setTitletext(webTitle);
-		title.setRightVisibility(View.GONE);
+		title.setRightBtnTextVisibility(View.VISIBLE);
+		title.setRightText("关闭");
 		setWebView(R.id.junshi_webview);
 		setEmpty(R.id.junshi_emptyview);
 		setTitle(title);
+		title.getRightText().setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				finish();
+			}
+		});
 	}
 
 	@Override
@@ -39,6 +49,7 @@ public class MyWebViewActivity extends BaseWebActivity {
 		webURL = getIntent().getStringExtra(Constant.WEBURL);
 		webTitle = getIntent().getStringExtra(Constant.WEBTITLE);
 		setWebURL(webURL);
+
 	}
 
 }

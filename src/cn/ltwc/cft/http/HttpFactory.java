@@ -14,8 +14,7 @@ public class HttpFactory {
 	 * @param requestFlag
 	 *            请求标记
 	 */
-	public static void meinvTP(ServiceResponce responce, int num,
-			int requestFlag) {
+	public static void meinvTP(ServiceResponce responce, int num, int requestFlag) {
 		// 1.创建请求参数对象
 		RequestParams params = new RequestParams();
 		// 2.设置请求参数
@@ -47,16 +46,14 @@ public class HttpFactory {
 	 * @param "id=0&rows=20&classify=0"
 	 * @param requestFlag
 	 */
-	public static void meinvTPatiangou(ServiceResponce responce, int id,
-			int rows, int classify, int requestFlag) {
+	public static void meinvTPatiangou(ServiceResponce responce, int id, int rows, int classify, int requestFlag) {
 		// 1.创建请求参数对象
 		RequestParams params = new RequestParams();
 		// 2.设置请求参数
 		params.setHttpUrl(HttpUrls.URL_GETMEINVSTJ);// 设置地址
 
 		// 拼接请求参数
-		String httpParams = "id=" + id + "&rows=" + rows + "&classify="
-				+ classify;
+		String httpParams = "id=" + id + "&rows=" + rows + "&classify=" + classify;
 
 		params.setHttpParam(httpParams);// 设置参数
 
@@ -86,8 +83,7 @@ public class HttpFactory {
 	 * @param requestFlag
 	 *            请求标记
 	 */
-	public static void PhoneNumber(ServiceResponce responce, String tel,
-			int requestFlag) {
+	public static void PhoneNumber(ServiceResponce responce, String tel, int requestFlag) {
 		// 1.创建请求参数对象
 		RequestParams params = new RequestParams();
 		// 2.设置请求参数
@@ -122,8 +118,7 @@ public class HttpFactory {
 	 * @param requestFlag
 	 *            请求标记
 	 */
-	public static void ZhaiYan(ServiceResponce responce, String fangfa,
-			int requestFlag) {
+	public static void ZhaiYan(ServiceResponce responce, String fangfa, int requestFlag) {
 		// 1.创建请求参数对象
 		RequestParams params = new RequestParams();
 		// 2.设置请求参数
@@ -160,8 +155,7 @@ public class HttpFactory {
 	 * @param requestFlag
 	 *            请求标记
 	 */
-	public static void TodayHistory(ServiceResponce responce, int month,
-			int day, int requestFlag) {
+	public static void TodayHistory(ServiceResponce responce, int month, int day, int requestFlag) {
 		// 1.创建请求参数对象
 		RequestParams params = new RequestParams();
 		// 2.设置请求参数
@@ -170,8 +164,7 @@ public class HttpFactory {
 		// 拼接请求参数
 		// String httpArg =
 		// "month=4&day=6&appkey=1307ee261de8bbcf83830de89caae73f";
-		String httpParams = "month=" + month + "&day=" + day
-				+ "&appkey=90fff149d5785e1cac8428e1895f0253";
+		String httpParams = "month=" + month + "&day=" + day + "&appkey=90fff149d5785e1cac8428e1895f0253";
 
 		params.setHttpParam(httpParams);// 设置参数
 
@@ -208,6 +201,12 @@ public class HttpFactory {
 		core.execute(params);
 	}
 
+	/**
+	 * 获取历史上的今天
+	 * 
+	 * @param responce
+	 * @param data
+	 */
 	public static void History(ServiceResponce responce, String data) {
 		RequestParams params = new RequestParams();
 		// params.setApiKey("145da38f81409");
@@ -220,4 +219,38 @@ public class HttpFactory {
 		core.execute(params);
 
 	}
+
+	/**
+	 * 获取彩票类型
+	 * 
+	 * @param responce
+	 */
+	public static void getLotterType(ServiceResponce responce) {
+		RequestParams params = new RequestParams();
+		params.setApiKey("7b46d11c52681dd472628478b912ebff");
+		params.setHttpUrl(HttpUrls.LOTTER_TYPE);
+		params.setRequestMethod(HttpConfig.METHOD_GET_HUC_JSON);
+		params.setResponce(responce);
+		HttpCore core = new HttpCore();
+		core.execute(params);
+	}
+
+	/**
+	 * 获取双色球开奖结果
+	 * 
+	 * @param responce
+	 * @param type
+	 */
+	public static void getSSQLotter(ServiceResponce responce, String type) {
+		RequestParams params = new RequestParams();
+		params.setApiKey("7b46d11c52681dd472628478b912ebff");
+		String httpParam = "lotterycode=" + type + "&recordcnt=1";
+		params.setHttpParam(httpParam);
+		params.setHttpUrl(HttpUrls.LOTTER_SSQ);
+		params.setRequestMethod(HttpConfig.METHOD_GET_HUC_JSON);
+		params.setResponce(responce);
+		HttpCore core = new HttpCore();
+		core.execute(params);
+	}
+
 }

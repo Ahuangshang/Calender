@@ -5,9 +5,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.Gravity;
@@ -40,6 +44,8 @@ import cn.ltwc.cft.data.Variable;
 import cn.ltwc.cft.datapick.PickUtils;
 import cn.ltwc.cft.datapick.PickUtils.CallBack;
 import cn.ltwc.cft.db.HuangLi;
+import cn.ltwc.cft.http.HttpFactory;
+import cn.ltwc.cft.http.ServiceResponce;
 import cn.ltwc.cft.myinterface.ScrollViewListener;
 import cn.ltwc.cft.utils.BitMapUtil;
 import cn.ltwc.cft.view.MyGridView;
@@ -53,8 +59,7 @@ import cn.ltwc.cft.view.MyScrollView;
  * @Modified_By:
  */
 @SuppressLint({ "ResourceAsColor", "SimpleDateFormat" })
-public class MainActivity extends BaseActivity implements ScrollViewListener,
-		OnClickListener {
+public class MainActivity extends BaseActivity implements ScrollViewListener, OnClickListener, ServiceResponce {
 	public GridView menu;// 菜单
 	private List<MenuBean> MenuList;// 菜单的集合
 	// ---------------------------------
@@ -77,10 +82,18 @@ public class MainActivity extends BaseActivity implements ScrollViewListener,
 	private MyScrollView myscrollview;
 	private RiqiBean rbean;// 要跳转到下一个界面的日期信息
 	private View nongLiInfo;// 农历信息栏
+	private View lotterMore, ssq;// 更多开奖，双色球开奖
+	private TextView ssqi, red1, red2, red3, red4, red5, red6, blue;// 双色球期号、红色球1~6、蓝色球
 
 	public MainActivity() {
 		super(R.layout.activity_main);
 		// TODO Auto-generated constructor stub
+		getCurrentDay();
+		instance = this;
+
+	}
+
+	private void getCurrentDay() {
 		Date date = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-d");
 		currentDate = sdf.format(date); // 当期日期
@@ -88,8 +101,6 @@ public class MainActivity extends BaseActivity implements ScrollViewListener,
 		month_c = Integer.parseInt(currentDate.split("-")[1]);
 		day_c = Integer.parseInt(currentDate.split("-")[2]);
 		chooseday = day_c;
-		instance = this;
-
 	}
 
 	@Override
@@ -102,8 +113,7 @@ public class MainActivity extends BaseActivity implements ScrollViewListener,
 		gestureDetector = new GestureDetector(c, new MyGestureListener());
 		flipper = (ViewFlipper) findViewById(R.id.flipper);
 		flipper.removeAllViews();
-		calV = new CalendarAdapter(c, getResources(), jumpMonth, jumpYear,
-				year_c, month_c, day_c);
+		calV = new CalendarAdapter(c, getResources(), jumpMonth, jumpYear, year_c, month_c, day_c);
 		addGridView();
 		gridView.setAdapter(calV);
 		flipper.addView(gridView, 0);
@@ -114,10 +124,19 @@ public class MainActivity extends BaseActivity implements ScrollViewListener,
 		yi = (TextView) findViewById(R.id.yi);
 		ji = (TextView) findViewById(R.id.ji);
 		myscrollview = (MyScrollView) findViewById(R.id.scrollview);
+		lotterMore = findViewById(R.id.more_lotter);
+		ssq = findViewById(R.id.ssq);
+		ssqi = (TextView) findViewById(R.id.ssq_qi);
+		red1 = (TextView) findViewById(R.id.red_1);
+		red2 = (TextView) findViewById(R.id.red_2);
+		red3 = (TextView) findViewById(R.id.red_3);
+		red4 = (TextView) findViewById(R.id.red_4);
+		red5 = (TextView) findViewById(R.id.red_5);
+		red6 = (TextView) findViewById(R.id.red_6);
+		blue = (TextView) findViewById(R.id.blue);
 		nongLiInfo = findViewById(R.id.nongli_show);
 		showNongLi(
-				LunarCalendar.getInstance().getCalendarInfoByChooseDay(
-						Integer.parseInt(calV.getShowYear()),
+				LunarCalendar.getInstance().getCalendarInfoByChooseDay(Integer.parseInt(calV.getShowYear()),
 						Integer.parseInt(calV.getShowMonth()), day_c),
 				calV.getShowYear(), calV.getShowMonth(), day_c + "");
 	}
@@ -130,6 +149,7 @@ public class MainActivity extends BaseActivity implements ScrollViewListener,
 			MenuBean bean = new MenuBean(Variable.Icon[i], Variable.Name[i]);
 			MenuList.add(bean);
 		}
+		HttpFactory.getSSQLotter(this, "ssq");
 	}
 
 	@SuppressLint("ClickableViewAccessibility")
@@ -144,6 +164,8 @@ public class MainActivity extends BaseActivity implements ScrollViewListener,
 		// 标题栏里的日期的点击事件(实现轮子选择日期控件)
 		currentMonthClickListenner();
 		nongLiInfo.setOnClickListener(this);
+		lotterMore.setOnClickListener(this);
+		ssq.setOnClickListener(this);
 		myscrollview.setScrollViewListener(this);
 		myscrollview.setOnTouchListener(new OnTouchListener() {
 
@@ -155,14 +177,19 @@ public class MainActivity extends BaseActivity implements ScrollViewListener,
 		});
 	}
 
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+	}
+
 	/**
 	 * 菜单组的点击事件
 	 */
 	private void menuClickeListenner() {
 		menu.setOnItemClickListener(new OnItemClickListener() {
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				switch (position) {
 				case 0:// 记事本的点击事件
 					startActivity(new Intent(c, NotepadActivity.class));
@@ -179,8 +206,7 @@ public class MainActivity extends BaseActivity implements ScrollViewListener,
 					startActivity(new Intent(c, MoreActivity.class));
 					break;
 				case 4:// 今日的点击事件
-					JumpTodata(true, year_c, month_c, day_c, jumpYear,
-							jumpMonth, year_c, month_c, day_c);
+					JumpTodata(true, year_c, month_c, day_c, jumpYear, jumpMonth, year_c, month_c, day_c);
 					chooseday = day_c;// 选中的日期为今天
 					break;
 				}
@@ -211,19 +237,16 @@ public class MainActivity extends BaseActivity implements ScrollViewListener,
 	 * @param chooseDay
 	 *            当前选择的日期
 	 */
-	private void JumpTodata(boolean istotoday, int year, int month, int day,
-			int jumpYear_c, int jumpMonth_c, int chooseYear, int chooseMonth,
-			int chooseDay) {
+	private void JumpTodata(boolean istotoday, int year, int month, int day, int jumpYear_c, int jumpMonth_c,
+			int chooseYear, int chooseMonth, int chooseDay) {
 
 		if (jumpYear_c == 0 && jumpMonth_c == 0) {// 如果当前界面在本年本月
 			// 得到当前日期在GridView里的下标
 			int pos = ((CalendarAdapter) gridView.getAdapter()).currentFlag;
 			if (pos != -1 && istotoday) {
 				setChooseBg(pos);
-				showNongLi(
-						LunarCalendar.getInstance().getCalendarInfoByChooseDay(
-								chooseYear, chooseMonth, chooseDay), chooseYear
-								+ "", chooseMonth + "", chooseDay + "");
+				showNongLi(LunarCalendar.getInstance().getCalendarInfoByChooseDay(chooseYear, chooseMonth, chooseDay),
+						chooseYear + "", chooseMonth + "", chooseDay + "");
 				return;
 			}
 		} else {// 如果当前界面不在本年本月
@@ -235,18 +258,15 @@ public class MainActivity extends BaseActivity implements ScrollViewListener,
 			}
 		}
 		flipper.removeAllViews();
-		calV = new CalendarAdapter(c, getResources(), jumpMonth_c, jumpYear_c,
-				year, month, day);
+		calV = new CalendarAdapter(c, getResources(), jumpMonth_c, jumpYear_c, year, month, day);
 		addGridView();
 		gridView.setAdapter(calV);
 		flipper.addView(gridView, 0);
 		addTextToTopTextView(currentMonth);
 		// show(LunarCalendar.getInstance().getCalendarInfoByChooseDay(chooseYear,
 		// chooseMonth, chooseDay));// 得到跳转后的农历信息
-		showNongLi(
-				LunarCalendar.getInstance().getCalendarInfoByChooseDay(
-						chooseYear, chooseMonth, chooseDay), chooseYear + "",
-				chooseMonth + "", chooseDay + "");
+		showNongLi(LunarCalendar.getInstance().getCalendarInfoByChooseDay(chooseYear, chooseMonth, chooseDay),
+				chooseYear + "", chooseMonth + "", chooseDay + "");
 	}
 
 	/**
@@ -273,20 +293,23 @@ public class MainActivity extends BaseActivity implements ScrollViewListener,
 
 	private class MyGestureListener extends SimpleOnGestureListener {
 		@Override
-		public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
-				float velocityY) {
+		public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
 			int gvFlag = 0; // 每次添加gridview到viewflipper中时给的标记
-			if (e1.getX() - e2.getX() > 120
-					&& e1.getY() < BitMapUtil.dip2px(c, 350)) {
-				// 像左滑动
-				enterNextMonth(gvFlag);
-				return true;
-			} else if (e1.getX() - e2.getX() < -120
-					&& e1.getY() < BitMapUtil.dip2px(c, 350)) {
-				// 向右滑动
-				enterPrevMonth(gvFlag);
+			try {
+				if (e1.getX() - e2.getX() > 120 && e1.getY() < BitMapUtil.dip2px(c, 350)) {
+					// 像左滑动
+					enterNextMonth(gvFlag);
+					return true;
+				} else if (e1.getX() - e2.getX() < -120 && e1.getY() < BitMapUtil.dip2px(c, 350)) {
+					// 向右滑动
+					enterPrevMonth(gvFlag);
+					return true;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
 				return true;
 			}
+
 			return false;
 		}
 	}
@@ -313,10 +336,8 @@ public class MainActivity extends BaseActivity implements ScrollViewListener,
 	 * @param outAnimation
 	 *            画面退出动画
 	 */
-	private void flushView(int gvFlag, Animation inAnimation,
-			Animation outAnimation) {
-		calV = new CalendarAdapter(c, this.getResources(), jumpMonth, jumpYear,
-				year_c, month_c, chooseday);
+	private void flushView(int gvFlag, Animation inAnimation, Animation outAnimation) {
+		calV = new CalendarAdapter(c, this.getResources(), jumpMonth, jumpYear, year_c, month_c, chooseday);
 		gridView.setAdapter(calV);
 		if (calV.flag) {
 			chooseday = 1;
@@ -331,8 +352,7 @@ public class MainActivity extends BaseActivity implements ScrollViewListener,
 		// show(LunarCalendar.getInstance().getCalendarInfoByChooseDay(Integer.parseInt(calV.getShowYear()),
 		// Integer.parseInt(calV.getShowMonth()), chooseday));
 		showNongLi(
-				LunarCalendar.getInstance().getCalendarInfoByChooseDay(
-						Integer.parseInt(calV.getShowYear()),
+				LunarCalendar.getInstance().getCalendarInfoByChooseDay(Integer.parseInt(calV.getShowYear()),
 						Integer.parseInt(calV.getShowMonth()), chooseday),
 				calV.getShowYear(), calV.getShowMonth(), chooseday + "");
 	}
@@ -345,8 +365,7 @@ public class MainActivity extends BaseActivity implements ScrollViewListener,
 	private void enterPrevMonth(int gvFlag) {
 		addGridView(); // 添加一个gridView
 		jumpMonth--; // 上一个月
-		flushView(gvFlag,
-				AnimationUtils.loadAnimation(c, R.anim.push_right_in),
+		flushView(gvFlag, AnimationUtils.loadAnimation(c, R.anim.push_right_in),
 				AnimationUtils.loadAnimation(c, R.anim.push_right_out));
 
 	}
@@ -360,8 +379,7 @@ public class MainActivity extends BaseActivity implements ScrollViewListener,
 		StringBuffer textDate = new StringBuffer();
 		// draw = getResources().getDrawable(R.drawable.top_day);
 		// view.setBackgroundDrawable(draw);
-		textDate.append(calV.getShowYear()).append("年")
-				.append(calV.getShowMonth()).append("月").append("\t");
+		textDate.append(calV.getShowYear()).append("年").append(calV.getShowMonth()).append("月").append("\t");
 		view.setText(textDate);
 	}
 
@@ -370,8 +388,8 @@ public class MainActivity extends BaseActivity implements ScrollViewListener,
 	 */
 	@SuppressLint("ClickableViewAccessibility")
 	private void addGridView() {
-		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-				LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT,
+				LayoutParams.MATCH_PARENT);
 
 		gridView = new MyGridView(c);
 		gridView.setNumColumns(7);
@@ -395,8 +413,7 @@ public class MainActivity extends BaseActivity implements ScrollViewListener,
 		gridView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> arg0, View view,
-					int position, long arg3) {
+			public void onItemClick(AdapterView<?> arg0, View view, int position, long arg3) {
 				setChooseBg(position);// 设置选中的背景
 				// =====================================
 				// TODO Auto-generated method stub
@@ -404,13 +421,10 @@ public class MainActivity extends BaseActivity implements ScrollViewListener,
 				int startPosition = calV.getStartPositon();
 				int endPosition = calV.getEndPosition();
 
-				String scheduleDay = calV.getDateByClickItem(position).split(
-						"\\.")[0]; // 这一天的阳历
+				String scheduleDay = calV.getDateByClickItem(position).split("\\.")[0]; // 这一天的阳历
 				chooseday = Integer.parseInt(scheduleDay);// 点击日历的哪一天时为选择日期
-				if (startPosition <= position + 7
-						&& position <= endPosition - 7) {
-					showNongLi(getCalendarInfo(position), calV.getShowYear(),
-							calV.getShowMonth(),
+				if (startPosition <= position + 7 && position <= endPosition - 7) {
+					showNongLi(getCalendarInfo(position), calV.getShowYear(), calV.getShowMonth(),
 							calV.getDateByClickItem(position).split("\\.")[0]);
 
 				}
@@ -426,13 +440,11 @@ public class MainActivity extends BaseActivity implements ScrollViewListener,
 		gridView.setOnItemLongClickListener(new OnItemLongClickListener() {
 
 			@Override
-			public boolean onItemLongClick(AdapterView<?> parent, View view,
-					int position, long id) {
+			public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 				// TODO Auto-generated method stub
 				int startPosition = calV.getStartPositon();
 				int endPosition = calV.getEndPosition();
-				if (startPosition <= position + 7
-						&& position <= endPosition - 7) {
+				if (startPosition <= position + 7 && position <= endPosition - 7) {
 					// 只有在当前月份时才可以有长按的响应事件
 					getCalendarInfo(position);
 				}
@@ -458,8 +470,7 @@ public class MainActivity extends BaseActivity implements ScrollViewListener,
 		int year_long = Integer.parseInt(scheduleYear);// 当前的阳历的年份
 		int month_long = Integer.parseInt(scheduleMonth);// 当前的阳历的月份
 		int day_long = Integer.parseInt(scheduleDay);// 当前的阳历的日期
-		return (LunarCalendar.getInstance().getCalendarInfoByChooseDay(
-				year_long, month_long, day_long));
+		return (LunarCalendar.getInstance().getCalendarInfoByChooseDay(year_long, month_long, day_long));
 	}
 
 	/**
@@ -483,8 +494,7 @@ public class MainActivity extends BaseActivity implements ScrollViewListener,
 	}
 
 	@Override
-	public void onScrollChanged(MyScrollView scrollView, int x, int y,
-			int oldx, int oldy) {
+	public void onScrollChanged(MyScrollView scrollView, int x, int y, int oldx, int oldy) {
 		// TODO Auto-generated method stub
 		if (y - oldy > 200 || y - oldy < -200) {
 			myscrollview.scrollTo(x, y);
@@ -505,10 +515,23 @@ public class MainActivity extends BaseActivity implements ScrollViewListener,
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.nongli_show:// 农历信息栏的点击事件
-			Intent intent = new Intent(MainActivity.this,
-					DayDetailActivity.class);
+			Intent intent = new Intent(MainActivity.this, DayDetailActivity.class);
 			intent.putExtra(Constant.RILIINFO, rbean);
 			startActivity(intent);
+			break;
+		case R.id.more_lotter:// 更多开奖
+			Intent more = new Intent(MainActivity.this, MyWebViewActivity.class);
+			more.putExtra(Constant.WEBURL,
+					"http://cp.mi.com/android_asset/www/newmicai/lotteryinfo/kjgg.html#?page=kjgg_index&tag_from=500");
+			more.putExtra(Constant.WEBTITLE, "开奖公告");
+			startActivity(more);
+			break;
+		case R.id.ssq:// 双色球
+			Intent ss = new Intent(MainActivity.this, MyWebViewActivity.class);
+			ss.putExtra(Constant.WEBURL,
+					"http://cp.mi.com/android_asset/www/newmicai/lotteryinfo/kjgg.html?tag_from=500#?page=kjgg_list&lot_code=50");
+			ss.putExtra(Constant.WEBTITLE, "双色球开奖详情");
+			startActivity(ss);
 			break;
 		}
 	}
@@ -525,26 +548,18 @@ public class MainActivity extends BaseActivity implements ScrollViewListener,
 				LayoutInflater inflater = LayoutInflater.from(c);// 得到视图转换器
 				PickUtils.getInstance().setInflater(inflater);// 设置视图转换器
 				String ym = currentMonth.getText().toString();// 得到标题里的年月信息
-				final int cyear = Integer.parseInt(ym.substring(0,
-						ym.indexOf("年")));// 得到标题里的年份
-				final int cmonth = Integer.parseInt(ym.substring(
-						ym.indexOf("年") + 1, ym.indexOf("月")));// 得到标题里的月份
-				PickUtils.getInstance().showPopwindow(
-						PickUtils.getInstance().getDataPick(cyear, cmonth,
-								chooseday));// 弹出日期选择器
+				final int cyear = Integer.parseInt(ym.substring(0, ym.indexOf("年")));// 得到标题里的年份
+				final int cmonth = Integer.parseInt(ym.substring(ym.indexOf("年") + 1, ym.indexOf("月")));// 得到标题里的月份
+				PickUtils.getInstance().showPopwindow(PickUtils.getInstance().getDataPick(cyear, cmonth, chooseday));// 弹出日期选择器
 				// 设置回调接口，返回数据
 				PickUtils.getInstance().setCallback(new CallBack() {
 
 					@Override
 					public void SetStr(String str) {
-						currentMonth.setText(str.substring(0,
-								str.indexOf("月") + 1));
-						int year = Integer.parseInt(str.substring(0,
-								str.indexOf("年")));// 得到选择的年份
-						int month = Integer.parseInt(str.substring(
-								str.indexOf("年") + 1, str.indexOf("月")));// 得到选择的月份
-						int day = Integer.parseInt(str.substring(
-								str.indexOf("月") + 1, str.length()));// 得到选中的日期
+						currentMonth.setText(str.substring(0, str.indexOf("月") + 1));
+						int year = Integer.parseInt(str.substring(0, str.indexOf("年")));// 得到选择的年份
+						int month = Integer.parseInt(str.substring(str.indexOf("年") + 1, str.indexOf("月")));// 得到选择的月份
+						int day = Integer.parseInt(str.substring(str.indexOf("月") + 1, str.length()));// 得到选中的日期
 						chooseday = day;// 轮子选择器得到的时间为选择时间
 						// Log.i("MainActivity", "year=" + year + "****month="
 						// + month);
@@ -554,8 +569,7 @@ public class MainActivity extends BaseActivity implements ScrollViewListener,
 						jumpMonth_c = jumpYear_c * 12 + jumpMonth_c;
 						jumpYear += jumpYear_c;
 						jumpMonth += jumpMonth_c;
-						JumpTodata(false, cyear, cmonth, day, jumpYear_c,
-								jumpMonth_c, year, month, day);
+						JumpTodata(false, cyear, cmonth, day, jumpYear_c, jumpMonth_c, year, month, day);
 						// =========================
 					}
 				});
@@ -571,16 +585,66 @@ public class MainActivity extends BaseActivity implements ScrollViewListener,
 	 * @param month阳历的月
 	 * @param day阳历的日
 	 */
-	public void showNongLi(String nongliStr, String year, String month,
-			String day) {
+	public void showNongLi(String nongliStr, String year, String month, String day) {
 		nongli.setText(nongliStr);
 		YiJiBean bean = HuangLi.getInstance().quearHuangli(year, month, day);
 		yi.setText(TextUtils.isEmpty(bean.getYi()) ? "诸事不宜" : bean.getYi());
 		ji.setText(TextUtils.isEmpty(bean.getJi()) ? "黄道吉日，诸事大吉" : bean.getJi());
-		rbean = LunarCalendar.getInstance().getRiqiBeanInfo(
-				Integer.parseInt(year), Integer.parseInt(month),
+		rbean = LunarCalendar.getInstance().getRiqiBeanInfo(Integer.parseInt(year), Integer.parseInt(month),
 				Integer.parseInt(day));
 		rbean.setYi(TextUtils.isEmpty(bean.getYi()) ? "诸事不宜" : bean.getYi());
 		rbean.setJi(TextUtils.isEmpty(bean.getJi()) ? "黄道吉日，诸事大吉" : bean.getJi());
+	}
+
+	@Override
+	public void httpSuccess(String result, int responseFlag) {
+		// TODO Auto-generated method stub
+		try {
+			JSONObject object = new JSONObject(result);
+			setLotter(object);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	@Override
+	public void httpTimeOut(int responseFlag) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void httpError(int responseFlag) {
+		// TODO Auto-generated method stub
+
+	}
+
+	/**
+	 * 设置开奖信息
+	 * 
+	 * @param object
+	 */
+	private void setLotter(JSONObject object) {
+		JSONObject obj = object.optJSONObject("retData");
+		JSONArray array = obj.optJSONArray("data");
+		if (array != null) {
+			for (int i = 0; i < array.length(); i++) {
+				JSONObject o = array.optJSONObject(i);
+				String expect = o.optString("expect");
+				String openCode = o.optString("openCode");
+				ssqi.setText("-第" + expect + "期");
+				String blueq = openCode.split("[+]")[1];// "+"是正则表达式的符号，所以需要完全匹配"[+]"
+				String red[] = (openCode.split("[+]")[0]).split("[,]");
+				red1.setText(red[0]);
+				red2.setText(red[1]);
+				red3.setText(red[2]);
+				red4.setText(red[3]);
+				red5.setText(red[4]);
+				red6.setText(red[5]);
+				blue.setText(blueq);
+
+			}
+		}
 	}
 }
