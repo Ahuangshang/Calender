@@ -303,6 +303,7 @@ public class MainActivity extends BaseActivity implements ScrollViewListener, On
 				} else if (e1.getX() - e2.getX() < -120 && e1.getY() < BitMapUtil.dip2px(c, 350)) {
 					// 向右滑动
 					enterPrevMonth(gvFlag);
+
 					return true;
 				}
 			} catch (Exception e) {

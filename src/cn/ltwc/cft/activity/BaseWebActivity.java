@@ -29,7 +29,6 @@ public abstract class BaseWebActivity extends Activity {
 	private WebView webView;
 	private View empty;
 	private String webURL;// 网络请求地址
-	@SuppressWarnings("unused")
 	private TitleView title;
 
 	public void setEmpty(int id) {
