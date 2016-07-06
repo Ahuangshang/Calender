@@ -1,6 +1,9 @@
 package cn.ltwc.cft.beans;
 
-public class TiangouBean {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class TiangouBean implements Parcelable {
 
 	private String img;
 	private String title;
@@ -30,6 +33,41 @@ public class TiangouBean {
 	@Override
 	public String toString() {
 		return "TiangouBean [img=" + img + ", title=" + title + "]";
+	}
+
+	@Override
+	public int describeContents() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		// TODO Auto-generated method stub
+		dest.writeString(img);
+		dest.writeString(title);
+
+	}
+
+	public static final Parcelable.Creator<TiangouBean> CREATOR = new Parcelable.Creator<TiangouBean>() {
+
+		@Override
+		public TiangouBean createFromParcel(Parcel source) {
+			// TODO Auto-generated method stub
+			return new TiangouBean(source);
+		}
+
+		@Override
+		public TiangouBean[] newArray(int size) {
+			// TODO Auto-generated method stub
+			return new TiangouBean[size];
+		}
+
+	};
+
+	public TiangouBean(Parcel in) {
+		img = in.readString();
+		title = in.readString();
 	}
 
 }

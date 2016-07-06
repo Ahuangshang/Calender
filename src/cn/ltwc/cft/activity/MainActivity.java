@@ -11,7 +11,6 @@ import org.json.JSONObject;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.Gravity;
@@ -193,14 +192,11 @@ public class MainActivity extends BaseActivity implements ScrollViewListener, On
 				switch (position) {
 				case 0:// 记事本的点击事件
 					startActivity(new Intent(c, NotepadActivity.class));
-
 					break;
 				case 1:// 纪念日的点击事件
 					startActivity(new Intent(c, MemorialDayActivity.class));
-
 					break;
 				case 2:// 登陆的点击事件
-
 					break;
 				case 3:// 更多的点击事件
 					startActivity(new Intent(c, MoreActivity.class));
@@ -303,7 +299,6 @@ public class MainActivity extends BaseActivity implements ScrollViewListener, On
 				} else if (e1.getX() - e2.getX() < -120 && e1.getY() < BitMapUtil.dip2px(c, 350)) {
 					// 向右滑动
 					enterPrevMonth(gvFlag);
-
 					return true;
 				}
 			} catch (Exception e) {

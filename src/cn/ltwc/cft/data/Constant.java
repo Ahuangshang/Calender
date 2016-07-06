@@ -43,5 +43,7 @@ public class Constant {
 	public static final String APPPACKAGENAME = "cn.ltwc.cft";
 	public static final String WEBURL = "web_url";
 	public static final String WEBTITLE = "web_title";
+	public static final String IMGURL_LIST = "imgurl_list";
+	public static final String POSITION = "position";
 
 }

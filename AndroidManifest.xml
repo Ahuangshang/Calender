@@ -75,6 +75,9 @@
         <activity
             android:name="cn.ltwc.cft.activity.DayDetailActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name="cn.ltwc.cft.activity.ShowImageGallery"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
