@@ -15,9 +15,10 @@ import cn.ltwc.cft.data.Constant;
  * 显示大图片（cn.ltwc.cft.gallery包下面就是显示该效果的文件）
  * 
  * @author LZL
- *
+ * 
  */
-public class ShowImageGallery extends BaseActivity implements OnPageChangeListener {
+public class ShowImageGallery extends BaseActivity implements
+		OnPageChangeListener {
 	private RelativeLayout root;
 	private HackyViewPager pager;
 	private List<TiangouBean> imgList;// 图片信息的集合

@@ -81,11 +81,11 @@ public class JokeActivity extends BaseActivity implements ServiceResponce {
 			@Override
 			public boolean onItemLongClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				
-				JokeListBean bean=jokeList.get(position);
-				// 为了兼容低版本我们这里使用旧版的android.text.ClipboardManager，虽然提示deprecated，但不影响使用。 
+
+				JokeListBean bean = jokeList.get(position);
+				// 为了兼容低版本我们这里使用旧版的android.text.ClipboardManager，虽然提示deprecated，但不影响使用。
 				ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-				
+
 				cm.setText(bean.getJokeContent().replaceAll(" ", ""));
 				show("内容已复制到粘贴板，请到第三方应用分享给好友吧。");
 				return false;
@@ -105,15 +105,17 @@ public class JokeActivity extends BaseActivity implements ServiceResponce {
 			JSONArray array = jsonObject2.getJSONArray("contentlist");
 			for (int i = 0; i < array.length(); i++) {
 				JSONObject jsonObject3 = array.getJSONObject(i);
-				String text = jsonObject3.getString("text").replace("&nbsp", "").replaceAll("\\　", "").replaceAll("\\<p>", "")
-						.replaceAll("\\</p>", "\r\n")
+				String text = jsonObject3.getString("text")
+						.replace("&nbsp", "").replaceAll("\\　", "")
+						.replaceAll("\\<p>", "").replaceAll("\\</p>", "\r\n")
 						.replaceAll("\\<br />", "")
 						.replaceAll("\\&hellip;", "...").replaceAll("\\\t", "")
-						.replaceAll("\r\n", "\r\n\r\r\r\r\r\r\r\r");;
+						.replaceAll("\r\n", "\r\n\r\r\r\r\r\r\r\r");
+				;
 				String title = jsonObject3.getString("title");
 				String ct = jsonObject3.getString("ct");
 				String type = jsonObject3.getString("type");
-			JokeListBean bean = new JokeListBean(ct, title,
+				JokeListBean bean = new JokeListBean(ct, title,
 						"\r\r\r\r\r\r\r\r" + text, type);
 				jokeList.add(bean);
 			}

@@ -33,4 +33,9 @@
         <item name="android:windowIsTranslucent">true</item>
     </style>
 
+    <style name="mei_nv_img_style">
+        <item name="android:background">@drawable/item_meinv_bg</item>
+        <item name="android:padding">1px</item>
+    </style>
+
 </resources>

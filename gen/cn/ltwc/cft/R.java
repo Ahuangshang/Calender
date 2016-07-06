@@ -1980,6 +1980,7 @@ containing a value of this type.
         public static final int highlight_alpha_material_colored=0x7f070004;
         public static final int highlight_alpha_material_dark=0x7f070003;
         public static final int highlight_alpha_material_light=0x7f070002;
+        public static final int img_h=0x7f070054;
         public static final int left_distince=0x7f07004f;
         /**  菜单的宽度，该值为left_distince与correctWidth的和 
          */
@@ -2100,39 +2101,44 @@ containing a value of this type.
         public static final int img_loading_empty_big=0x7f020063;
         public static final int img_loading_fail_big=0x7f020064;
         public static final int img_login_default=0x7f020065;
-        public static final int ji_bg=0x7f020066;
-        public static final int joke=0x7f020067;
-        public static final int load_failed=0x7f020068;
-        public static final int loading=0x7f020069;
-        public static final int loading2=0x7f02006a;
-        public static final int loading_bg=0x7f02006b;
-        public static final int meng=0x7f02006c;
-        public static final int menu_jinianri=0x7f02006d;
-        public static final int menu_jintian=0x7f02006e;
-        public static final int menu_jishiben=0x7f02006f;
-        public static final int menu_load=0x7f020070;
-        public static final int menu_more=0x7f020071;
-        public static final int menu_setting=0x7f020072;
-        public static final int note_edit_bg=0x7f020073;
-        public static final int notification_template_icon_bg=0x7f020086;
-        public static final int phone=0x7f020074;
-        public static final int phone_bg=0x7f020075;
-        public static final int progressbar_small=0x7f020076;
-        public static final int red_bg=0x7f020077;
-        public static final int select_bg=0x7f020078;
-        public static final int title_add=0x7f020079;
-        public static final int title_back=0x7f02007a;
-        public static final int title_find=0x7f02007b;
-        public static final int todayonhistory=0x7f02007c;
-        public static final int wheel_bg=0x7f02007d;
-        public static final int wheel_title=0x7f02007e;
-        public static final int wheel_val=0x7f02007f;
-        public static final int yiji_bg=0x7f020080;
-        public static final int yuan=0x7f020081;
-        public static final int yun=0x7f020082;
-        public static final int zhainan=0x7f020083;
-        public static final int zhainan_empty=0x7f020084;
-        public static final int zhonghuajunshi=0x7f020085;
+        public static final int item_meinv_bg=0x7f020066;
+        public static final int item_meinv_bg_21=0x7f020067;
+        public static final int ji_bg=0x7f020068;
+        public static final int joke=0x7f020069;
+        public static final int load_failed2=0x7f02006a;
+        public static final int loading=0x7f02006b;
+        public static final int loading2=0x7f02006c;
+        public static final int loading_bg=0x7f02006d;
+        public static final int loading_failed=0x7f02006e;
+        public static final int meng=0x7f02006f;
+        public static final int menu_jinianri=0x7f020070;
+        public static final int menu_jintian=0x7f020071;
+        public static final int menu_jishiben=0x7f020072;
+        public static final int menu_load=0x7f020073;
+        public static final int menu_more=0x7f020074;
+        public static final int menu_setting=0x7f020075;
+        public static final int mian_color_perload=0x7f020076;
+        public static final int note_edit_bg=0x7f020077;
+        public static final int notification_template_icon_bg=0x7f02008b;
+        public static final int phone=0x7f020078;
+        public static final int phone_bg=0x7f020079;
+        public static final int pre_load=0x7f02007a;
+        public static final int progressbar_small=0x7f02007b;
+        public static final int red_bg=0x7f02007c;
+        public static final int select_bg=0x7f02007d;
+        public static final int title_add=0x7f02007e;
+        public static final int title_back=0x7f02007f;
+        public static final int title_find=0x7f020080;
+        public static final int todayonhistory=0x7f020081;
+        public static final int wheel_bg=0x7f020082;
+        public static final int wheel_title=0x7f020083;
+        public static final int wheel_val=0x7f020084;
+        public static final int yiji_bg=0x7f020085;
+        public static final int yuan=0x7f020086;
+        public static final int yun=0x7f020087;
+        public static final int zhainan=0x7f020088;
+        public static final int zhainan_empty=0x7f020089;
+        public static final int zhonghuajunshi=0x7f02008a;
     }
     public static final class id {
         public static final int action0=0x7f0900b0;
@@ -2559,7 +2565,7 @@ containing a value of this type.
     
  API 14 theme customizations can go here. 
          */
-        public static final int AppBaseTheme=0x7f0b0143;
+        public static final int AppBaseTheme=0x7f0b0144;
         /**  Base application theme. 
          */
         public static final int AppTheme=0x7f0b013e;
@@ -3027,6 +3033,7 @@ containing a value of this type.
          */
         public static final int Widget_AppCompat_Toolbar=0x7f0b0047;
         public static final int Widget_AppCompat_Toolbar_Button_Navigation=0x7f0b0048;
+        public static final int mei_nv_img_style=0x7f0b0143;
         public static final int my_progressbar_small=0x7f0b0141;
         public static final int transparent_dialog_them=0x7f0b0142;
         public static final int weekName=0x7f0b0140;

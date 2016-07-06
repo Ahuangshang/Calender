@@ -64,8 +64,10 @@ public abstract class BaseWebActivity extends Activity {
 		super.onCreate(savedInstanceState);
 
 		// 沉浸式导航栏
-		getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-		getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+		getWindow()
+				.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+		getWindow().addFlags(
+				WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
 		AppManager.getInstance().addActivity(this);
 		if (layoutResId != -1) {
 			setContentView(layoutResId);

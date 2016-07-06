@@ -15,7 +15,6 @@
  *******************************************************************************/
 package cn.ltwc.cft.gallery;
 
-
 import android.content.Context;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
@@ -30,18 +29,19 @@ public class PhotoView extends ImageView implements IPhotoView {
 
 	private ScaleType mPendingScaleType;
 
-	public PhotoView(Context context,RelativeLayout rootView) {
-		this(context, null,rootView);
+	public PhotoView(Context context, RelativeLayout rootView) {
+		this(context, null, rootView);
 	}
 
-	public PhotoView(Context context, AttributeSet attr,RelativeLayout rootView) {
-		this(context, attr, 0,rootView);
+	public PhotoView(Context context, AttributeSet attr, RelativeLayout rootView) {
+		this(context, attr, 0, rootView);
 	}
-	
-	public PhotoView(Context context, AttributeSet attr, int defStyle,RelativeLayout rootView) {
+
+	public PhotoView(Context context, AttributeSet attr, int defStyle,
+			RelativeLayout rootView) {
 		super(context, attr, defStyle);
 		super.setScaleType(ScaleType.MATRIX);
-		mAttacher = new PhotoViewAttacher(this,rootView);
+		mAttacher = new PhotoViewAttacher(this, rootView);
 
 		if (null != mPendingScaleType) {
 			setScaleType(mPendingScaleType);
@@ -84,12 +84,12 @@ public class PhotoView extends ImageView implements IPhotoView {
 		return mAttacher.getScaleType();
 	}
 
-    @Override
-    public void setAllowParentInterceptOnEdge(boolean allow) {
-        mAttacher.setAllowParentInterceptOnEdge(allow);
-    }
+	@Override
+	public void setAllowParentInterceptOnEdge(boolean allow) {
+		mAttacher.setAllowParentInterceptOnEdge(allow);
+	}
 
-    @Override
+	@Override
 	public void setMinScale(float minScale) {
 		mAttacher.setMinScale(minScale);
 	}
@@ -134,7 +134,8 @@ public class PhotoView extends ImageView implements IPhotoView {
 	}
 
 	@Override
-	public void setOnMatrixChangeListener(PhotoViewAttacher.OnMatrixChangedListener listener) {
+	public void setOnMatrixChangeListener(
+			PhotoViewAttacher.OnMatrixChangedListener listener) {
 		mAttacher.setOnMatrixChangeListener(listener);
 	}
 
@@ -144,12 +145,14 @@ public class PhotoView extends ImageView implements IPhotoView {
 	}
 
 	@Override
-	public void setOnPhotoTapListener(PhotoViewAttacher.OnPhotoTapListener listener) {
+	public void setOnPhotoTapListener(
+			PhotoViewAttacher.OnPhotoTapListener listener) {
 		mAttacher.setOnPhotoTapListener(listener);
 	}
 
 	@Override
-	public void setOnViewTapListener(PhotoViewAttacher.OnViewTapListener listener) {
+	public void setOnViewTapListener(
+			PhotoViewAttacher.OnViewTapListener listener) {
 		mAttacher.setOnViewTapListener(listener);
 	}
 
