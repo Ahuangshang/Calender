@@ -78,6 +78,14 @@
         <activity
             android:name="cn.ltwc.cft.activity.ShowImageGallery"
             android:screenOrientation="portrait" />
+
+        <meta-data
+            android:name="cn.ltwc.cft.utils.MyGlideModule"
+            android:value="GlideModule" />
+        <!-- Glide是允许多个设置Model的所以必然会有冲突（如果有多个lib项目的话），可以使用 -->
+        <!-- <meta-data android:name="cn.ltwc.cft.utils.MyGlideModule" tools:node=”remove” /> -->
+     <!-- 来避免这一类的问题 -->
+
     </application>
 
 </manifest>

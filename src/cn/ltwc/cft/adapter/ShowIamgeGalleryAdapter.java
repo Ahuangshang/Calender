@@ -1,12 +1,7 @@
 package cn.ltwc.cft.adapter;
 
 import java.util.List;
-
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
-
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
 import android.view.View;
@@ -14,10 +9,8 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.RelativeLayout;
 import cn.ltwc.cft.R;
-import cn.ltwc.cft.activity.ShowImageGallery;
 import cn.ltwc.cft.beans.TiangouBean;
 import cn.ltwc.cft.gallery.PhotoView;
-import cn.ltwc.cft.utils.GlideListener;
 
 public class ShowIamgeGalleryAdapter extends PagerAdapter {
 	private RelativeLayout root;
@@ -25,8 +18,7 @@ public class ShowIamgeGalleryAdapter extends PagerAdapter {
 	private List<TiangouBean> imgList;
 	private String SRC = "http://tnfs.tngou.net/image";// 图片地址共有部分
 
-	public ShowIamgeGalleryAdapter(RelativeLayout root, Context context,
-			List<TiangouBean> imgList) {
+	public ShowIamgeGalleryAdapter(RelativeLayout root, Context context, List<TiangouBean> imgList) {
 		super();
 		this.root = root;
 		this.context = context;
@@ -55,11 +47,9 @@ public class ShowIamgeGalleryAdapter extends PagerAdapter {
 	public Object instantiateItem(ViewGroup container, int position) {
 		PhotoView photoView = new PhotoView(container.getContext(), root);
 
-		Glide.with(context).load(SRC + imgList.get(position).getImg())
-				.asBitmap().placeholder(R.drawable.pre_load)
+		Glide.with(context).load(SRC + imgList.get(position).getImg()).asBitmap().placeholder(R.drawable.pre_load)
 				.error(R.drawable.loading_failed).into(photoView);
-		container.addView(photoView, LayoutParams.MATCH_PARENT,
-				LayoutParams.MATCH_PARENT);
+		container.addView(photoView, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 		return photoView;
 	}
 }
