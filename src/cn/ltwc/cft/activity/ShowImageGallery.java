@@ -46,14 +46,13 @@ public class ShowImageGallery extends BaseActivity implements
 		instance = this;
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public void bindView() {
 		// TODO Auto-generated method stub
 		pager.setPageMargin(12);
 		adapter = new ShowIamgeGalleryAdapter(root, this, imgList);
 		pager.setAdapter(adapter);
-		pager.setOnPageChangeListener(this);
+		pager.addOnPageChangeListener(this);
 		pager.setCurrentItem(position);
 	}
 
