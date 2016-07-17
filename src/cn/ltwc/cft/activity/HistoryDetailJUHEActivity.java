@@ -1,8 +1,6 @@
 package cn.ltwc.cft.activity;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -11,7 +9,6 @@ import org.json.JSONObject;
 
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 import cn.ltwc.cft.R;
 import cn.ltwc.cft.adapter.HistoryOnTodayImgAdapter;
@@ -23,13 +20,11 @@ import cn.ltwc.cft.myinterface.ImgLoadListener;
 import cn.ltwc.cft.view.MyListView;
 import cn.ltwc.cft.view.TitleView;
 
-public class HistoryDetailJUHEActivity extends BaseActivity implements ServiceResponce, ImgLoadListener {
+public class HistoryDetailJUHEActivity extends BaseActivity implements
+		ServiceResponce, ImgLoadListener {
 	private TitleView title;
 	private TextView year, titleName, content;
 	private HistoryOnTodayBeanJUHE bean;
-	private int month_c = 0;
-	private int day_c = 0;
-	private String currentDate = "";
 	private MyListView imgList;
 	private List<HistoryOnTodayImgBean> imgUrl;
 	private HistoryOnTodayImgAdapter adpter;
@@ -59,12 +54,8 @@ public class HistoryDetailJUHEActivity extends BaseActivity implements ServiceRe
 	public void initData() {
 		// TODO Auto-generated method stub
 		count = new ArrayList<String>();
-		bean = (HistoryOnTodayBeanJUHE) getIntent().getSerializableExtra("bean");
-		Date date = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-d");
-		currentDate = sdf.format(date); // 当期日期
-		month_c = Integer.parseInt(currentDate.split("-")[1]);
-		day_c = Integer.parseInt(currentDate.split("-")[2]);
+		bean = (HistoryOnTodayBeanJUHE) getIntent()
+				.getSerializableExtra("bean");
 		imgUrl = new ArrayList<HistoryOnTodayImgBean>();
 		adpter = new HistoryOnTodayImgAdapter(this, imgUrl, this);
 		showWaitingDialog(this);
@@ -99,7 +90,8 @@ public class HistoryDetailJUHEActivity extends BaseActivity implements ServiceRe
 						JSONObject o = a.optJSONObject(j);
 						String pic_title = o.optString("pic_title");
 						String url = o.optString("url");
-						HistoryOnTodayImgBean bean = new HistoryOnTodayImgBean(pic_title, url);
+						HistoryOnTodayImgBean bean = new HistoryOnTodayImgBean(
+								pic_title, url);
 
 						imgUrl.add(bean);
 

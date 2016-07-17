@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 import cn.ltwc.cft.R;
-import cn.ltwc.cft.adapter.HistoryOnTodayAdapter.ViewHodler;
 import cn.ltwc.cft.beans.HistoryOnTodayBeanJUHE;
 
 public class HistoryOnTodayJUHEAdapter extends BaseAdapter {

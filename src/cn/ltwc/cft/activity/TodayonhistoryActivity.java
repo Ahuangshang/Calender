@@ -9,11 +9,13 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.content.Intent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.TextView;
 import cn.ltwc.cft.R;
 import cn.ltwc.cft.adapter.HistoryOnTodayAdapter;
 import cn.ltwc.cft.adapter.HistoryOnTodayJUHEAdapter;
@@ -29,7 +31,8 @@ import cn.ltwc.cft.view.TitleView;
  * @author LZL
  * 
  */
-public class TodayonhistoryActivity extends BaseActivity implements ServiceResponce {
+public class TodayonhistoryActivity extends BaseActivity implements
+		ServiceResponce {
 	private int month_c = 0;
 	private int day_c = 0;
 	private String currentDate = "";
@@ -39,6 +42,8 @@ public class TodayonhistoryActivity extends BaseActivity implements ServiceRespo
 	private List<HistoryOnTodayBeanJUHE> juheList;
 	private HistoryOnTodayJUHEAdapter juheAdapter;
 	private HistoryOnTodayAdapter adapter;
+	private View head;
+	private TextView headTitle;
 
 	public TodayonhistoryActivity() {
 		super(R.layout.activity_todayonhistory);
@@ -50,13 +55,17 @@ public class TodayonhistoryActivity extends BaseActivity implements ServiceRespo
 		// TODO Auto-generated method stub
 		title = (TitleView) findViewById(R.id.title);
 		historyLv = (ListView) findViewById(R.id.history_lv);
+		head = LayoutInflater.from(this).inflate(R.layout.history_head_view,
+				null);
+		headTitle = (TextView) head.findViewById(R.id.head_title);
+		headTitle.setText("历史上的" + month_c + "月" + day_c + "日" + "都发生了什么");
 	}
 
 	@Override
 	public void initData() {
 		// TODO Auto-generated method stub
 		list = new ArrayList<HistoryOnTodayBean>();
-		juheList=new ArrayList<HistoryOnTodayBeanJUHE>();
+		juheList = new ArrayList<HistoryOnTodayBeanJUHE>();
 		Date date = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-d");
 		currentDate = sdf.format(date); // 当期日期
@@ -95,27 +104,35 @@ public class TodayonhistoryActivity extends BaseActivity implements ServiceRespo
 		// historyLv.setAdapter(adapter);
 		juheAdapter = new HistoryOnTodayJUHEAdapter(juheList, this);
 		historyLv.setAdapter(juheAdapter);
+		historyLv.addHeaderView(head);
 		title.getRightText().setOnClickListener(new OnClickListener() {
 
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				startActivity(new Intent(TodayonhistoryActivity.this, TodayonhistoryWebDitailActivity.class));
+				startActivity(new Intent(TodayonhistoryActivity.this,
+						TodayonhistoryWebDitailActivity.class));
 			}
 		});
 		historyLv.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
 				// TODO Auto-generated method stub
-//				Intent intent = new Intent(TodayonhistoryActivity.this, HistoryDetailActivity.class);
-//				intent.putExtra("bean", list.get(position));
-//				startActivity(intent);
-				Intent intent = new Intent(TodayonhistoryActivity.this, HistoryDetailJUHEActivity.class);
-				intent.putExtra("bean", juheList.get(position));
+				// Intent intent = new Intent(TodayonhistoryActivity.this,
+				// HistoryDetailActivity.class);
+				// intent.putExtra("bean", list.get(position));
+				// startActivity(intent);
+				if (position == 0) {
+					return;
+				}
+				Intent intent = new Intent(TodayonhistoryActivity.this,
+						HistoryDetailJUHEActivity.class);
+				intent.putExtra("bean", juheList.get(position - 1));
 				startActivity(intent);
 			}
 		});
-		
+
 	}
 
 	@Override
@@ -156,7 +173,8 @@ public class TodayonhistoryActivity extends BaseActivity implements ServiceRespo
 					String title = object.optString("title");
 					String data = object.optString("date");
 					String e_id = object.optString("e_id");
-					HistoryOnTodayBeanJUHE beanJUHE = new HistoryOnTodayBeanJUHE(data, title, e_id);
+					HistoryOnTodayBeanJUHE beanJUHE = new HistoryOnTodayBeanJUHE(
+							data, title, e_id);
 					juheList.add(beanJUHE);
 				}
 				juheAdapter.notifyDataSetChanged();
