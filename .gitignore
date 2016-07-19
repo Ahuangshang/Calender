@@ -1,6 +1,7 @@
 *.class
 build/
 .idea/
+.bin/
 .gradle/
 .hprof/
 *.iml
