@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#e1e1e1"
+    android:orientation="vertical" >
+
+    <cn.ltwc.cft.view.TitleView
+        android:id="@+id/xweb_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <org.xwalk.core.XWalkView
+        android:id="@+id/xweb"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <ProgressBar
+            android:id="@+id/bar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:progressDrawable="@drawable/processbar_bg" 
+            android:max="10000"
+            android:visibility="gone"/>
+    </org.xwalk.core.XWalkView>
+
+</LinearLayout>

@@ -21,6 +21,7 @@ import cn.ltwc.cft.adapter.HistoryOnTodayAdapter;
 import cn.ltwc.cft.adapter.HistoryOnTodayJUHEAdapter;
 import cn.ltwc.cft.beans.HistoryOnTodayBean;
 import cn.ltwc.cft.beans.HistoryOnTodayBeanJUHE;
+import cn.ltwc.cft.data.Constant;
 import cn.ltwc.cft.http.HttpFactory;
 import cn.ltwc.cft.http.ServiceResponce;
 import cn.ltwc.cft.view.TitleView;
@@ -109,8 +110,12 @@ public class TodayonhistoryActivity extends BaseActivity implements
 
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				startActivity(new Intent(TodayonhistoryActivity.this,
-						TodayonhistoryWebDitailActivity.class));
+				Intent intent=new Intent(TodayonhistoryActivity.this,MyXWalkView.class);
+				intent.putExtra(Constant.WEBURL, "http://www.todayonhistory.com");
+				intent.putExtra(Constant.WEBTITLE, "历史上的今天");
+				startActivity(intent);
+//				startActivity(new Intent(TodayonhistoryActivity.this,
+//						TodayonhistoryWebDitailActivity.class));
 			}
 		});
 		historyLv.setOnItemClickListener(new OnItemClickListener() {
