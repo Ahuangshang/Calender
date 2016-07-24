@@ -3,5 +3,6 @@ build/
 .idea/
 .gradle/
 .hprof/
+.bin/
 *.iml
 local.properties
