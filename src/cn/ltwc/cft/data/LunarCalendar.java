@@ -1,12 +1,11 @@
 package cn.ltwc.cft.data;
 
-import android.annotation.SuppressLint;
-import android.text.TextUtils;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import android.annotation.SuppressLint;
+import android.text.TextUtils;
 import cn.ltwc.cft.beans.RiqiBean;
 
 /**

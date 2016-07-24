@@ -4,17 +4,18 @@ import java.io.Serializable;
 
 /**
  * 历史上的今天聚合数据模型
+ * 
  * @author LZL
- *
+ * 
  */
 @SuppressWarnings("serial")
-public class HistoryOnTodayBeanJUHE implements Serializable{
+public class HistoryOnTodayBeanJUHE implements Serializable {
 	private String year;
 	private String title;
 	private String e_id;
-	
+
 	public HistoryOnTodayBeanJUHE() {
-	// TODO Auto-generated constructor stub
+		// TODO Auto-generated constructor stub
 	}
 
 	public HistoryOnTodayBeanJUHE(String year, String title, String e_id) {
@@ -50,7 +51,8 @@ public class HistoryOnTodayBeanJUHE implements Serializable{
 
 	@Override
 	public String toString() {
-		return "HistoryOnTodayBeanJUHE [year=" + year + ", title=" + title + ", e_id=" + e_id + "]";
+		return "HistoryOnTodayBeanJUHE [year=" + year + ", title=" + title
+				+ ", e_id=" + e_id + "]";
 	}
-	
+
 }

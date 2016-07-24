@@ -1,6 +1,5 @@
 package cn.ltwc.cft.http;
 
-import java.net.URL;
 import java.net.URLEncoder;
 
 /**
@@ -17,7 +16,8 @@ public class HttpFactory {
 	 * @param requestFlag
 	 *            请求标记
 	 */
-	public static void meinvTP(ServiceResponce responce, int num, int requestFlag) {
+	public static void meinvTP(ServiceResponce responce, int num,
+			int requestFlag) {
 		// 1.创建请求参数对象
 		RequestParams params = new RequestParams();
 		// 2.设置请求参数
@@ -49,14 +49,16 @@ public class HttpFactory {
 	 * @param "id=0&rows=20&classify=0"
 	 * @param requestFlag
 	 */
-	public static void meinvTPatiangou(ServiceResponce responce, int id, int rows, int classify, int requestFlag) {
+	public static void meinvTPatiangou(ServiceResponce responce, int id,
+			int rows, int classify, int requestFlag) {
 		// 1.创建请求参数对象
 		RequestParams params = new RequestParams();
 		// 2.设置请求参数
 		params.setHttpUrl(HttpUrls.URL_GETMEINVSTJ);// 设置地址
 
 		// 拼接请求参数
-		String httpParams = "id=" + id + "&rows=" + rows + "&classify=" + classify;
+		String httpParams = "id=" + id + "&rows=" + rows + "&classify="
+				+ classify;
 
 		params.setHttpParam(httpParams);// 设置参数
 
@@ -86,7 +88,8 @@ public class HttpFactory {
 	 * @param requestFlag
 	 *            请求标记
 	 */
-	public static void PhoneNumber(ServiceResponce responce, String tel, int requestFlag) {
+	public static void PhoneNumber(ServiceResponce responce, String tel,
+			int requestFlag) {
 		// 1.创建请求参数对象
 		RequestParams params = new RequestParams();
 		// 2.设置请求参数
@@ -121,7 +124,8 @@ public class HttpFactory {
 	 * @param requestFlag
 	 *            请求标记
 	 */
-	public static void ZhaiYan(ServiceResponce responce, String fangfa, int requestFlag) {
+	public static void ZhaiYan(ServiceResponce responce, String fangfa,
+			int requestFlag) {
 		// 1.创建请求参数对象
 		RequestParams params = new RequestParams();
 		// 2.设置请求参数
@@ -158,7 +162,8 @@ public class HttpFactory {
 	 * @param requestFlag
 	 *            请求标记
 	 */
-	public static void TodayHistory(ServiceResponce responce, int month, int day, int requestFlag) {
+	public static void TodayHistory(ServiceResponce responce, int month,
+			int day, int requestFlag) {
 		// 1.创建请求参数对象
 		RequestParams params = new RequestParams();
 		// 2.设置请求参数
@@ -167,7 +172,8 @@ public class HttpFactory {
 		// 拼接请求参数
 		// String httpArg =
 		// "month=4&day=6&appkey=1307ee261de8bbcf83830de89caae73f";
-		String httpParams = "month=" + month + "&day=" + day + "&appkey=90fff149d5785e1cac8428e1895f0253";
+		String httpParams = "month=" + month + "&day=" + day
+				+ "&appkey=90fff149d5785e1cac8428e1895f0253";
 
 		params.setHttpParam(httpParams);// 设置参数
 
@@ -231,7 +237,8 @@ public class HttpFactory {
 	 */
 	public static void HistoryJUHE(ServiceResponce responce, String data) {
 		RequestParams params = new RequestParams();
-		String httpParam = "key=2d0fff208fc0022448d4e0b87b05439b&" + "date=" + URLEncoder.encode(data);
+		String httpParam = "key=2d0fff208fc0022448d4e0b87b05439b&" + "date="
+				+ URLEncoder.encode(data);
 		params.setHttpParam(httpParam);
 		params.setHttpUrl(HttpUrls.URL_HISTORY_TODAY_JUHE);
 		params.setRequestMethod(HttpConfig.METHOD_GET_HUC_JSON);
@@ -248,7 +255,8 @@ public class HttpFactory {
 	 */
 	public static void HistoryJUHEDetail(ServiceResponce responce, String id) {
 		RequestParams params = new RequestParams();
-		String httpParam = "key=2d0fff208fc0022448d4e0b87b05439b&" + "e_id=" + id;
+		String httpParam = "key=2d0fff208fc0022448d4e0b87b05439b&" + "e_id="
+				+ id;
 		params.setHttpParam(httpParam);
 		params.setHttpUrl(HttpUrls.URL_HISTORY_TODAY_JUHE_DETAIL);
 		params.setRequestMethod(HttpConfig.METHOD_GET_HUC_JSON);

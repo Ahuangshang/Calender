@@ -110,12 +110,14 @@ public class TodayonhistoryActivity extends BaseActivity implements
 
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Intent intent=new Intent(TodayonhistoryActivity.this,MyXWalkView.class);
-				intent.putExtra(Constant.WEBURL, "http://www.todayonhistory.com");
+				Intent intent = new Intent(TodayonhistoryActivity.this,
+						MyXWalkView.class);
+				intent.putExtra(Constant.WEBURL,
+						"http://www.todayonhistory.com");
 				intent.putExtra(Constant.WEBTITLE, "历史上的今天");
 				startActivity(intent);
-//				startActivity(new Intent(TodayonhistoryActivity.this,
-//						TodayonhistoryWebDitailActivity.class));
+				// startActivity(new Intent(TodayonhistoryActivity.this,
+				// TodayonhistoryWebDitailActivity.class));
 			}
 		});
 		historyLv.setOnItemClickListener(new OnItemClickListener() {

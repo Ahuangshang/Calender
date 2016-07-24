@@ -74,7 +74,7 @@ public class MoreActivity extends BaseActivity {
 					startActivity(new Intent(c, PhoneActivity.class));
 					break;
 				case 1:
-//					Intent intent = new Intent(c, MyWebViewActivity.class);
+					// Intent intent = new Intent(c, MyWebViewActivity.class);
 					Intent intent = new Intent(c, MyXWalkView.class);
 					intent.putExtra(Constant.WEBURL,
 							"http://military.china.com/");

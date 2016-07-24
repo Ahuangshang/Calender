@@ -1,7 +1,5 @@
 package cn.ltwc.cft.activity;
 
-import cn.ltwc.cft.gallery.HackyViewPager;
-
 import java.util.List;
 
 import android.support.v4.view.ViewPager.OnPageChangeListener;
@@ -10,6 +8,7 @@ import cn.ltwc.cft.R;
 import cn.ltwc.cft.adapter.ShowIamgeGalleryAdapter;
 import cn.ltwc.cft.beans.TiangouBean;
 import cn.ltwc.cft.data.Constant;
+import cn.ltwc.cft.gallery.HackyViewPager;
 
 /**
  * 显示大图片（cn.ltwc.cft.gallery包下面就是显示该效果的文件）

@@ -1,7 +1,5 @@
 package cn.ltwc.cft.activity;
 
-import cn.ltwc.cft.AppManager;
-import cn.ltwc.cft.view.TitleView;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -15,6 +13,8 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import cn.ltwc.cft.AppManager;
+import cn.ltwc.cft.view.TitleView;
 
 /**
  * 

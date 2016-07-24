@@ -2,15 +2,14 @@ package cn.ltwc.cft.adapter;
 
 import java.util.List;
 
-import cn.ltwc.cft.R;
-import cn.ltwc.cft.beans.NoteBean;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+import cn.ltwc.cft.R;
+import cn.ltwc.cft.beans.NoteBean;
 
 public class ShowNotesAdapter extends BaseAdapter {
 	private Context c;

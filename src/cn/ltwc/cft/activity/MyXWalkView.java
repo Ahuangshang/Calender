@@ -1,7 +1,6 @@
 package cn.ltwc.cft.activity;
 
 import org.xwalk.core.XWalkNavigationHistory.Direction;
-import org.xwalk.core.XWalkPreferences;
 import org.xwalk.core.XWalkResourceClient;
 import org.xwalk.core.XWalkSettings;
 import org.xwalk.core.XWalkUIClient;
@@ -10,18 +9,20 @@ import org.xwalk.core.XWalkView;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 import cn.ltwc.cft.AppManager;
 import cn.ltwc.cft.R;
 import cn.ltwc.cft.data.Constant;
 import cn.ltwc.cft.view.TitleView;
 
-@SuppressLint("InlinedApi")
+@SuppressLint({ "InlinedApi", "SetJavaScriptEnabled" })
 public class MyXWalkView extends Activity {
 
 	private XWalkView webView;
@@ -29,6 +30,7 @@ public class MyXWalkView extends Activity {
 	private TitleView title;
 	private String webURL;// 加载的网址
 	private String webTitle;// 加载网页的标题
+	private boolean islandport;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -51,18 +53,18 @@ public class MyXWalkView extends Activity {
 	private void webConfig() {
 		// TODO Auto-generated method stub
 		// 添加对javascript支持
-		XWalkPreferences.setValue("enable-javascript", true);
-		// 开启调式,支持谷歌浏览器调式
-		XWalkPreferences.setValue(XWalkPreferences.REMOTE_DEBUGGING, true);
-		// 置是否允许通过file url加载的Javascript可以访问其他的源,包括其他的文件和http,https等其他的源
-		XWalkPreferences.setValue(
-				XWalkPreferences.ALLOW_UNIVERSAL_ACCESS_FROM_FILE, true);
-		// JAVASCRIPT_CAN_OPEN_WINDOW
-		XWalkPreferences.setValue(XWalkPreferences.JAVASCRIPT_CAN_OPEN_WINDOW,
-				true);
-		// enable multiple windows.
-		XWalkPreferences.setValue(XWalkPreferences.SUPPORT_MULTIPLE_WINDOWS,
-				true);
+		// XWalkPreferences.setValue("enable-javascript", true);
+		// // 开启调式,支持谷歌浏览器调式
+		// XWalkPreferences.setValue(XWalkPreferences.REMOTE_DEBUGGING, true);
+		// // 置是否允许通过file url加载的Javascript可以访问其他的源,包括其他的文件和http,https等其他的源
+		// XWalkPreferences.setValue(
+		// XWalkPreferences.ALLOW_UNIVERSAL_ACCESS_FROM_FILE, true);
+		// // JAVASCRIPT_CAN_OPEN_WINDOW
+		// XWalkPreferences.setValue(XWalkPreferences.JAVASCRIPT_CAN_OPEN_WINDOW,
+		// true);
+		// // enable multiple windows.
+		// XWalkPreferences.setValue(XWalkPreferences.SUPPORT_MULTIPLE_WINDOWS,
+		// true);
 		// 设置滑动样式。。。
 		webView.setHorizontalScrollBarEnabled(false);
 		webView.setVerticalScrollBarEnabled(false);
@@ -74,6 +76,8 @@ public class MyXWalkView extends Activity {
 		mMSettings.setSupportSpatialNavigation(true);
 		mMSettings.setBuiltInZoomControls(true);
 		mMSettings.setSupportZoom(true);
+		mMSettings.setJavaScriptEnabled(true);
+		mMSettings.setDomStorageEnabled(true);
 		webView.load(webURL, null);
 	}
 
@@ -119,12 +123,6 @@ public class MyXWalkView extends Activity {
 		});
 		webView.setResourceClient(new XWalkResourceClient(webView) {
 			@Override
-			public void onDocumentLoadedInFrame(XWalkView arg0, long arg1) {
-				// TODO Auto-generated method stub
-				super.onDocumentLoadedInFrame(arg0, arg1);
-			}
-
-			@Override
 			public void onProgressChanged(XWalkView view, int process) {
 				// TODO Auto-generated method stub
 				super.onProgressChanged(view, process);
@@ -139,7 +137,9 @@ public class MyXWalkView extends Activity {
 						}
 					}, 200);
 				} else {
-					bar.setVisibility(View.VISIBLE);
+					if (!islandport) {
+						bar.setVisibility(View.VISIBLE);
+					}
 				}
 			}
 
@@ -159,9 +159,32 @@ public class MyXWalkView extends Activity {
 			@Override
 			public void onFullscreenToggled(XWalkView view, boolean toggle) {
 				// TODO Auto-generated method stub
-				super.onFullscreenToggled(view, toggle);
+				if (toggle) {
+					setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+					title.setVisibility(View.GONE);
+					bar.setVisibility(View.GONE);
+				} else {
+					title.setVisibility(View.VISIBLE);
+					bar.setVisibility(View.VISIBLE);
+					setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+				}
 			}
 		});
+	}
+
+	/**
+	 * 当横竖屏切换时会调用该方法
+	 * 
+	 * @author
+	 */
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+		super.onConfigurationChanged(newConfig);
+		if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+			islandport = true;
+		} else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+			islandport = false;
+		}
 	}
 
 	@Override

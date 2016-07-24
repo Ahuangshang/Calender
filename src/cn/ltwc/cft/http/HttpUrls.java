@@ -13,8 +13,8 @@ public class HttpUrls {
 	// "http://apis.baidu.com/hihelpsme/chinajoke/getjokelist";// 笑话的接口地址
 	public static final String URL_JOKE = "http://apis.baidu.com/showapi_open_bus/showapi_joke/joke_text";// 笑话的接口地址
 	public static final String URL_HISTORY_TODAY = "http://apicloud.mob.com/appstore/history/query";// 历史上的今天接口地址
-	public static final String URL_HISTORY_TODAY_JUHE="http://v.juhe.cn/todayOnhistory/queryEvent.php";//历史上的今天聚合数据接口地址
-	public static final String URL_HISTORY_TODAY_JUHE_DETAIL="http://v.juhe.cn/todayOnhistory/queryDetail.php";//历史上的今天详细聚合数据接口地址
+	public static final String URL_HISTORY_TODAY_JUHE = "http://v.juhe.cn/todayOnhistory/queryEvent.php";// 历史上的今天聚合数据接口地址
+	public static final String URL_HISTORY_TODAY_JUHE_DETAIL = "http://v.juhe.cn/todayOnhistory/queryDetail.php";// 历史上的今天详细聚合数据接口地址
 	public static final String LOTTER_TYPE = "http://apis.baidu.com/apistore/lottery/lotterylist";// 彩票类型接口
 	public static final String LOTTER_SSQ = "http://apis.baidu.com/apistore/lottery/lotteryquery";// 双色球开奖结果查询
 }
