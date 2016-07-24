@@ -267,6 +267,8 @@ public class DayDetailActivity extends BaseActivity implements OnClickListener,
 			break;
 		case R.id.bazi:
 			jumpToWeb("http://zxcs.linghit.com/Divination", "黄历");
+			// jumpToWeb("http://mfkp.qzapp.z.qq.com/qshow/cgi-bin/wl_card_mainpage",
+			// "黄历");
 			break;
 		}
 

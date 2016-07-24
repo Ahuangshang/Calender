@@ -26,9 +26,11 @@ import cn.ltwc.cft.view.TitleView;
 public class MoreActivity extends BaseActivity {
 	private TitleView title;
 	private ListView list;
-	private String al[] = { "手机号码归属地查询", "中华军事", "内涵段子", "宅男天堂", "历史上的今天" };// 数据集合
+	private String al[] = { "手机号码归属地查询", "中华军事", "内涵段子", "宅男天堂", "历史上的今天",
+			"QQ空間遊戲" };// 数据集合
 	private int al2[] = { R.drawable.phone, R.drawable.zhonghuajunshi,
-			R.drawable.joke, R.drawable.zhainan, R.drawable.todayonhistory };
+			R.drawable.joke, R.drawable.zhainan, R.drawable.todayonhistory,
+			R.drawable.qq };
 
 	public MoreActivity() {
 		super(R.layout.activity_more);
@@ -89,6 +91,13 @@ public class MoreActivity extends BaseActivity {
 					break;
 				case 4:
 					startActivity(new Intent(c, TodayonhistoryActivity.class));
+					break;
+				case 5:
+					Intent qq = new Intent(c, MyXWalkView.class);
+					qq.putExtra(Constant.WEBURL,
+							"http://mfkp.qzapp.z.qq.com/qshow/cgi-bin/wl_card_mainpage");
+					qq.putExtra(Constant.WEBTITLE, "QQ");
+					startActivity(qq);
 					break;
 
 				}

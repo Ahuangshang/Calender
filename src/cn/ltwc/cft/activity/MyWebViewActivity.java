@@ -2,6 +2,7 @@ package cn.ltwc.cft.activity;
 
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ProgressBar;
 import cn.ltwc.cft.R;
 import cn.ltwc.cft.data.Constant;
 import cn.ltwc.cft.view.TitleView;
@@ -31,7 +32,7 @@ public class MyWebViewActivity extends BaseWebActivity {
 		title.setRightBtnTextVisibility(View.VISIBLE);
 		title.setRightText("关闭");
 		setWebView(R.id.junshi_webview);
-		setEmpty(R.id.junshi_emptyview);
+		setBar(R.id.junshi_bar);
 		setTitle(title);
 		title.getRightText().setOnClickListener(new OnClickListener() {
 

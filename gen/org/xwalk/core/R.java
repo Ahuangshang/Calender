@@ -54,7 +54,7 @@ public final class R {
 		public static final int ic_search = 0x7f020070;
 		public static final int ic_warning = 0x7f020071;
 		public static final int ondemand_overlay = 0x7f020089;
-		public static final int verify_checkmark = 0x7f020095;
+		public static final int verify_checkmark = 0x7f020096;
 	}
 	public static final class id {
 		public static final int ampm = 0x7f0900d8;

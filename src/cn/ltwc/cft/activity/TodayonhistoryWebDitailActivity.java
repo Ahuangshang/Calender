@@ -27,7 +27,7 @@ public class TodayonhistoryWebDitailActivity extends BaseWebActivity {
 		// title.setTitletext("历史上的今天");
 		// title.setRightVisibility(View.GONE);
 		setWebView(R.id.todayonhistory);
-		setEmpty(R.id.tt_emptyview);
+		// setEmpty(R.id.tt_emptyview);
 		// setTitle(title);
 	}
 

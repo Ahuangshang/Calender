@@ -57,7 +57,7 @@
         </activity>
         <activity
             android:name="cn.ltwc.cft.activity.MyWebViewActivity"
-            android:screenOrientation="portrait" >
+            android:configChanges="keyboardHidden|orientation|screenSize"  >
         </activity>
         <activity
             android:name="cn.ltwc.cft.activity.JokeActivity"

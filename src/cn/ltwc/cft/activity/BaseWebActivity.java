@@ -3,17 +3,23 @@ package cn.ltwc.cft.activity;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
 import cn.ltwc.cft.AppManager;
+import cn.ltwc.cft.utils.BrowserJsInject;
 import cn.ltwc.cft.view.TitleView;
 
 /**
@@ -27,12 +33,14 @@ public abstract class BaseWebActivity extends Activity {
 
 	private int layoutResId = -1;
 	private WebView webView;
-	private View empty;
+
 	private String webURL;// 网络请求地址
 	private TitleView title;
+	private boolean islandport;
+	private ProgressBar bar;
 
-	public void setEmpty(int id) {
-		this.empty = findViewById(id);
+	public void setBar(int id) {
+		this.bar = (ProgressBar) findViewById(id);
 	}
 
 	public void setTitle(TitleView title) {
@@ -102,19 +110,66 @@ public abstract class BaseWebActivity extends Activity {
 		settings.setSupportZoom(true); // 支持缩放
 		settings.setBuiltInZoomControls(true); // 启用内置缩放装置
 		settings.setJavaScriptEnabled(true); // 启用JS脚本
-		webView.setWebViewClient(new WebViewClient());
+		webView.setWebViewClient(new WebViewClient() {
+			@Override
+			public void onPageFinished(WebView view, String url) {
+				// TODO Auto-generated method stub
+				view.loadUrl(BrowserJsInject.fullScreenByJs(url));
+			}
+		});
 		webView.setWebChromeClient(new WebChromeClient() {
 			@Override
 			public void onProgressChanged(WebView view, int newProgress) {
 				// TODO Auto-generated method stub
-				if (newProgress > 80) {
-					empty.setVisibility(View.GONE);
-					// title.setVisibility(View.GONE);
+				bar.setProgress(newProgress * 100);
+				if (newProgress >= 100) {
+					bar.postDelayed(new Runnable() {
+						@Override
+						public void run() {
+							// TODO Auto-generated method stub
+							bar.setVisibility(View.GONE);
+						}
+					}, 200);
 				} else {
-					empty.setVisibility(View.VISIBLE);
+					if (!islandport) {
+						bar.setVisibility(View.VISIBLE);
+					}
 				}
 			}
+
 		});
+		webView.addJavascriptInterface(new Object() {
+			@JavascriptInterface
+			public void playing() {
+				Log.i("video", "=======================");
+				if (islandport) {
+					setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+					title.setVisibility(View.GONE);
+					bar.setVisibility(View.GONE);
+				} else {
+					title.setVisibility(View.VISIBLE);
+					bar.setVisibility(View.VISIBLE);
+					setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+				}
+
+			}
+
+		}, "local_obj");
+	}
+
+	/**
+	 * 当横竖屏切换时会调用该方法
+	 * 
+	 * @author
+	 */
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+		super.onConfigurationChanged(newConfig);
+		if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+			islandport = true;
+		} else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+			islandport = false;
+		}
 	}
 
 	/** 初始化视图 */
