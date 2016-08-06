@@ -21,6 +21,14 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_SETTINGS" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <!-- 硬件加速对X5视频播放非常重要，建议开启 -->
+    <uses-permission android:name="android.permission.GET_TASKS" />
 
     <application
         android:name="cn.ltwc.cft.MyApplication"
@@ -57,7 +65,7 @@
         </activity>
         <activity
             android:name="cn.ltwc.cft.activity.MyWebViewActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"  >
+            android:configChanges="keyboardHidden|orientation|screenSize" >
         </activity>
         <activity
             android:name="cn.ltwc.cft.activity.JokeActivity"
@@ -94,6 +102,10 @@
         <activity
             android:name="cn.ltwc.cft.activity.MyXWalkView"
             android:configChanges="keyboardHidden|orientation|screenSize" />
+        <activity
+            android:name="cn.ltwc.cft.activity.MyX5WebView"
+            android:configChanges="orientation|screenSize|keyboardHidden" >
+        </activity>
 
         <meta-data
             android:name="cn.ltwc.cft.utils.MyGlideModule"

@@ -277,7 +277,7 @@ public class DayDetailActivity extends BaseActivity implements OnClickListener,
 	private void jumpToWeb(String url, String title) {
 		// Intent intent = new Intent(DayDetailActivity.this,
 		// MyWebViewActivity.class);
-		Intent intent = new Intent(DayDetailActivity.this, MyXWalkView.class);
+		Intent intent = new Intent(DayDetailActivity.this, MyX5WebView.class);
 		intent.putExtra(Constant.WEBURL, url);
 		intent.putExtra(Constant.WEBTITLE, title);
 		startActivity(intent);

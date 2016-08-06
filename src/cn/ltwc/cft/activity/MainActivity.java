@@ -544,9 +544,9 @@ public class MainActivity extends BaseActivity implements ScrollViewListener,
 			startActivity(intent);
 			break;
 		case R.id.more_lotter:// 更多开奖
-			// Intent more = new Intent(MainActivity.this,
-			// MyWebViewActivity.class);
-			Intent more = new Intent(MainActivity.this, MyXWalkView.class);
+//			 Intent more = new Intent(MainActivity.this,
+//			 MyWebViewActivity.class);
+			Intent more = new Intent(MainActivity.this, MyX5WebView.class);
 			more.putExtra(
 					Constant.WEBURL,
 					"http://cp.mi.com/android_asset/www/newmicai/lotteryinfo/kjgg.html#?page=kjgg_index&tag_from=500");
@@ -554,9 +554,9 @@ public class MainActivity extends BaseActivity implements ScrollViewListener,
 			startActivity(more);
 			break;
 		case R.id.ssq:// 双色球
-			// Intent ss = new Intent(MainActivity.this,
-			// MyWebViewActivity.class);
-			Intent ss = new Intent(MainActivity.this, MyXWalkView.class);
+//			 Intent ss = new Intent(MainActivity.this,
+//			 MyWebViewActivity.class);
+			Intent ss = new Intent(MainActivity.this, MyX5WebView.class);
 			ss.putExtra(
 					Constant.WEBURL,
 					"http://cp.mi.com/android_asset/www/newmicai/lotteryinfo/kjgg.html?tag_from=500#?page=kjgg_list&lot_code=50");
