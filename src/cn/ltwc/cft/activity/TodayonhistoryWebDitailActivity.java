@@ -13,6 +13,7 @@ import cn.ltwc.cft.view.TitleView;
 public class TodayonhistoryWebDitailActivity extends BaseWebActivity {
 
 	private static String webURL = "http://www.todayonhistory.com/";// 历史上的今天官网
+	@SuppressWarnings("unused")
 	private TitleView title;
 
 	public TodayonhistoryWebDitailActivity() {

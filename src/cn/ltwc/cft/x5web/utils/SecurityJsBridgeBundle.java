@@ -2,10 +2,6 @@ package cn.ltwc.cft.x5web.utils;
 
 import java.util.Map;
 
-import com.tencent.smtt.sdk.QbSdk;
-
-import android.content.Context;
-
 public abstract class SecurityJsBridgeBundle {
 	
 	
@@ -18,7 +14,7 @@ public abstract class SecurityJsBridgeBundle {
 	
 	public static final String PROMPT_START_OFFSET = "local_js_bridge::";
 	
-	private Context mContext;
+	//private Context mContext;
 	private String mJsBlockName ;
 	private String mMethodName;
 	
@@ -49,6 +45,7 @@ public abstract class SecurityJsBridgeBundle {
 	}
 	
 	
+	@SuppressWarnings("unused")
 	private void injectJsMsgPipecode(Map<String,Object> data){
 		if(data==null){
 			return ;
@@ -73,6 +70,7 @@ public abstract class SecurityJsBridgeBundle {
 	}
 	
 	
+	@SuppressWarnings("unused")
 	private static String getStandardMethodSignature(){
 		return null;
 	}

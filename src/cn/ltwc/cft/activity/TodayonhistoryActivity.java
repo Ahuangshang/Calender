@@ -8,6 +8,7 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,9 +40,11 @@ public class TodayonhistoryActivity extends BaseActivity implements
 	private String currentDate = "";
 	private TitleView title;
 	private ListView historyLv;
+	@SuppressWarnings("unused")
 	private List<HistoryOnTodayBean> list;
 	private List<HistoryOnTodayBeanJUHE> juheList;
 	private HistoryOnTodayJUHEAdapter juheAdapter;
+	@SuppressWarnings("unused")
 	private HistoryOnTodayAdapter adapter;
 	private View head;
 	private TextView headTitle;
@@ -51,6 +54,7 @@ public class TodayonhistoryActivity extends BaseActivity implements
 		// TODO Auto-generated constructor stub
 	}
 
+	@SuppressLint("InflateParams") 
 	@Override
 	public void initView() {
 		// TODO Auto-generated method stub
@@ -62,6 +66,7 @@ public class TodayonhistoryActivity extends BaseActivity implements
 		headTitle.setText("历史上的" + month_c + "月" + day_c + "日" + "都发生了什么");
 	}
 
+	@SuppressLint("SimpleDateFormat")
 	@Override
 	public void initData() {
 		// TODO Auto-generated method stub

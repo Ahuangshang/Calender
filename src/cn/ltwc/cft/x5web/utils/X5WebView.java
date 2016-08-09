@@ -1,84 +1,48 @@
 package cn.ltwc.cft.x5web.utils;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.ActivityManager;
-import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
-import android.app.Dialog;
-import android.app.LauncherActivity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.net.Uri;
-import android.os.AsyncTask;
-import android.os.Build;
-import android.os.Environment;
 import android.os.Message;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.ContextMenu;
 import android.view.Gravity;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ContextMenu.ContextMenuInfo;
-import android.webkit.HttpAuthHandler;
-import android.webkit.WebIconDatabase;
-import android.widget.AbsoluteLayout;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.Scroller;
 import android.widget.TextView;
-import android.widget.Toast;
 import cn.ltwc.cft.R;
 
-import com.tencent.smtt.export.external.extension.interfaces.IX5WebViewExtension;
-import com.tencent.smtt.export.external.interfaces.IX5WebSettings;
+import com.tencent.smtt.export.external.interfaces.IX5WebChromeClient.CustomViewCallback;
 import com.tencent.smtt.export.external.interfaces.JsPromptResult;
 import com.tencent.smtt.export.external.interfaces.JsResult;
-import com.tencent.smtt.export.external.interfaces.WebResourceResponse;
-import com.tencent.smtt.export.external.interfaces.IX5WebChromeClient.CustomViewCallback;
-import com.tencent.smtt.export.external.interfaces.IX5WebViewBase.FindListener;
-import com.tencent.smtt.export.external.interfaces.IX5WebViewBase.WebViewTransport;
-import com.tencent.smtt.sdk.DownloadListener;
-import com.tencent.smtt.sdk.QbSdk;
 import com.tencent.smtt.sdk.ValueCallback;
-import com.tencent.smtt.sdk.WebBackForwardList;
 import com.tencent.smtt.sdk.WebChromeClient;
-import com.tencent.smtt.sdk.WebHistoryItem;
 import com.tencent.smtt.sdk.WebSettings;
-import com.tencent.smtt.sdk.WebStorage;
+import com.tencent.smtt.sdk.WebSettings.LayoutAlgorithm;
 import com.tencent.smtt.sdk.WebView;
 import com.tencent.smtt.sdk.WebViewClient;
-import com.tencent.smtt.sdk.WebSettings.LayoutAlgorithm;
-import com.tencent.smtt.sdk.WebViewDatabase;
 
 public class X5WebView extends WebView {
 	public static final int FILE_CHOOSER = 0;
-	private String resourceUrl = "";
-	private WebView smallWebView;
+	//private String resourceUrl = "";
+	//private WebView smallWebView;
 	private static boolean isSmallWebViewDisplayed = false;
-	private boolean isClampedY = false;
+	//private boolean isClampedY = false;
 	private Map<String, Object> mJsBridges;
-	private TextView tog;
+	//private TextView tog;
 	RelativeLayout.LayoutParams layoutParams;
-	private RelativeLayout refreshRela;
+	//private RelativeLayout refreshRela;
 	TextView title;
 	private WebViewClient client = new WebViewClient() {
 		/**
@@ -92,7 +56,7 @@ public class X5WebView extends WebView {
 		public void onReceivedHttpAuthRequest(WebView webview,
 				com.tencent.smtt.export.external.interfaces.HttpAuthHandler httpAuthHandlerhost, String host,
 				String realm) {
-			boolean flag = httpAuthHandlerhost.useHttpAuthUsernamePassword();
+			//boolean flag = httpAuthHandlerhost.useHttpAuthUsernamePassword();
 		}
 	};
 	private WebChromeClient chromeClient = new WebChromeClient() {
@@ -155,6 +119,7 @@ public class X5WebView extends WebView {
 				WebView.WebViewTransport webViewTransport = (WebView.WebViewTransport) msg.obj;
 				WebView webView = new WebView(X5WebView.this.getContext()) {
 
+					@SuppressLint("DrawAllocation")
 					protected void onDraw(Canvas canvas) {
 						super.onDraw(canvas);
 						Paint paint = new Paint();
@@ -225,13 +190,13 @@ public class X5WebView extends WebView {
 		}
 	};
 
-	@SuppressLint("SetJavaScriptEnabled")
+	@SuppressLint({ "SetJavaScriptEnabled", "ClickableViewAccessibility" })
 	public X5WebView(Context arg0, AttributeSet arg1) {
 		super(arg0, arg1);
 		this.setWebViewClientExtension(new X5WebViewEventHandler(this));// 配置X5webview的事件处理
 		this.setWebViewClient(client);
 		this.setWebChromeClient(chromeClient);
-		WebStorage webStorage = WebStorage.getInstance();
+		//WebStorage webStorage = WebStorage.getInstance();
 		initWebViewSettings();
 		this.getView().setClickable(true);
 		this.getView().setOnTouchListener(new OnTouchListener() {
@@ -242,6 +207,7 @@ public class X5WebView extends WebView {
 		});
 	}
 
+	@SuppressLint("SetJavaScriptEnabled") 
 	private void initWebViewSettings() {
 		WebSettings webSetting = this.getSettings();
 		webSetting.setJavaScriptEnabled(true);

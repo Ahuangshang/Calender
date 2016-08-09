@@ -71,7 +71,6 @@ public class MyGlideModule implements GlideModule {
 	 * 
 	 * @return
 	 */
-	@SuppressWarnings("unused")
 	private File getMyCacheLocationBlockingIO() {
 		// TODO Auto-generated method stub
 		return null;

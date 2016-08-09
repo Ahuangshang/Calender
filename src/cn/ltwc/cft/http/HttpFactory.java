@@ -235,6 +235,7 @@ public class HttpFactory {
 	 * @param responce
 	 * @param data
 	 */
+	@SuppressWarnings("deprecation")
 	public static void HistoryJUHE(ServiceResponce responce, String data) {
 		RequestParams params = new RequestParams();
 		String httpParam = "key=2d0fff208fc0022448d4e0b87b05439b&" + "date="

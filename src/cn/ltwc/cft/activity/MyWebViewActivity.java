@@ -2,7 +2,6 @@ package cn.ltwc.cft.activity;
 
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ProgressBar;
 import cn.ltwc.cft.R;
 import cn.ltwc.cft.data.Constant;
 import cn.ltwc.cft.view.TitleView;
