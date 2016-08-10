@@ -109,8 +109,8 @@ public class TodayonhistoryActivity extends BaseActivity implements
 		// adapter = new HistoryOnTodayAdapter(this, list);
 		// historyLv.setAdapter(adapter);
 		juheAdapter = new HistoryOnTodayJUHEAdapter(juheList, this);
-		historyLv.setAdapter(juheAdapter);
 		historyLv.addHeaderView(head);
+		historyLv.setAdapter(juheAdapter);
 		title.getRightText().setOnClickListener(new OnClickListener() {
 
 			public void onClick(View v) {
