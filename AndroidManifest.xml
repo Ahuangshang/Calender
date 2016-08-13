@@ -57,7 +57,8 @@
         </activity>
         <activity
             android:name="cn.ltwc.cft.activity.MoreActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            >
         </activity>
         <activity
             android:name="cn.ltwc.cft.activity.PhoneActivity"
@@ -106,7 +107,9 @@
             android:name="cn.ltwc.cft.activity.MyX5WebView"
             android:configChanges="orientation|screenSize|keyboardHidden" >
         </activity>
-
+		<activity android:name="cn.ltwc.cft.activity.ShareActivity"
+		    android:screenOrientation="portrait"
+		     android:theme="@style/share_act_them"></activity>
         <meta-data
             android:name="cn.ltwc.cft.utils.MyGlideModule"
             android:value="GlideModule" />

@@ -54,7 +54,7 @@ public class TodayonhistoryActivity extends BaseActivity implements
 		// TODO Auto-generated constructor stub
 	}
 
-	@SuppressLint("InflateParams") 
+	@SuppressLint("InflateParams")
 	@Override
 	public void initView() {
 		// TODO Auto-generated method stub
@@ -144,8 +144,8 @@ public class TodayonhistoryActivity extends BaseActivity implements
 				startActivity(intent);
 			}
 		});
-
-	}
+		
+}
 
 	@Override
 	public void httpSuccess(String result, int responseFlag) {

@@ -76,7 +76,7 @@ public class MoreActivity extends BaseActivity {
 					startActivity(new Intent(c, PhoneActivity.class));
 					break;
 				case 1:
-					 //Intent intent = new Intent(c, MyWebViewActivity.class);
+					// Intent intent = new Intent(c, MyWebViewActivity.class);
 					Intent intent = new Intent(c, MyX5WebView.class);
 					intent.putExtra(Constant.WEBURL,
 							"http://military.china.com/");
@@ -84,7 +84,7 @@ public class MoreActivity extends BaseActivity {
 					startActivity(intent);
 					break;
 				case 2:
-					startActivity(new Intent(c, JokeActivity.class));
+					 startActivity(new Intent(c, JokeActivity.class));
 					break;
 				case 3:
 					startActivity(new Intent(c, ZhaiNaniActivity.class));

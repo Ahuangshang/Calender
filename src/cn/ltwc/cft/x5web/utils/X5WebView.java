@@ -35,14 +35,14 @@ import com.tencent.smtt.sdk.WebViewClient;
 
 public class X5WebView extends WebView {
 	public static final int FILE_CHOOSER = 0;
-	//private String resourceUrl = "";
-	//private WebView smallWebView;
+	// private String resourceUrl = "";
+	// private WebView smallWebView;
 	private static boolean isSmallWebViewDisplayed = false;
-	//private boolean isClampedY = false;
+	// private boolean isClampedY = false;
 	private Map<String, Object> mJsBridges;
-	//private TextView tog;
+	// private TextView tog;
 	RelativeLayout.LayoutParams layoutParams;
-	//private RelativeLayout refreshRela;
+	// private RelativeLayout refreshRela;
 	TextView title;
 	private WebViewClient client = new WebViewClient() {
 		/**
@@ -53,16 +53,18 @@ public class X5WebView extends WebView {
 			return true;
 		}
 
-		public void onReceivedHttpAuthRequest(WebView webview,
-				com.tencent.smtt.export.external.interfaces.HttpAuthHandler httpAuthHandlerhost, String host,
-				String realm) {
-			//boolean flag = httpAuthHandlerhost.useHttpAuthUsernamePassword();
+		public void onReceivedHttpAuthRequest(
+				WebView webview,
+				com.tencent.smtt.export.external.interfaces.HttpAuthHandler httpAuthHandlerhost,
+				String host, String realm) {
+			// boolean flag = httpAuthHandlerhost.useHttpAuthUsernamePassword();
 		}
 	};
 	private WebChromeClient chromeClient = new WebChromeClient() {
 
 		@Override
-		public boolean onJsConfirm(WebView arg0, String arg1, String arg2, JsResult arg3) {
+		public boolean onJsConfirm(WebView arg0, String arg1, String arg2,
+				JsResult arg3) {
 			return super.onJsConfirm(arg0, arg1, arg2, arg3);
 		}
 
@@ -70,14 +72,16 @@ public class X5WebView extends WebView {
 		View myNormalView;
 		CustomViewCallback callback;
 
-		///////////////////////////////////////////////////////////
+		// /////////////////////////////////////////////////////////
 		//
 		/**
 		 * 全屏播放配置
 		 */
 		@Override
-		public void onShowCustomView(View view, CustomViewCallback customViewCallback) {
-			FrameLayout normalView = (FrameLayout) ((Activity) getContext()).findViewById(R.id.web_filechooser);
+		public void onShowCustomView(View view,
+				CustomViewCallback customViewCallback) {
+			FrameLayout normalView = (FrameLayout) ((Activity) getContext())
+					.findViewById(R.id.web_filechooser);
 			ViewGroup viewGroup = (ViewGroup) normalView.getParent();
 			viewGroup.removeView(normalView);
 			viewGroup.addView(view);
@@ -100,19 +104,23 @@ public class X5WebView extends WebView {
 		}
 
 		@Override
-		public void openFileChooser(ValueCallback<Uri> uploadFile, String acceptType, String captureType) {
+		public void openFileChooser(ValueCallback<Uri> uploadFile,
+				String acceptType, String captureType) {
 			Intent i = new Intent(Intent.ACTION_GET_CONTENT);
 			i.addCategory(Intent.CATEGORY_OPENABLE);
 			i.setType("*/*");
-			((Activity) (X5WebView.this.getContext())).startActivityForResult(Intent.createChooser(i, "choose files"),
+			((Activity) (X5WebView.this.getContext())).startActivityForResult(
+					Intent.createChooser(i, "choose files"),
 					X5WebView.FILE_CHOOSER);
 			super.openFileChooser(uploadFile, acceptType, captureType);
 		}
+
 		/**
 		 * webview 的窗口转移
 		 */
 		@Override
-		public boolean onCreateWindow(WebView arg0, boolean arg1, boolean arg2, Message msg) {
+		public boolean onCreateWindow(WebView arg0, boolean arg1, boolean arg2,
+				Message msg) {
 			// TODO Auto-generated method stub
 			if (X5WebView.isSmallWebViewDisplayed == true) {
 
@@ -129,13 +137,15 @@ public class X5WebView extends WebView {
 					};
 				};
 				webView.setWebViewClient(new WebViewClient() {
-					public boolean shouldOverrideUrlLoading(WebView arg0, String arg1) {
+					public boolean shouldOverrideUrlLoading(WebView arg0,
+							String arg1) {
 						arg0.loadUrl(arg1);
 						return true;
 					};
 				});
 				FrameLayout.LayoutParams lp = new LayoutParams(400, 600);
-				lp.gravity = Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL;
+				lp.gravity = Gravity.CENTER_HORIZONTAL
+						| Gravity.CENTER_VERTICAL;
 				X5WebView.this.addView(webView, lp);
 				webViewTransport.setWebView(webView);
 				msg.sendToTarget();
@@ -144,7 +154,8 @@ public class X5WebView extends WebView {
 		}
 
 		@Override
-		public boolean onJsAlert(WebView arg0, String arg1, String arg2, JsResult arg3) {
+		public boolean onJsAlert(WebView arg0, String arg1, String arg2,
+				JsResult arg3) {
 			/**
 			 * 这里写入你自定义的window alert
 			 */
@@ -170,7 +181,8 @@ public class X5WebView extends WebView {
 		 * 对应js 的通知弹框 ，可以用来实现js 和 android之间的通信
 		 */
 		@Override
-		public boolean onJsPrompt(WebView arg0, String arg1, String arg2, String arg3, JsPromptResult arg4) {
+		public boolean onJsPrompt(WebView arg0, String arg1, String arg2,
+				String arg3, JsPromptResult arg4) {
 			// 在这里可以判定js传过来的数据，用于调起android native 方法
 			if (X5WebView.this.isMsgPrompt(arg1)) {
 				if (X5WebView.this.onJsPrompt(arg2, arg3)) {
@@ -196,7 +208,7 @@ public class X5WebView extends WebView {
 		this.setWebViewClientExtension(new X5WebViewEventHandler(this));// 配置X5webview的事件处理
 		this.setWebViewClient(client);
 		this.setWebChromeClient(chromeClient);
-		//WebStorage webStorage = WebStorage.getInstance();
+		// WebStorage webStorage = WebStorage.getInstance();
 		initWebViewSettings();
 		this.getView().setClickable(true);
 		this.getView().setOnTouchListener(new OnTouchListener() {
@@ -207,7 +219,7 @@ public class X5WebView extends WebView {
 		});
 	}
 
-	@SuppressLint("SetJavaScriptEnabled") 
+	@SuppressLint("SetJavaScriptEnabled")
 	private void initWebViewSettings() {
 		WebSettings webSetting = this.getSettings();
 		webSetting.setJavaScriptEnabled(true);
@@ -236,21 +248,24 @@ public class X5WebView extends WebView {
 	@Override
 	protected boolean drawChild(Canvas canvas, View child, long drawingTime) {
 		boolean ret = super.drawChild(canvas, child, drawingTime);
-//		canvas.save();
-//		Paint paint = new Paint();
-//		paint.setColor(0x7fff0000);
-//		paint.setTextSize(24.f);
-//		paint.setAntiAlias(true);
-//		if (getX5WebViewExtension() != null) {
-//			canvas.drawText(this.getContext().getPackageName() + "-pid:" + android.os.Process.myPid(), 10, 50, paint);
-//			canvas.drawText("X5  Core:" + QbSdk.getTbsVersion(this.getContext()), 10, 100, paint);
-//		} else {
-//			canvas.drawText(this.getContext().getPackageName() + "-pid:" + android.os.Process.myPid(), 10, 50, paint);
-//			canvas.drawText("Sys Core", 10, 100, paint);
-//		}
-//		canvas.drawText(Build.MANUFACTURER, 10, 150, paint);
-//		canvas.drawText(Build.MODEL, 10, 200, paint);
-//		canvas.restore();
+		// canvas.save();
+		// Paint paint = new Paint();
+		// paint.setColor(0x7fff0000);
+		// paint.setTextSize(24.f);
+		// paint.setAntiAlias(true);
+		// if (getX5WebViewExtension() != null) {
+		// canvas.drawText(this.getContext().getPackageName() + "-pid:" +
+		// android.os.Process.myPid(), 10, 50, paint);
+		// canvas.drawText("X5  Core:" + QbSdk.getTbsVersion(this.getContext()),
+		// 10, 100, paint);
+		// } else {
+		// canvas.drawText(this.getContext().getPackageName() + "-pid:" +
+		// android.os.Process.myPid(), 10, 50, paint);
+		// canvas.drawText("Sys Core", 10, 100, paint);
+		// }
+		// canvas.drawText(Build.MANUFACTURER, 10, 150, paint);
+		// canvas.drawText(Build.MODEL, 10, 200, paint);
+		// canvas.restore();
 		return ret;
 	}
 
@@ -269,8 +284,10 @@ public class X5WebView extends WebView {
 		}
 
 		if (jsBridgeBundle != null) {
-			String tag = SecurityJsBridgeBundle.BLOCK + jsBridgeBundle.getJsBlockName() + "-"
-					+ SecurityJsBridgeBundle.METHOD + jsBridgeBundle.getMethodName();
+			String tag = SecurityJsBridgeBundle.BLOCK
+					+ jsBridgeBundle.getJsBlockName() + "-"
+					+ SecurityJsBridgeBundle.METHOD
+					+ jsBridgeBundle.getMethodName();
 			this.mJsBridges.put(tag, jsBridgeBundle);
 		}
 	}
@@ -285,7 +302,8 @@ public class X5WebView extends WebView {
 	 * @return true ：调用成功 ； false ：调用失败
 	 */
 	private boolean onJsPrompt(String methodName, String blockName) {
-		String tag = SecurityJsBridgeBundle.BLOCK + blockName + "-" + SecurityJsBridgeBundle.METHOD + methodName;
+		String tag = SecurityJsBridgeBundle.BLOCK + blockName + "-"
+				+ SecurityJsBridgeBundle.METHOD + methodName;
 
 		if (this.mJsBridges != null && this.mJsBridges.containsKey(tag)) {
 			((SecurityJsBridgeBundle) this.mJsBridges.get(tag)).onCallMethod();
@@ -303,7 +321,8 @@ public class X5WebView extends WebView {
 	 * @return true 属于prompt消息方法的调用
 	 */
 	private boolean isMsgPrompt(String msg) {
-		if (msg != null && msg.startsWith(SecurityJsBridgeBundle.PROMPT_START_OFFSET)) {
+		if (msg != null
+				&& msg.startsWith(SecurityJsBridgeBundle.PROMPT_START_OFFSET)) {
 			return true;
 		} else {
 			return false;
@@ -313,7 +332,8 @@ public class X5WebView extends WebView {
 	// TBS: Do not use @Override to avoid false calls
 	public boolean tbs_dispatchTouchEvent(MotionEvent ev, View view) {
 		boolean r = super.super_dispatchTouchEvent(ev);
-		android.util.Log.d("Bran", "dispatchTouchEvent " + ev.getAction() + " " + r);
+		android.util.Log.d("Bran", "dispatchTouchEvent " + ev.getAction() + " "
+				+ r);
 		return r;
 	}
 
@@ -323,27 +343,32 @@ public class X5WebView extends WebView {
 		return r;
 	}
 
-	protected void tbs_onScrollChanged(int l, int t, int oldl, int oldt, View view) {
+	protected void tbs_onScrollChanged(int l, int t, int oldl, int oldt,
+			View view) {
 		super_onScrollChanged(l, t, oldl, oldt);
 	}
 
-	protected void tbs_onOverScrolled(int scrollX, int scrollY, boolean clampedX, boolean clampedY, View view) {
-//		if (getContext() instanceof RefreshActivity) {
-//			if (this.tog == null) {
-//				this.tog = (TextView) ((Activity) getContext()).findViewById(R.id.refreshText);
-//				layoutParams = (RelativeLayout.LayoutParams) (this.tog.getLayoutParams());
-//				this.refreshRela = (RelativeLayout) ((Activity) getContext()).findViewById(R.id.refreshPool);
-//			}
-//			if (isClampedY && !clampedY) {
-//				this.reload();
-//			}
-//			if (clampedY) {
-//				this.isClampedY = true;
-//
-//			} else {
-//				this.isClampedY = false;
-//			}
-//		}
+	protected void tbs_onOverScrolled(int scrollX, int scrollY,
+			boolean clampedX, boolean clampedY, View view) {
+		// if (getContext() instanceof RefreshActivity) {
+		// if (this.tog == null) {
+		// this.tog = (TextView) ((Activity)
+		// getContext()).findViewById(R.id.refreshText);
+		// layoutParams = (RelativeLayout.LayoutParams)
+		// (this.tog.getLayoutParams());
+		// this.refreshRela = (RelativeLayout) ((Activity)
+		// getContext()).findViewById(R.id.refreshPool);
+		// }
+		// if (isClampedY && !clampedY) {
+		// this.reload();
+		// }
+		// if (clampedY) {
+		// this.isClampedY = true;
+		//
+		// } else {
+		// this.isClampedY = false;
+		// }
+		// }
 		super_onOverScrolled(scrollX, scrollY, clampedX, clampedY);
 	}
 
@@ -351,22 +376,27 @@ public class X5WebView extends WebView {
 		super_computeScroll();
 	}
 
-	protected boolean tbs_overScrollBy(int deltaX, int deltaY, int scrollX, int scrollY, int scrollRangeX,
-			int scrollRangeY, int maxOverScrollX, int maxOverScrollY, boolean isTouchEvent, View view) {
-//		if (getContext() instanceof RefreshActivity) {
-//			if (this.isClampedY) {
-//				if ((refreshRela.getTop() + (-deltaY)) / 2 < 255) {
-//					this.tog.setAlpha((refreshRela.getTop() + (-deltaY)) / 2);
-//				} else
-//					this.tog.setAlpha(255);
-//				this.refreshRela.layout(refreshRela.getLeft(), refreshRela.getTop() + (-deltaY), refreshRela.getRight(),
-//						refreshRela.getBottom() + (-deltaY));
-//				this.layout(this.getLeft(), this.getTop() + (-deltaY) / 2, this.getRight(),
-//						this.getBottom() + (-deltaY) / 2);
-//			}
-//		}
-		return super_overScrollBy(deltaX, deltaY, scrollX, scrollY, scrollRangeX, scrollRangeY, maxOverScrollX,
-				maxOverScrollY, isTouchEvent);
+	protected boolean tbs_overScrollBy(int deltaX, int deltaY, int scrollX,
+			int scrollY, int scrollRangeX, int scrollRangeY,
+			int maxOverScrollX, int maxOverScrollY, boolean isTouchEvent,
+			View view) {
+		// if (getContext() instanceof RefreshActivity) {
+		// if (this.isClampedY) {
+		// if ((refreshRela.getTop() + (-deltaY)) / 2 < 255) {
+		// this.tog.setAlpha((refreshRela.getTop() + (-deltaY)) / 2);
+		// } else
+		// this.tog.setAlpha(255);
+		// this.refreshRela.layout(refreshRela.getLeft(), refreshRela.getTop() +
+		// (-deltaY), refreshRela.getRight(),
+		// refreshRela.getBottom() + (-deltaY));
+		// this.layout(this.getLeft(), this.getTop() + (-deltaY) / 2,
+		// this.getRight(),
+		// this.getBottom() + (-deltaY) / 2);
+		// }
+		// }
+		return super_overScrollBy(deltaX, deltaY, scrollX, scrollY,
+				scrollRangeX, scrollRangeY, maxOverScrollX, maxOverScrollY,
+				isTouchEvent);
 	}
 
 	public void setTitle(TextView title) {
@@ -374,15 +404,16 @@ public class X5WebView extends WebView {
 	}
 
 	protected boolean tbs_onTouchEvent(MotionEvent event, View view) {
-//		if (getContext() instanceof RefreshActivity) {
-//			if (event.getAction() == MotionEvent.ACTION_UP && this.tog != null) {
-//				this.isClampedY = false;
-//				this.tog.setAlpha(0);
-//				this.refreshRela.layout(refreshRela.getLeft(), 0, refreshRela.getRight(), refreshRela.getBottom());
-//				this.layout(this.getLeft(), 0, this.getRight(), this.getBottom());
-//			}
-//
-//		}
+		// if (getContext() instanceof RefreshActivity) {
+		// if (event.getAction() == MotionEvent.ACTION_UP && this.tog != null) {
+		// this.isClampedY = false;
+		// this.tog.setAlpha(0);
+		// this.refreshRela.layout(refreshRela.getLeft(), 0,
+		// refreshRela.getRight(), refreshRela.getBottom());
+		// this.layout(this.getLeft(), 0, this.getRight(), this.getBottom());
+		// }
+		//
+		// }
 		return super_onTouchEvent(event);
 	}
 }

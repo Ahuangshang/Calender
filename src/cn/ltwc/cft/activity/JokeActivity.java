@@ -8,8 +8,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.content.ClipboardManager;
-import android.content.Context;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -19,8 +17,10 @@ import android.widget.ListView;
 import cn.ltwc.cft.R;
 import cn.ltwc.cft.adapter.JokeAdapter;
 import cn.ltwc.cft.beans.JokeListBean;
+import cn.ltwc.cft.data.Constant;
 import cn.ltwc.cft.http.HttpFactory;
 import cn.ltwc.cft.http.ServiceResponce;
+import cn.ltwc.cft.utils.HLUtil;
 import cn.ltwc.cft.view.TitleView;
 
 /**
@@ -76,18 +76,20 @@ public class JokeActivity extends BaseActivity implements ServiceResponce {
 			}
 		});
 		listJoke.setOnItemLongClickListener(new OnItemLongClickListener() {
-
-			@SuppressWarnings("deprecation")
 			@Override
 			public boolean onItemLongClick(AdapterView<?> parent, View view,
 					int position, long id) {
-
 				JokeListBean bean = jokeList.get(position);
-				// 为了兼容低版本我们这里使用旧版的android.text.ClipboardManager，虽然提示deprecated，但不影响使用。
-				ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-
-				cm.setText(bean.getJokeContent().replaceAll(" ", ""));
-				show("内容已复制到粘贴板，请到第三方应用分享给好友吧。");
+				HLUtil.toMyShare(
+						c,
+						Constant.SHARE_TYPE_TEXT,
+						"\t\t\t\t王朝黄历内涵段子\n"
+								+ bean.getJokeContent()
+										.replaceAll(" ", "")
+										.replaceAll("\r\n\r\r\r\r\r\r\r\r",
+												"\r\n")
+										.replaceAll("\r\r\r\r\r\r\r\r", ""),
+						null);
 				return false;
 			}
 		});

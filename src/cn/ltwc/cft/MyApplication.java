@@ -47,7 +47,7 @@ public class MyApplication extends Application {
 		// TODO Auto-generated method stub
 		super.onCreate();
 		instance = this;
-		//搜集本地tbs内核信息并上报服务器，服务器返回结果决定使用哪个内核。
+		// 搜集本地tbs内核信息并上报服务器，服务器返回结果决定使用哪个内核。
 		TbsDownloader.needDownload(instance, false);
 		initImageLoaderConfiguration();
 	}

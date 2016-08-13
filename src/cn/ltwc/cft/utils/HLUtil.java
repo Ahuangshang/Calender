@@ -1,6 +1,16 @@
 package cn.ltwc.cft.utils;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.net.Uri;
 import android.text.TextUtils;
+import cn.ltwc.cft.activity.ShareActivity;
 import cn.ltwc.cft.beans.RiqiBean;
 import cn.ltwc.cft.beans.YiJiBean;
 import cn.ltwc.cft.data.Constant;
@@ -16,6 +26,7 @@ import cn.ltwc.cft.db.HuangLi;
  * @Modified_By:
  */
 public class HLUtil {
+
 	/**
 	 * 通过农历日期查询是否是节假日，是就返回该节日
 	 * 
@@ -189,4 +200,72 @@ public class HLUtil {
 				.getJi());
 		return newBean;
 	}
+
+	/**
+	 * 调用安卓系统自带的分享到第三方APP
+	 * 
+	 * @param context
+	 * @param activityTitle
+	 * @param msgTitle
+	 * @param msgText
+	 * @param imgPath
+	 */
+	public static void shareMsg(Context context, String activityTitle,
+			String msgTitle, String msgText, String imgPath) {
+		Intent intent = new Intent(Intent.ACTION_SEND);
+		if (imgPath == null || imgPath.equals("")) {
+			intent.setType("text/plain"); // 纯文本
+		} else {
+			File f = new File(imgPath);
+			if (f != null && f.exists() && f.isFile()) {
+				intent.setType("image/png");
+				Uri u = Uri.fromFile(f);
+				intent.putExtra(Intent.EXTRA_STREAM, u);
+			}
+		}
+		// 标题需要第三方APP支持才行（QQ、微信都不支持）
+		intent.putExtra(Intent.EXTRA_SUBJECT, msgTitle);
+		intent.putExtra(Intent.EXTRA_TEXT, msgText);
+		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		context.startActivity(Intent.createChooser(intent, activityTitle));
+	}
+
+	/**
+	 * 跳转到分享界面
+	 * 
+	 * @param context
+	 * @param type
+	 *            分享的类型
+	 * @param msgText
+	 *            分享文字内容
+	 * @param imgPath
+	 *            分享图片的地址
+	 */
+	public static void toMyShare(Context context, String type, String msgText,
+			String imgPath) {
+		Intent intent = new Intent(context, ShareActivity.class);
+		intent.putExtra(Constant.TYPE, type);
+		intent.putExtra(Constant.SHARE_TYPE_TEXT, msgText);
+		intent.putExtra(Constant.SHARE_TYPE_IMG, imgPath);
+		context.startActivity(intent);
+
+	}
+
+	/**
+	 * 获取到可分享的应用列表
+	 * 
+	 * @param context
+	 * @return
+	 */
+	public static List<ResolveInfo> getShareApps(Context context, String type) {
+		List<ResolveInfo> mApps = new ArrayList<ResolveInfo>();
+		Intent intent = new Intent(Intent.ACTION_SEND, null);
+		intent.addCategory(Intent.CATEGORY_DEFAULT);
+		intent.setType(type);
+		PackageManager pManager = context.getPackageManager();
+		mApps = pManager.queryIntentActivities(intent,
+				PackageManager.COMPONENT_ENABLED_STATE_DEFAULT);
+		return mApps;
+	}
+
 }

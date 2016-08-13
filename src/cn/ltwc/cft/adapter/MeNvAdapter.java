@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import cn.ltwc.cft.R;
 import cn.ltwc.cft.beans.TiangouBean;
@@ -37,23 +35,14 @@ public class MeNvAdapter extends RecyclerView.Adapter<MeiNvHolder> {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public void onBindViewHolder(MeiNvHolder holder, final int position) {
+	public void onBindViewHolder(MeiNvHolder holder, int position) {
 		// TODO Auto-generated method stub
 		holder.title.setText(al.get(position).getTitle());// 标题
 		Glide.with(context).load(SRC + al.get(position).getImg()).asBitmap()
 				.placeholder(R.drawable.mian_color_perload)
 				.listener(new GlideListener(holder.Img, GlideListener.SETALL))
 				.error(R.drawable.load_failed2).into(holder.Img);
-		holder.Img.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				if (listener != null) {
-					listener.onClick(position);
-				}
-			}
-		});
+		holder.ImgClick(listener, position);
 	}
 
 	@Override
