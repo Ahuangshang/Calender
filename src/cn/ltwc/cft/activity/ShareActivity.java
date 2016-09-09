@@ -14,7 +14,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -25,11 +25,11 @@ import cn.ltwc.cft.R;
 import cn.ltwc.cft.adapter.ShareAdapter;
 import cn.ltwc.cft.data.Constant;
 import cn.ltwc.cft.myinterface.MeNvItemImgClickListener;
+import cn.ltwc.cft.utils.FileUtils;
 import cn.ltwc.cft.utils.HLUtil;
 
 @SuppressLint("InlinedApi")
-public class ShareActivity extends Activity implements OnClickListener,
-		MeNvItemImgClickListener {
+public class ShareActivity extends Activity implements OnClickListener, MeNvItemImgClickListener {
 	// 解决退出动画无效
 	protected int activityCloseEnterAnimation;
 	protected int activityCloseExitAnimation;
@@ -63,8 +63,7 @@ public class ShareActivity extends Activity implements OnClickListener,
 		// TODO Auto-generated method stub
 		cancel = (TextView) findViewById(R.id.cancel);
 		rv = (RecyclerView) findViewById(R.id.rv);
-		rv.setLayoutManager(new StaggeredGridLayoutManager(2,
-				StaggeredGridLayoutManager.HORIZONTAL));
+		rv.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.HORIZONTAL));
 
 	}
 
@@ -93,17 +92,14 @@ public class ShareActivity extends Activity implements OnClickListener,
 	 * 解决退出动画无效的方法
 	 */
 	private void dealExitAniom() {
-		TypedArray activityStyle = getTheme().obtainStyledAttributes(
-				new int[] { android.R.attr.windowAnimationStyle });
+		TypedArray activityStyle = getTheme().obtainStyledAttributes(new int[] { android.R.attr.windowAnimationStyle });
 
 		int windowAnimationStyleResId = activityStyle.getResourceId(0, 0);
 
 		activityStyle.recycle();
 
-		activityStyle = getTheme().obtainStyledAttributes(
-				windowAnimationStyleResId,
-				new int[] { android.R.attr.activityCloseEnterAnimation,
-						android.R.attr.activityCloseExitAnimation });
+		activityStyle = getTheme().obtainStyledAttributes(windowAnimationStyleResId,
+				new int[] { android.R.attr.activityCloseEnterAnimation, android.R.attr.activityCloseExitAnimation });
 
 		activityCloseEnterAnimation = activityStyle.getResourceId(0, 0);
 
@@ -116,8 +112,7 @@ public class ShareActivity extends Activity implements OnClickListener,
 	public void finish() {
 		super.finish();
 		// 要在结束时调用此方法，才能使退出动画起作用
-		overridePendingTransition(activityCloseEnterAnimation,
-				activityCloseExitAnimation);
+		overridePendingTransition(activityCloseEnterAnimation, activityCloseExitAnimation);
 
 	}
 
@@ -129,16 +124,12 @@ public class ShareActivity extends Activity implements OnClickListener,
 		// 设置本Activity在父窗口的位置
 		super.onAttachedToWindow();
 		View view = getWindow().getDecorView();
-		WindowManager.LayoutParams lp = (WindowManager.LayoutParams) view
-				.getLayoutParams();
+		WindowManager.LayoutParams lp = (WindowManager.LayoutParams) view.getLayoutParams();
 		// lp.gravity = Gravity.RIGHT | Gravity.BOTTOM;
 		lp.gravity = Gravity.BOTTOM;
-		lp.x = getResources().getDimensionPixelSize(
-				R.dimen.playqueue_dialog_marginright);
-		lp.y = getResources().getDimensionPixelSize(
-				R.dimen.playqueue_dialog_marginbottom);
-		lp.width = getResources().getDimensionPixelSize(
-				R.dimen.playqueue_dialog_width);
+		lp.x = getResources().getDimensionPixelSize(R.dimen.playqueue_dialog_marginright);
+		lp.y = getResources().getDimensionPixelSize(R.dimen.playqueue_dialog_marginbottom);
+		lp.width = getResources().getDimensionPixelSize(R.dimen.playqueue_dialog_width);
 		// lp.height = getResources().getDimensionPixelSize(
 		// R.dimen.playqueue_dialog_height);
 		getWindowManager().updateViewLayout(view, lp);
@@ -160,42 +151,41 @@ public class ShareActivity extends Activity implements OnClickListener,
 		// TODO Auto-generated method stub
 		ResolveInfo info = list.get(position);
 		Intent shareIntent = new Intent(Intent.ACTION_SEND);
-
-		shareIntent.setComponent(new ComponentName(
-				info.activityInfo.packageName, info.activityInfo.name));
-
+		
+		
+		Log.d("AA",info.activityInfo.packageName);
+		Log.d("AA",info.activityInfo.name);
+		shareIntent.setComponent(new ComponentName(info.activityInfo.packageName, info.activityInfo.name));
 		if (type.equals(Constant.SHARE_TYPE_TEXT)) {
 			shareIntent.putExtra(Intent.EXTRA_TEXT, msg);
 		} else if (type.equals(Constant.SHARE_TYPE_IMG)) {
-			if (!TextUtils.isEmpty(imgPath)) {
+			if (FileUtils.isExit(imgPath)) {
 				File f = new File(imgPath);
-				if (f != null && f.exists() && f.isFile()) {
-					shareIntent.setType("image/*");
-					Uri u = Uri.fromFile(f);
-					shareIntent.putExtra(Intent.EXTRA_STREAM, u);
-				}
+				Uri u = Uri.fromFile(f);
+				shareIntent.putExtra(Intent.EXTRA_STREAM, u);
+				shareIntent.putExtra("Kdescription", msg);
+				// shareIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_GRANT_READ_URI_PERMISSION);
 			}
-
 		} else if (type.equals(Constant.SHARE_TYPE_AUDIO)) {
 
 		}
 		shareIntent.setType(type);
 		startActivity(shareIntent);
-		Handler handler=new Handler();
+		Handler handler = new Handler();
 		handler.postDelayed(new Runnable() {
-			
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
 				ShareActivity.this.finish();
 			}
-		},500);
-		
+		}, 200);
+
 	}
+
 	@Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
-		
+
 	}
 }

@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import android.content.Context;
+import android.text.TextUtils;
 import cn.ltwc.cft.MyApplication;
 
 public class FileUtils {
@@ -16,13 +18,18 @@ public class FileUtils {
 	 *            文件的路径
 	 * @return
 	 */
-	public static boolean isFileExists(String path) {
-		File file = new File(path);
-		if (!file.exists()) {
-			return false;
-		}
-		return true;
-	}
+	 public static boolean isExit(String path) {
+	        if (TextUtils.isEmpty(path)) {
+	            return false;
+	        } else {
+	            File file = new File(path);
+	            if (file.exists() && file.length() > 0) {
+	                return true;
+	            } else {
+	                return false;
+	            }
+	        }
+	    }
 
 	/**
 	 * 将Assets目录中的文件拷贝到sdcard中
@@ -75,4 +82,21 @@ public class FileUtils {
 		}
 
 	}
+
+	/**
+	 * 创建缓存文件夹
+	 *
+	 * @param context
+	 * @return
+	 */
+	public static String buildCache(Context context) {
+		String cachePath = "";
+		if (context.getExternalCacheDir() != null) {
+			cachePath = context.getExternalCacheDir().toString();
+		} else if (context.getCacheDir() != null) {
+			cachePath = context.getCacheDir().toString();
+		}
+		return cachePath;
+	}
+
 }
