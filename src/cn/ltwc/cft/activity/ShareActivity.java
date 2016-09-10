@@ -43,6 +43,7 @@ public class ShareActivity extends Activity implements OnClickListener,
 	private String imgPath;// 分享的图片地址
 	private int spanRow, spanColumn;// 每页的行数和列数
 	private PageIndicatorView indicator;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -65,9 +66,10 @@ public class ShareActivity extends Activity implements OnClickListener,
 		// TODO Auto-generated method stub
 		cancel = (TextView) findViewById(R.id.cancel);
 		rv = (MyViewPager) findViewById(R.id.rv);
-		indicator=(PageIndicatorView) findViewById(R.id.indicator);
+		indicator = (PageIndicatorView) findViewById(R.id.indicator);
 	}
 
+	@SuppressLint("ClickableViewAccessibility")
 	private void initData() {
 		// TODO Auto-generated method stub
 		type = getIntent().getStringExtra(Constant.TYPE);
@@ -86,8 +88,7 @@ public class ShareActivity extends Activity implements OnClickListener,
 				spanRow, spanColumn, this);
 		rv.setAdapter(adapter);
 		rv.setOffscreenPageLimit(getCount());
-
-	}
+}
 
 	public int getCount() {
 		int num = spanRow * spanColumn;
@@ -102,25 +103,25 @@ public class ShareActivity extends Activity implements OnClickListener,
 		// TODO Auto-generated method stub
 		indicator.initIndicator(getCount());
 		cancel.setOnClickListener(this);
-		
+
 		rv.addOnPageChangeListener(new OnPageChangeListener() {
-			
+
 			@Override
 			public void onPageSelected(int arg0) {
 				// TODO Auto-generated method stub
 				indicator.setSelectedPage(arg0);
-					}
-			
+			}
+
 			@Override
 			public void onPageScrolled(int arg0, float arg1, int arg2) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 			@Override
 			public void onPageScrollStateChanged(int arg0) {
 				// TODO Auto-generated method stub
-				
+
 			}
 		});
 	}

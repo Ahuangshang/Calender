@@ -17,7 +17,15 @@ import cn.ltwc.cft.R;
 import cn.ltwc.cft.adapter.ShareAdapter;
 import cn.ltwc.cft.myinterface.PagerRecyclerItemClickListener;
 
-@SuppressLint("InflateParams") public class PagerRecyclerAdapter extends PagerAdapter {
+/**
+ * 
+ * TODO: 数据适配器
+ * 
+ * @author huangshang 2016-9-11 上午5:11:23
+ * @Modified_By:
+ */
+@SuppressLint("InflateParams")
+public class PagerRecyclerAdapter extends PagerAdapter {
 	private List<ResolveInfo> list;
 	private int spanRow, spanColumn;// 每页的行数和列数
 	private int num;// 每页显示的item的数量
@@ -74,8 +82,7 @@ import cn.ltwc.cft.myinterface.PagerRecyclerItemClickListener;
 		for (int i = 0; i < num; i++) {
 			temp2.add(null);
 		}
-		//&& temp.size() > 1
-		if (temp.size() < num ) {
+		if (temp.size() < num) {
 			for (int j = 0; j < spanColumn; j++) {
 				int count = 0;
 				for (int i = j; i < temp2.size(); i += spanRow) {
@@ -91,11 +98,6 @@ import cn.ltwc.cft.myinterface.PagerRecyclerItemClickListener;
 			temp.clear();
 			temp.addAll(temp2);
 		}
-//		if (temp.size() == 1) {
-//			LinearLayoutManager manager = new LinearLayoutManager(c);
-//			manager.setOrientation(LinearLayoutManager.HORIZONTAL);
-//			rv.setLayoutManager(manager);
-//		}
 		ShareAdapter adapter = new ShareAdapter(c, temp, listener);
 		rv.setAdapter(adapter);
 		((ViewPager) container).addView(itemView);
