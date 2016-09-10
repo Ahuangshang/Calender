@@ -12,6 +12,7 @@ public class SpacesItemDecoration extends RecyclerView.ItemDecoration {
 		this.space = space;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void getItemOffsets(Rect outRect, View view, RecyclerView parent,
 			RecyclerView.State state) {

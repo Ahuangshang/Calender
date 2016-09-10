@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="380dp"
+    android:layout_height="400dp"
     android:orientation="vertical" >
 
     <RelativeLayout
@@ -21,14 +21,22 @@
             android:textSize="15sp"
             android:textStyle="bold" />
 
-        <android.support.v7.widget.RecyclerView
+        <android.support.v4.view.ViewPager
             android:id="@+id/rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/bottom"
+            android:layout_above="@+id/indicator"
             android:layout_below="@id/title"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp" />
+
+        <cn.ltwc.cft.view.PageIndicatorView
+            android:id="@+id/indicator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/bottom"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="10dp" />
 
         <LinearLayout
             android:id="@+id/bottom"

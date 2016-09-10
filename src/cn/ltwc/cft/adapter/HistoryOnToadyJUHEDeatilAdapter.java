@@ -26,7 +26,8 @@ import cn.ltwc.cft.beans.HistoryOnTodayBeanJUHE;
 import cn.ltwc.cft.beans.HistoryOnTodayImgBean;
 import cn.ltwc.cft.myinterface.ItemClickListener;
 
-public class HistoryOnToadyJUHEDeatilAdapter extends RecyclerView.Adapter<ViewHolder> {
+public class HistoryOnToadyJUHEDeatilAdapter extends
+		RecyclerView.Adapter<ViewHolder> {
 	private final int LAYOUT_ONE = 1;
 	private final int LAYOUT_TWO = 2;
 	private final int LAYOUT_THREE = 3;
@@ -40,7 +41,8 @@ public class HistoryOnToadyJUHEDeatilAdapter extends RecyclerView.Adapter<ViewHo
 	private ImageLoader imageLoader;// 图像加载器
 	private ItemClickListener listener;
 
-	public HistoryOnToadyJUHEDeatilAdapter(Context c, HistoryOnTodayBeanJUHE bean, List<HistoryOnTodayImgBean> imgUrl,
+	public HistoryOnToadyJUHEDeatilAdapter(Context c,
+			HistoryOnTodayBeanJUHE bean, List<HistoryOnTodayImgBean> imgUrl,
 			String con) {
 		super();
 		this.c = c;
@@ -48,7 +50,8 @@ public class HistoryOnToadyJUHEDeatilAdapter extends RecyclerView.Adapter<ViewHo
 		this.imgUrl = imgUrl;
 		this.con = con;
 		// 1.配制ImageLoaderConfiguration(主要是配制图片的缓存【是否缓存到内存卡和内存】)
-		imageLoaderConfiguration = MyApplication.getInstance().getImageLoaderConfiguration();
+		imageLoaderConfiguration = MyApplication.getInstance()
+				.getImageLoaderConfiguration();
 		// 2.配制DisplayImageOptions(主要是配制图片在显示过程中的一些参数【图片加载失败，图片地址不存在所显示的默认图片】)
 		initDisplayImageOptions();
 		// 3.按照参数配制去显示图片(ImageLoader)
@@ -95,16 +98,18 @@ public class HistoryOnToadyJUHEDeatilAdapter extends RecyclerView.Adapter<ViewHo
 		// TODO Auto-generated method stub
 		switch (viewType) {
 		case LAYOUT_ONE:
-			TitleHolder tHolder = new TitleHolder(
-					LayoutInflater.from(c).inflate(R.layout.item_history_on_today_title, parent, false));
+			TitleHolder tHolder = new TitleHolder(LayoutInflater.from(c)
+					.inflate(R.layout.item_history_on_today_title, parent,
+							false));
 			return tHolder;
 		case LAYOUT_TWO:
-			ImageHolder imgHolder = new ImageHolder(
-					LayoutInflater.from(c).inflate(R.layout.item_history_on_today_img, parent, false));
+			ImageHolder imgHolder = new ImageHolder(LayoutInflater.from(c)
+					.inflate(R.layout.item_history_on_today_img, parent, false));
 			return imgHolder;
 		case LAYOUT_THREE:
-			ContentHolder cHolder = new ContentHolder(
-					LayoutInflater.from(c).inflate(R.layout.item_history_on_today_content, parent, false));
+			ContentHolder cHolder = new ContentHolder(LayoutInflater.from(c)
+					.inflate(R.layout.item_history_on_today_content, parent,
+							false));
 			return cHolder;
 		}
 		return null;
@@ -139,8 +144,10 @@ public class HistoryOnToadyJUHEDeatilAdapter extends RecyclerView.Adapter<ViewHo
 			HistoryOnTodayImgBean imgBean = imgUrl.get(i);
 			imgName.setText(imgBean.getImgTitle());
 			// 图像加载器.显示图片(图片地址,imageView,显示参数【DisplayImageOptions】)
-			imageLoader.displayImage(imgBean.getImgUrl(), img, displayImageOptions);
-			imgName.setVisibility(TextUtils.isEmpty(imgBean.getImgTitle()) ? View.GONE : View.VISIBLE);
+			imageLoader.displayImage(imgBean.getImgUrl(), img,
+					displayImageOptions);
+			imgName.setVisibility(TextUtils.isEmpty(imgBean.getImgTitle()) ? View.GONE
+					: View.VISIBLE);
 			item.setOnLongClickListener(new OnLongClickListener() {
 
 				@Override
@@ -194,12 +201,12 @@ public class HistoryOnToadyJUHEDeatilAdapter extends RecyclerView.Adapter<ViewHo
 	 */
 	private void initDisplayImageOptions() {
 		displayImageOptions = new DisplayImageOptions.Builder()
-				// .showImageOnLoading(R.drawable.img_loading_default_big) //
-				// 设置图片在下载期间显示的图片
-				// .showImageForEmptyUri(R.drawable.img_loading_empty_big)//
-				// 设置图片Uri为空或是错误的时候显示的图片
-				// .showImageOnFail(R.drawable.img_loading_fail_big) //
-				// 设置图片加载/解码过程中错误时候显示的图片
+		// .showImageOnLoading(R.drawable.img_loading_default_big) //
+		// 设置图片在下载期间显示的图片
+		// .showImageForEmptyUri(R.drawable.img_loading_empty_big)//
+		// 设置图片Uri为空或是错误的时候显示的图片
+		// .showImageOnFail(R.drawable.img_loading_fail_big) //
+		// 设置图片加载/解码过程中错误时候显示的图片
 				.cacheInMemory(true)// 设置下载的图片是否缓存在内存中
 				.cacheOnDisc(true)// 设置下载的图片是否缓存在SD卡中
 				.considerExifParams(true) // 是否考虑JPEG图像EXIF参数（旋转，翻转）

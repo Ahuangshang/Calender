@@ -12,8 +12,8 @@ import android.content.res.TypedArray;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -22,25 +22,27 @@ import android.view.WindowManager;
 import android.widget.TextView;
 import cn.ltwc.cft.AppManager;
 import cn.ltwc.cft.R;
-import cn.ltwc.cft.adapter.ShareAdapter;
 import cn.ltwc.cft.data.Constant;
-import cn.ltwc.cft.myinterface.MeNvItemImgClickListener;
+import cn.ltwc.cft.myinterface.PagerRecyclerItemClickListener;
 import cn.ltwc.cft.utils.FileUtils;
 import cn.ltwc.cft.utils.HLUtil;
+import cn.ltwc.cft.view.PageIndicatorView;
+import cn.ltwc.cft.view.PagerRecyclerAdapter;
 
 @SuppressLint("InlinedApi")
-public class ShareActivity extends Activity implements OnClickListener, MeNvItemImgClickListener {
+public class ShareActivity extends Activity implements OnClickListener,
+		PagerRecyclerItemClickListener {
 	// 解决退出动画无效
 	protected int activityCloseEnterAnimation;
 	protected int activityCloseExitAnimation;
 	private TextView cancel;
-	private RecyclerView rv;
-	private ShareAdapter adapter;
+	private ViewPager rv;
 	private List<ResolveInfo> list;
 	private String type;// 分享类型
 	private String msg;// 分享的文字
 	private String imgPath;// 分享的图片地址
-
+	private int spanRow, spanColumn;// 每页的行数和列数
+	private PageIndicatorView indicator;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -62,9 +64,8 @@ public class ShareActivity extends Activity implements OnClickListener, MeNvItem
 	private void initView() {
 		// TODO Auto-generated method stub
 		cancel = (TextView) findViewById(R.id.cancel);
-		rv = (RecyclerView) findViewById(R.id.rv);
-		rv.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.HORIZONTAL));
-
+		rv = (ViewPager) findViewById(R.id.rv);
+		indicator=(PageIndicatorView) findViewById(R.id.indicator);
 	}
 
 	private void initData() {
@@ -79,27 +80,65 @@ public class ShareActivity extends Activity implements OnClickListener, MeNvItem
 			// Log.d("AA", info.activityInfo.packageName);
 
 		}
-		adapter = new ShareAdapter(this, list, this);
+		spanRow = 2;
+		spanColumn = 4;
+		PagerRecyclerAdapter adapter = new PagerRecyclerAdapter(this, list,
+				spanRow, spanColumn, this);
 		rv.setAdapter(adapter);
+		rv.setOffscreenPageLimit(getCount());
+
+	}
+
+	public int getCount() {
+		int num = spanRow * spanColumn;
+		if (list.size() % num == 0) {
+			return list.size() / num;
+		} else {
+			return list.size() / num + 1;
+		}
 	}
 
 	private void bindView() {
 		// TODO Auto-generated method stub
+		indicator.initIndicator(getCount());
 		cancel.setOnClickListener(this);
+		rv.addOnPageChangeListener(new OnPageChangeListener() {
+			
+			@Override
+			public void onPageSelected(int arg0) {
+				// TODO Auto-generated method stub
+				indicator.setSelectedPage(arg0);
+					}
+			
+			@Override
+			public void onPageScrolled(int arg0, float arg1, int arg2) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onPageScrollStateChanged(int arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 	}
 
 	/**
 	 * 解决退出动画无效的方法
 	 */
 	private void dealExitAniom() {
-		TypedArray activityStyle = getTheme().obtainStyledAttributes(new int[] { android.R.attr.windowAnimationStyle });
+		TypedArray activityStyle = getTheme().obtainStyledAttributes(
+				new int[] { android.R.attr.windowAnimationStyle });
 
 		int windowAnimationStyleResId = activityStyle.getResourceId(0, 0);
 
 		activityStyle.recycle();
 
-		activityStyle = getTheme().obtainStyledAttributes(windowAnimationStyleResId,
-				new int[] { android.R.attr.activityCloseEnterAnimation, android.R.attr.activityCloseExitAnimation });
+		activityStyle = getTheme().obtainStyledAttributes(
+				windowAnimationStyleResId,
+				new int[] { android.R.attr.activityCloseEnterAnimation,
+						android.R.attr.activityCloseExitAnimation });
 
 		activityCloseEnterAnimation = activityStyle.getResourceId(0, 0);
 
@@ -112,7 +151,8 @@ public class ShareActivity extends Activity implements OnClickListener, MeNvItem
 	public void finish() {
 		super.finish();
 		// 要在结束时调用此方法，才能使退出动画起作用
-		overridePendingTransition(activityCloseEnterAnimation, activityCloseExitAnimation);
+		overridePendingTransition(activityCloseEnterAnimation,
+				activityCloseExitAnimation);
 
 	}
 
@@ -124,12 +164,16 @@ public class ShareActivity extends Activity implements OnClickListener, MeNvItem
 		// 设置本Activity在父窗口的位置
 		super.onAttachedToWindow();
 		View view = getWindow().getDecorView();
-		WindowManager.LayoutParams lp = (WindowManager.LayoutParams) view.getLayoutParams();
+		WindowManager.LayoutParams lp = (WindowManager.LayoutParams) view
+				.getLayoutParams();
 		// lp.gravity = Gravity.RIGHT | Gravity.BOTTOM;
 		lp.gravity = Gravity.BOTTOM;
-		lp.x = getResources().getDimensionPixelSize(R.dimen.playqueue_dialog_marginright);
-		lp.y = getResources().getDimensionPixelSize(R.dimen.playqueue_dialog_marginbottom);
-		lp.width = getResources().getDimensionPixelSize(R.dimen.playqueue_dialog_width);
+		lp.x = getResources().getDimensionPixelSize(
+				R.dimen.playqueue_dialog_marginright);
+		lp.y = getResources().getDimensionPixelSize(
+				R.dimen.playqueue_dialog_marginbottom);
+		lp.width = getResources().getDimensionPixelSize(
+				R.dimen.playqueue_dialog_width);
 		// lp.height = getResources().getDimensionPixelSize(
 		// R.dimen.playqueue_dialog_height);
 		getWindowManager().updateViewLayout(view, lp);
@@ -145,17 +189,12 @@ public class ShareActivity extends Activity implements OnClickListener, MeNvItem
 		}
 	}
 
-	@Override
-	public void onClick(int position) {
-		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
-		ResolveInfo info = list.get(position);
+	private void itemClick(ResolveInfo info) {
 		Intent shareIntent = new Intent(Intent.ACTION_SEND);
-		
-		
-		Log.d("AA",info.activityInfo.packageName);
-		Log.d("AA",info.activityInfo.name);
-		shareIntent.setComponent(new ComponentName(info.activityInfo.packageName, info.activityInfo.name));
+		Log.d("AA", info.activityInfo.packageName);
+		Log.d("AA", info.activityInfo.name);
+		shareIntent.setComponent(new ComponentName(
+				info.activityInfo.packageName, info.activityInfo.name));
 		if (type.equals(Constant.SHARE_TYPE_TEXT)) {
 			shareIntent.putExtra(Intent.EXTRA_TEXT, msg);
 		} else if (type.equals(Constant.SHARE_TYPE_IMG)) {
@@ -179,7 +218,6 @@ public class ShareActivity extends Activity implements OnClickListener, MeNvItem
 				ShareActivity.this.finish();
 			}
 		}, 200);
-
 	}
 
 	@Override
@@ -187,5 +225,15 @@ public class ShareActivity extends Activity implements OnClickListener, MeNvItem
 		// TODO Auto-generated method stub
 		super.onDestroy();
 
+	}
+
+	@Override
+	public void itemClicked(Object obj) {
+		// TODO Auto-generated method stub
+		ResolveInfo info = (ResolveInfo) obj;
+		if (info == null) {
+			return;
+		}
+		itemClick(info);
 	}
 }

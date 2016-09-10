@@ -1,12 +1,13 @@
 package cn.ltwc.cft.rvholder;
 
+import android.content.pm.ResolveInfo;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 import cn.ltwc.cft.R;
-import cn.ltwc.cft.myinterface.MeNvItemImgClickListener;
+import cn.ltwc.cft.myinterface.PagerRecyclerItemClickListener;
 
 public class ShareHolder extends RecyclerView.ViewHolder {
 	public ImageView icon;
@@ -21,13 +22,13 @@ public class ShareHolder extends RecyclerView.ViewHolder {
 		item = itemView.findViewById(R.id.item);
 	}
 
-	public void itemClick(final int position,
-			final MeNvItemImgClickListener listener) {
+	public void itemClick(final ResolveInfo info,
+			final PagerRecyclerItemClickListener listener) {
 		item.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				if (listener != null) {
-					listener.onClick(position);
+					listener.itemClicked(info);
 				}
 
 			}

@@ -18,18 +18,18 @@ public class FileUtils {
 	 *            文件的路径
 	 * @return
 	 */
-	 public static boolean isExit(String path) {
-	        if (TextUtils.isEmpty(path)) {
-	            return false;
-	        } else {
-	            File file = new File(path);
-	            if (file.exists() && file.length() > 0) {
-	                return true;
-	            } else {
-	                return false;
-	            }
-	        }
-	    }
+	public static boolean isExit(String path) {
+		if (TextUtils.isEmpty(path)) {
+			return false;
+		} else {
+			File file = new File(path);
+			if (file.exists() && file.length() > 0) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+	}
 
 	/**
 	 * 将Assets目录中的文件拷贝到sdcard中
@@ -85,7 +85,7 @@ public class FileUtils {
 
 	/**
 	 * 创建缓存文件夹
-	 *
+	 * 
 	 * @param context
 	 * @return
 	 */

@@ -84,7 +84,7 @@ public class MoreActivity extends BaseActivity {
 					startActivity(intent);
 					break;
 				case 2:
-					 startActivity(new Intent(c, JokeActivity.class));
+					startActivity(new Intent(c, JokeActivity.class));
 					break;
 				case 3:
 					startActivity(new Intent(c, ZhaiNaniActivity.class));

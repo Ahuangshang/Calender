@@ -56,7 +56,7 @@ public class Constant {
 	public static final String SHARE_TYPE_TEXT = "text/plain";
 	public static final String SHARE_TYPE_IMG = "image/*";
 	public static final String SHARE_TYPE_AUDIO = "audio/*";
-	public static final String TYPE="type";
-	public static final String SHARE_MESSAGE="share_msg";
-	public static final String SHARE_IMG="share_img";
+	public static final String TYPE = "type";
+	public static final String SHARE_MESSAGE = "share_msg";
+	public static final String SHARE_IMG = "share_img";
 }

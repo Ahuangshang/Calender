@@ -7,7 +7,6 @@
 	<classpathentry kind="lib" path="libs/universal-image-loader-1.9.1.jar"/>
 	<classpathentry kind="lib" path="libs/glide-3.6.1.jar"/>
 	<classpathentry kind="lib" path="libs/tbs_sdk_thirdapp_v2.1.2.1096_36511_shareonly_obfs_20160727_105850.jar"/>
-	<classpathentry kind="lib" path="libs/android-support-v7-recyclerview.jar"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
