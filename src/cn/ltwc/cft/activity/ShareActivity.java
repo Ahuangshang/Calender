@@ -12,7 +12,6 @@ import android.content.res.TypedArray;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
 import android.view.Gravity;
@@ -26,6 +25,7 @@ import cn.ltwc.cft.data.Constant;
 import cn.ltwc.cft.myinterface.PagerRecyclerItemClickListener;
 import cn.ltwc.cft.utils.FileUtils;
 import cn.ltwc.cft.utils.HLUtil;
+import cn.ltwc.cft.view.MyViewPager;
 import cn.ltwc.cft.view.PageIndicatorView;
 import cn.ltwc.cft.view.PagerRecyclerAdapter;
 
@@ -36,7 +36,7 @@ public class ShareActivity extends Activity implements OnClickListener,
 	protected int activityCloseEnterAnimation;
 	protected int activityCloseExitAnimation;
 	private TextView cancel;
-	private ViewPager rv;
+	private MyViewPager rv;
 	private List<ResolveInfo> list;
 	private String type;// 分享类型
 	private String msg;// 分享的文字
@@ -64,7 +64,7 @@ public class ShareActivity extends Activity implements OnClickListener,
 	private void initView() {
 		// TODO Auto-generated method stub
 		cancel = (TextView) findViewById(R.id.cancel);
-		rv = (ViewPager) findViewById(R.id.rv);
+		rv = (MyViewPager) findViewById(R.id.rv);
 		indicator=(PageIndicatorView) findViewById(R.id.indicator);
 	}
 
@@ -102,6 +102,7 @@ public class ShareActivity extends Activity implements OnClickListener,
 		// TODO Auto-generated method stub
 		indicator.initIndicator(getCount());
 		cancel.setOnClickListener(this);
+		
 		rv.addOnPageChangeListener(new OnPageChangeListener() {
 			
 			@Override

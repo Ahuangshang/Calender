@@ -3,6 +3,7 @@ package cn.ltwc.cft.view;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.ResolveInfo;
 import android.support.v4.view.PagerAdapter;
@@ -16,7 +17,7 @@ import cn.ltwc.cft.R;
 import cn.ltwc.cft.adapter.ShareAdapter;
 import cn.ltwc.cft.myinterface.PagerRecyclerItemClickListener;
 
-public class PagerRecyclerAdapter extends PagerAdapter {
+@SuppressLint("InflateParams") public class PagerRecyclerAdapter extends PagerAdapter {
 	private List<ResolveInfo> list;
 	private int spanRow, spanColumn;// 每页的行数和列数
 	private int num;// 每页显示的item的数量
