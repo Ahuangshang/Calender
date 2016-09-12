@@ -20,8 +20,7 @@ public class MeNvAdapter extends RecyclerView.Adapter<MeiNvHolder> {
 	private ArrayList<TiangouBean> al;
 	private MeNvItemImgClickListener listener;
 
-	public MeNvAdapter(Context context, ArrayList<TiangouBean> al,
-			MeNvItemImgClickListener listener) {
+	public MeNvAdapter(Context context, ArrayList<TiangouBean> al, MeNvItemImgClickListener listener) {
 		this.al = al;
 		this.context = context;
 		this.listener = listener;
@@ -38,18 +37,17 @@ public class MeNvAdapter extends RecyclerView.Adapter<MeiNvHolder> {
 	public void onBindViewHolder(MeiNvHolder holder, int position) {
 		// TODO Auto-generated method stub
 		holder.title.setText(al.get(position).getTitle());// 标题
-		Glide.with(context).load(SRC + al.get(position).getImg()).asBitmap()
-				.placeholder(R.drawable.mian_color_perload)
-				.listener(new GlideListener(holder.Img, GlideListener.SETALL))
-				.error(R.drawable.load_failed2).into(holder.Img);
+		Glide.with(context).load(SRC + al.get(position).getImg()).asBitmap().placeholder(R.drawable.mian_color_perload)
+				.listener(new GlideListener(holder.Img, GlideListener.SETALL)).error(R.drawable.load_failed2)
+				.into(holder.Img);
 		holder.ImgClick(listener, position);
 	}
 
 	@Override
 	public MeiNvHolder onCreateViewHolder(ViewGroup parent, int arg1) {
 		// TODO Auto-generated method stub
-		MeiNvHolder holder = new MeiNvHolder(LayoutInflater.from(context)
-				.inflate(R.layout.zhainan_item, parent, false));
+		MeiNvHolder holder = new MeiNvHolder(
+				LayoutInflater.from(context).inflate(R.layout.zhainan_item, parent, false));
 		return holder;
 	}
 

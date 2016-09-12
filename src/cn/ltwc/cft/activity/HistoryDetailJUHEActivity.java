@@ -32,8 +32,8 @@ import cn.ltwc.cft.utils.FileUtils;
 import cn.ltwc.cft.utils.HLUtil;
 import cn.ltwc.cft.view.TitleView;
 
-public class HistoryDetailJUHEActivity extends BaseActivity implements
-		ServiceResponce, SaveImgListener, ItemClickListener {
+public class HistoryDetailJUHEActivity extends BaseActivity
+		implements ServiceResponce, SaveImgListener, ItemClickListener {
 	private TitleView title;
 	private HistoryOnTodayBeanJUHE bean;
 	private List<HistoryOnTodayImgBean> imgUrl;
@@ -67,8 +67,7 @@ public class HistoryDetailJUHEActivity extends BaseActivity implements
 	@Override
 	public void initData() {
 		// TODO Auto-generated method stub
-		bean = (HistoryOnTodayBeanJUHE) getIntent()
-				.getSerializableExtra("bean");
+		bean = (HistoryOnTodayBeanJUHE) getIntent().getSerializableExtra("bean");
 		imgUrl = new ArrayList<HistoryOnTodayImgBean>();
 		a = new HistoryOnToadyJUHEDeatilAdapter(this, bean, imgUrl, c);
 		showWaitingDialog(this);
@@ -82,8 +81,7 @@ public class HistoryDetailJUHEActivity extends BaseActivity implements
 		title.getRightText().setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				// createMenu(v);
-				HLUtil.toMyShare(HistoryDetailJUHEActivity.this,
-						Constant.SHARE_TYPE_TEXT,
+				HLUtil.toMyShare(HistoryDetailJUHEActivity.this, Constant.SHARE_TYPE_TEXT,
 						"\t\t\t\t\t\t\t王朝黄历\n\t\t\t\t\t历史上的今天\n" + c, null);
 			}
 		});
@@ -94,10 +92,8 @@ public class HistoryDetailJUHEActivity extends BaseActivity implements
 	@SuppressWarnings("deprecation")
 	protected void createMenu(View v) {
 		// TODO Auto-generated method stub
-		View popview = LayoutInflater.from(this).inflate(
-				R.layout.pop_share_menu, null);
-		final PopupWindow pop = new PopupWindow(popview,
-				ViewGroup.LayoutParams.WRAP_CONTENT,
+		View popview = LayoutInflater.from(this).inflate(R.layout.pop_share_menu, null);
+		final PopupWindow pop = new PopupWindow(popview, ViewGroup.LayoutParams.WRAP_CONTENT,
 				ViewGroup.LayoutParams.WRAP_CONTENT, false);
 		// 需要设置一下此参数，点击外边可消失
 		pop.setBackgroundDrawable(new BitmapDrawable());
@@ -106,62 +102,52 @@ public class HistoryDetailJUHEActivity extends BaseActivity implements
 		// 设置此参数获得焦点，否则无法点击
 		pop.setFocusable(true);
 		pop.showAsDropDown(v, 0, 0);
-		popview.findViewById(R.id.linear_m_one).setOnClickListener(
-				new View.OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						HLUtil.toMyShare(HistoryDetailJUHEActivity.this,
-								Constant.SHARE_TYPE_TEXT,
-								"\t\t\t\t\t\t\t王朝黄历\n\t\t\t\t\t历史上的今天\n" + c,
-								null);
-						pop.dismiss();
-					}
-				});
+		popview.findViewById(R.id.linear_m_one).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				HLUtil.toMyShare(HistoryDetailJUHEActivity.this, Constant.SHARE_TYPE_TEXT,
+						"\t\t\t\t\t\t\t王朝黄历\n\t\t\t\t\t历史上的今天\n" + c, null);
+				pop.dismiss();
+			}
+		});
 
-		popview.findViewById(R.id.linear_m_two).setOnClickListener(
-				new View.OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						if (num != 0) {
-							if (FileUtils.isExit(cachPath)) {
-								num++;
-								HLUtil.toMyShare(
-										HistoryDetailJUHEActivity.this,
-										Constant.SHARE_TYPE_IMG,
-										"\t\t\t\t\t\t\t王朝黄历\n\t\t\t\t\t历史上的今天\n"
-												+ c, cachPath);
-							} else {
-								num = 0;
+		popview.findViewById(R.id.linear_m_two).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (num != 0) {
+					if (FileUtils.isExit(cachPath)) {
+						num++;
+						HLUtil.toMyShare(HistoryDetailJUHEActivity.this, Constant.SHARE_TYPE_IMG,
+								"\t\t\t\t\t\t\t王朝黄历\n\t\t\t\t\t历史上的今天\n" + c, cachPath);
+					} else {
+						num = 0;
+					}
+
+				}
+				if (num == 0) {
+					cachPath = FileUtils.buildCache(instance) + "王朝黄历.jpg";
+					showWaitingDialog(instance);
+					final Bitmap bit = BitMapUtil.view2Bitmap(rv);
+					new Thread(new Runnable() {
+						@Override
+						public void run() {
+							// TODO Auto-generated method stub
+							try {
+								BitMapUtil.saveImg(bit, cachPath, instance);
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+								HistoryDetailJUHEActivity.instance.show("获取资源失败");
+								return;
 							}
-
 						}
-						if (num == 0) {
-							cachPath = FileUtils.buildCache(instance)
-									+ "王朝黄历.jpg";
-							showWaitingDialog(instance);
-							final Bitmap bit = BitMapUtil.view2Bitmap(rv);
-							new Thread(new Runnable() {
-								@Override
-								public void run() {
-									// TODO Auto-generated method stub
-									try {
-										BitMapUtil.saveImg(bit, cachPath,
-												instance);
-									} catch (IOException e) {
-										// TODO Auto-generated catch block
-										e.printStackTrace();
-										HistoryDetailJUHEActivity.instance
-												.show("获取资源失败");
-										return;
-									}
-								}
-							}).start();
+					}).start();
 
-						}
-						pop.dismiss();
+				}
+				pop.dismiss();
 
-					}
-				});
+			}
+		});
 
 	}
 
@@ -182,8 +168,7 @@ public class HistoryDetailJUHEActivity extends BaseActivity implements
 						JSONObject o = a.optJSONObject(j);
 						String pic_title = o.optString("pic_title");
 						String url = o.optString("url");
-						HistoryOnTodayImgBean bean = new HistoryOnTodayImgBean(
-								pic_title, url);
+						HistoryOnTodayImgBean bean = new HistoryOnTodayImgBean(pic_title, url);
 						imgUrl.add(bean);
 					}
 				}
@@ -226,8 +211,7 @@ public class HistoryDetailJUHEActivity extends BaseActivity implements
 	public void saveSuccess() {
 		hideWaitingDialog();
 		num++;
-		HLUtil.toMyShare(HistoryDetailJUHEActivity.this,
-				Constant.SHARE_TYPE_IMG,
+		HLUtil.toMyShare(HistoryDetailJUHEActivity.this, Constant.SHARE_TYPE_IMG,
 				"\t\t\t\t\t\t\t王朝黄历\n\t\t\t\t\t历史上的今天\n" + c, cachPath);
 	}
 

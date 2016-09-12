@@ -4,5 +4,5 @@
 <dimen name="rili_h">300dp</dimen>
 <dimen name="day_detail_yiji_min_h">180dp</dimen>
 <dimen name="img_h">180dp</dimen>
-
+<dimen name="item_with">84dp</dimen>
 </resources>

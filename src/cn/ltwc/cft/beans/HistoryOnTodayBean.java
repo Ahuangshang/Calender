@@ -45,8 +45,7 @@ public class HistoryOnTodayBean implements Serializable {
 
 	@Override
 	public String toString() {
-		return "HistoryOnTodayBean [title=" + title + ", event=" + event
-				+ ", year=" + year + "]";
+		return "HistoryOnTodayBean [title=" + title + ", event=" + event + ", year=" + year + "]";
 	}
 
 }

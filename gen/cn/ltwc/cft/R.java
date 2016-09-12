@@ -2017,20 +2017,21 @@ containing a value of this type.
         public static final int activity_horizontal_margin=0x7f05004e;
         public static final int activity_vertical_margin=0x7f05004f;
         public static final int correctWidth=0x7f050051;
-        public static final int day_detail_yiji_min_h=0x7f05005b;
+        public static final int day_detail_yiji_min_h=0x7f05005c;
         public static final int disabled_alpha_material_dark=0x7f050004;
         public static final int disabled_alpha_material_light=0x7f050003;
         public static final int drag_min_distince=0x7f050050;
         public static final int highlight_alpha_material_colored=0x7f050007;
         public static final int highlight_alpha_material_dark=0x7f050006;
         public static final int highlight_alpha_material_light=0x7f050005;
-        public static final int img_h=0x7f05005c;
+        public static final int img_h=0x7f05005d;
         /**  The max amount of scroll ItemTouchHelper will trigger if dragged view is out of
     RecyclerView's bounds.
          */
         public static final int item_touch_helper_max_drag_scroll_per_frame=0x7f050000;
         public static final int item_touch_helper_swipe_escape_max_velocity=0x7f050002;
         public static final int item_touch_helper_swipe_escape_velocity=0x7f050001;
+        public static final int item_with=0x7f050059;
         public static final int left_distince=0x7f050052;
         /**  菜单的宽度，该值为left_distince与correctWidth的和 
          */
@@ -2052,8 +2053,8 @@ containing a value of this type.
         public static final int playqueue_dialog_marginright=0x7f050054;
         public static final int playqueue_dialog_select_item_from_top=0x7f050058;
         public static final int playqueue_dialog_width=0x7f050056;
-        public static final int rili_h=0x7f05005a;
-        public static final int text_lineSpacingExtra=0x7f050059;
+        public static final int rili_h=0x7f05005b;
+        public static final int text_lineSpacingExtra=0x7f05005a;
     }
     public static final class drawable {
         public static final int abc_ab_share_pack_mtrl_alpha=0x7f020000;

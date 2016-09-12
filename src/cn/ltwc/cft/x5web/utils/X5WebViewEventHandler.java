@@ -19,8 +19,7 @@ import com.tencent.smtt.export.external.interfaces.IX5WebViewBase.HitTestResult;
 import com.tencent.smtt.export.external.interfaces.JsResult;
 import com.tencent.smtt.sdk.WebViewCallbackClient;
 
-public class X5WebViewEventHandler extends ProxyWebViewClientExtension
-		implements IX5WebChromeClientExtension {
+public class X5WebViewEventHandler extends ProxyWebViewClientExtension implements IX5WebChromeClientExtension {
 
 	/**
 	 * 这个类用于实现由于X5webview适配架构导致的部分client回调不会发生，或者回调中传入的值不正确
@@ -85,15 +84,13 @@ public class X5WebViewEventHandler extends ProxyWebViewClientExtension
 	}
 
 	@Override
-	public boolean onAddFavorite(IX5WebViewExtension arg0, String arg1,
-			String arg2, JsResult arg3) {
+	public boolean onAddFavorite(IX5WebViewExtension arg0, String arg1, String arg2, JsResult arg3) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public void onAllMetaDataFinished(IX5WebViewExtension arg0,
-			HashMap<String, String> arg1) {
+	public void onAllMetaDataFinished(IX5WebViewExtension arg0, HashMap<String, String> arg1) {
 		// TODO Auto-generated method stub
 
 	}
@@ -105,15 +102,13 @@ public class X5WebViewEventHandler extends ProxyWebViewClientExtension
 	}
 
 	@Override
-	public void onHitTestResultFinished(IX5WebViewExtension arg0,
-			HitTestResult arg1) {
+	public void onHitTestResultFinished(IX5WebViewExtension arg0, HitTestResult arg1) {
 		// TODO Auto-generated method stub
 		Log.i("yuanhaizhou", "onHitTestResultFinished");
 	}
 
 	@Override
-	public void onHitTestResultForPluginFinished(IX5WebViewExtension arg0,
-			HitTestResult arg1, Bundle arg2) {
+	public void onHitTestResultForPluginFinished(IX5WebViewExtension arg0, HitTestResult arg1, Bundle arg2) {
 		// TODO Auto-generated method stub
 		arg1.getData();
 		Log.i("yuanhaizhou", "onHitTestResultForPluginFinished");
@@ -126,8 +121,7 @@ public class X5WebViewEventHandler extends ProxyWebViewClientExtension
 	}
 
 	@Override
-	public void onPrepareX5ReadPageDataFinished(IX5WebViewExtension arg0,
-			HashMap<String, String> arg1) {
+	public void onPrepareX5ReadPageDataFinished(IX5WebViewExtension arg0, HashMap<String, String> arg1) {
 		// TODO Auto-generated method stub
 
 	}
@@ -145,8 +139,7 @@ public class X5WebViewEventHandler extends ProxyWebViewClientExtension
 	}
 
 	@Override
-	public boolean onSavePassword(String arg0, String arg1, String arg2,
-			boolean arg3, Message arg4) {
+	public boolean onSavePassword(String arg0, String arg1, String arg2, boolean arg3, Message arg4) {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -178,19 +171,15 @@ public class X5WebViewEventHandler extends ProxyWebViewClientExtension
 
 		@Override
 		public boolean onTouchEvent(MotionEvent event, View view) {
-			Log.i("yuanhaizhou", "tbs_onTouchEvent view is "
-					+ view.getClass().toString());
+			Log.i("yuanhaizhou", "tbs_onTouchEvent view is " + view.getClass().toString());
 			return webView.tbs_onTouchEvent(event, view);
 		}
 
 		@Override
-		public boolean overScrollBy(int deltaX, int deltaY, int scrollX,
-				int scrollY, int scrollRangeX, int scrollRangeY,
-				int maxOverScrollX, int maxOverScrollY, boolean isTouchEvent,
-				View view) {
-			return webView.tbs_overScrollBy(deltaX, deltaY, scrollX, scrollY,
-					scrollRangeX, scrollRangeY, maxOverScrollX, maxOverScrollY,
-					isTouchEvent, view);
+		public boolean overScrollBy(int deltaX, int deltaY, int scrollX, int scrollY, int scrollRangeX,
+				int scrollRangeY, int maxOverScrollX, int maxOverScrollY, boolean isTouchEvent, View view) {
+			return webView.tbs_overScrollBy(deltaX, deltaY, scrollX, scrollY, scrollRangeX, scrollRangeY,
+					maxOverScrollX, maxOverScrollY, isTouchEvent, view);
 		}
 
 		@Override
@@ -199,10 +188,8 @@ public class X5WebViewEventHandler extends ProxyWebViewClientExtension
 		}
 
 		@Override
-		public void onOverScrolled(int scrollX, int scrollY, boolean clampedX,
-				boolean clampedY, View view) {
-			webView.tbs_onOverScrolled(scrollX, scrollY, clampedX, clampedY,
-					view);
+		public void onOverScrolled(int scrollX, int scrollY, boolean clampedX, boolean clampedY, View view) {
+			webView.tbs_onOverScrolled(scrollX, scrollY, clampedX, clampedY, view);
 		}
 
 		@Override
@@ -248,13 +235,10 @@ public class X5WebViewEventHandler extends ProxyWebViewClientExtension
 	}
 
 	// 4
-	public boolean overScrollBy(int deltaX, int deltaY, int scrollX,
-			int scrollY, int scrollRangeX, int scrollRangeY,
-			int maxOverScrollX, int maxOverScrollY, boolean isTouchEvent,
-			View view) {
-		return callbackClient.overScrollBy(deltaX, deltaY, scrollX, scrollY,
-				scrollRangeX, scrollRangeY, maxOverScrollX, maxOverScrollY,
-				isTouchEvent, view);
+	public boolean overScrollBy(int deltaX, int deltaY, int scrollX, int scrollY, int scrollRangeX, int scrollRangeY,
+			int maxOverScrollX, int maxOverScrollY, boolean isTouchEvent, View view) {
+		return callbackClient.overScrollBy(deltaX, deltaY, scrollX, scrollY, scrollRangeX, scrollRangeY, maxOverScrollX,
+				maxOverScrollY, isTouchEvent, view);
 	}
 
 	// 5
@@ -263,10 +247,8 @@ public class X5WebViewEventHandler extends ProxyWebViewClientExtension
 	}
 
 	// 6
-	public void onOverScrolled(int scrollX, int scrollY, boolean clampedX,
-			boolean clampedY, View view) {
-		callbackClient.onOverScrolled(scrollX, scrollY, clampedX, clampedY,
-				view);
+	public void onOverScrolled(int scrollX, int scrollY, boolean clampedX, boolean clampedY, View view) {
+		callbackClient.onOverScrolled(scrollX, scrollY, clampedX, clampedY, view);
 	}
 
 	// 7
@@ -281,15 +263,14 @@ public class X5WebViewEventHandler extends ProxyWebViewClientExtension
 	}
 
 	@Override
-	public boolean onSavePassword(ValueCallback<String> arg0, String arg1,
-			String arg2, String arg3, String arg4, String arg5, boolean arg6) {
+	public boolean onSavePassword(ValueCallback<String> arg0, String arg1, String arg2, String arg3, String arg4,
+			String arg5, boolean arg6) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public void openFileChooser(ValueCallback<Uri[]> arg0, String arg1,
-			String arg2) {
+	public void openFileChooser(ValueCallback<Uri[]> arg0, String arg1, String arg2) {
 		// TODO Auto-generated method stub
 
 	}

@@ -28,8 +28,7 @@ import cn.ltwc.cft.view.TitleView;
  * @author huangshang
  * @Modified_By:
  */
-public class ZhaiNaniActivity extends BaseActivity implements ServiceResponce,
-		MeNvItemImgClickListener {
+public class ZhaiNaniActivity extends BaseActivity implements ServiceResponce, MeNvItemImgClickListener {
 
 	private String TAG = "ZhaiNaniActivity";
 	private ArrayList<TiangouBean> al = null;// 存放数据的集合
@@ -59,8 +58,7 @@ public class ZhaiNaniActivity extends BaseActivity implements ServiceResponce,
 		// manager.setOrientation(LinearLayoutManager.VERTICAL);
 		// rv.setLayoutManager(manager);
 		// 设置为瀑布流
-		rv.setLayoutManager(new StaggeredGridLayoutManager(2,
-				StaggeredGridLayoutManager.VERTICAL));
+		rv.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
 		// 设置item之间的间隔
 		SpacesItemDecoration decoration = new SpacesItemDecoration(12);
 		rv.addItemDecoration(decoration);
@@ -131,8 +129,7 @@ public class ZhaiNaniActivity extends BaseActivity implements ServiceResponce,
 	@Override
 	public void onClick(int position) {
 		// TODO Auto-generated method stub
-		Intent intent = new Intent(ZhaiNaniActivity.this,
-				ShowImageGallery.class);
+		Intent intent = new Intent(ZhaiNaniActivity.this, ShowImageGallery.class);
 		intent.putParcelableArrayListExtra(Constant.IMGURL_LIST, al);
 		intent.putExtra(Constant.POSITION, position);
 		startActivity(intent);

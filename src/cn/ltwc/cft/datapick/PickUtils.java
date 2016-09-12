@@ -63,8 +63,7 @@ public class PickUtils {
 	 */
 	@SuppressWarnings("deprecation")
 	public void showPopwindow(View view) {
-		menuWindow = new PopupWindow(view, LayoutParams.FILL_PARENT,
-				LayoutParams.WRAP_CONTENT);
+		menuWindow = new PopupWindow(view, LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
 		menuWindow.setFocusable(true);
 		Drawable drawable = new ColorDrawable(Color.rgb(79, 210, 190));
 		menuWindow.setBackgroundDrawable(drawable);
@@ -121,8 +120,7 @@ public class PickUtils {
 
 			@Override
 			public void onClick(View v) {
-				str = (year.getCurrentItem() + 1950) + "年"
-						+ (month.getCurrentItem() + 1) + "月"
+				str = (year.getCurrentItem() + 1950) + "年" + (month.getCurrentItem() + 1) + "月"
 						+ (day.getCurrentItem() + 1);
 				// Toast.makeText(context, str, Toast.LENGTH_LONG).show();
 				// currentMonth.setText(str);

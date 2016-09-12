@@ -51,8 +51,7 @@ public class HistoryOnTodayBeanJUHE implements Serializable {
 
 	@Override
 	public String toString() {
-		return "HistoryOnTodayBeanJUHE [year=" + year + ", title=" + title
-				+ ", e_id=" + e_id + "]";
+		return "HistoryOnTodayBeanJUHE [year=" + year + ", title=" + title + ", e_id=" + e_id + "]";
 	}
 
 }

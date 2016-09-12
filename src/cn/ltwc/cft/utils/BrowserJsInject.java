@@ -12,8 +12,7 @@ public class BrowserJsInject {
 	public static String fullScreenByJs(String url) {
 		String refer = referParser(url);
 		if (null != refer) {
-			return "javascript:document.getElementsByClassName('"
-					+ referParser(url)
+			return "javascript:document.getElementsByClassName('" + referParser(url)
 					+ "')[0].addEventListener('click',function(){local_obj.playing();return false;});";
 		} else {
 			return "javascript:";

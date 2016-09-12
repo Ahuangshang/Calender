@@ -60,8 +60,7 @@ public class PageRecyclerView extends RecyclerView {
 	// 默认初始化
 	private void defaultInit(Context context) {
 		this.mContext = context;
-		setLayoutManager(new AutoGridLayoutManager(mContext, spanRow,
-				AutoGridLayoutManager.HORIZONTAL, false));
+		setLayoutManager(new AutoGridLayoutManager(mContext, spanRow, AutoGridLayoutManager.HORIZONTAL, false));
 		setOverScrollMode(OVER_SCROLL_NEVER);
 	}
 
@@ -76,8 +75,7 @@ public class PageRecyclerView extends RecyclerView {
 	public void setPageSize(int spanRow, int spanColumn) {
 		this.spanRow = spanRow <= 0 ? this.spanRow : spanRow;
 		this.spanColumn = spanColumn <= 0 ? this.spanColumn : spanColumn;
-		setLayoutManager(new AutoGridLayoutManager(mContext, this.spanRow,
-				AutoGridLayoutManager.HORIZONTAL, false));
+		setLayoutManager(new AutoGridLayoutManager(mContext, this.spanRow, AutoGridLayoutManager.HORIZONTAL, false));
 	}
 
 	/**
@@ -117,8 +115,7 @@ public class PageRecyclerView extends RecyclerView {
 	// 更新页码指示器和相关数据
 	private void update() {
 		// 计算总页数
-		int temp = ((int) Math.ceil(myAdapter.dataList.size()
-				/ (double) (spanRow * spanColumn)));
+		int temp = ((int) Math.ceil(myAdapter.dataList.size() / (double) (spanRow * spanColumn)));
 		if (temp != totalPage) {
 			mIndicatorView.initIndicator(temp);
 			// 页码减少且当前页为最后一页
@@ -185,8 +182,7 @@ public class PageRecyclerView extends RecyclerView {
 	/**
 	 * 数据适配器
 	 */
-	public class PageAdapter extends
-			RecyclerView.Adapter<RecyclerView.ViewHolder> {
+	public class PageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
 		private List<?> dataList = null;
 		private CallBack mCallBack = null;
@@ -206,43 +202,36 @@ public class PageRecyclerView extends RecyclerView {
 		}
 
 		@Override
-		public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent,
-				int viewType) {
+		public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 			if (itemWidth <= 0) {
 				// 计算Item的宽度
 				itemWidth = (parent.getWidth() - pageMargin * 2) / spanColumn;
 			}
 
-			RecyclerView.ViewHolder holder = mCallBack.onCreateViewHolder(
-					parent, viewType);
+			RecyclerView.ViewHolder holder = mCallBack.onCreateViewHolder(parent, viewType);
 
 			holder.itemView.measure(0, 0);
 			holder.itemView.getLayoutParams().width = itemWidth;
-			holder.itemView.getLayoutParams().height = holder.itemView
-					.getMeasuredHeight();
+			holder.itemView.getLayoutParams().height = holder.itemView.getMeasuredHeight();
 
 			return holder;
 		}
 
 		@Override
-		public void onBindViewHolder(RecyclerView.ViewHolder holder,
-				int position) {
+		public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 			if (spanColumn == 1) {
 				// 每个Item距离左右两侧各pageMargin
-				holder.itemView.getLayoutParams().width = itemWidth
-						+ pageMargin * 2;
+				holder.itemView.getLayoutParams().width = itemWidth + pageMargin * 2;
 				holder.itemView.setPadding(pageMargin, 0, pageMargin, 0);
 			} else {
 				int m = position % (spanRow * spanColumn);
 				if (m < spanRow) {
 					// 每页左侧的Item距离左边pageMargin
-					holder.itemView.getLayoutParams().width = itemWidth
-							+ pageMargin;
+					holder.itemView.getLayoutParams().width = itemWidth + pageMargin;
 					holder.itemView.setPadding(pageMargin, 0, 0, 0);
 				} else if (m >= spanRow * spanColumn - spanRow) {
 					// 每页右侧的Item距离右边pageMargin
-					holder.itemView.getLayoutParams().width = itemWidth
-							+ pageMargin;
+					holder.itemView.getLayoutParams().width = itemWidth + pageMargin;
 					holder.itemView.setPadding(0, 0, pageMargin, 0);
 				} else {
 					// 中间的正常显示
@@ -329,9 +318,7 @@ public class PageRecyclerView extends RecyclerView {
 				// 删除Item
 				notifyItemRemoved(position);
 				// 更新界面上发生改变的Item
-				notifyItemRangeChanged(
-						(currentPage - 1) * spanRow * spanColumn, currentPage
-								* spanRow * spanColumn);
+				notifyItemRangeChanged((currentPage - 1) * spanRow * spanColumn, currentPage * spanRow * spanColumn);
 				// 更新页码指示器
 				update();
 			}
@@ -347,8 +334,7 @@ public class PageRecyclerView extends RecyclerView {
 		 * @param parent
 		 * @param viewType
 		 */
-		RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent,
-				int viewType);
+		RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType);
 
 		/**
 		 * 绑定数据到ViewHolder

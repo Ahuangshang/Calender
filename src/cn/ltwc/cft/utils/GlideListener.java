@@ -25,8 +25,7 @@ public class GlideListener implements RequestListener {
 	}
 
 	@Override
-	public boolean onException(Exception e, Object model, Target target,
-			boolean isFirstResource) {
+	public boolean onException(Exception e, Object model, Target target, boolean isFirstResource) {
 		if (Type == SETBACKGROUD) {
 			view.setBackgroundColor(Color.parseColor("#e1e1e1"));
 		} else if (Type == SETSCALTYPE) {
@@ -39,8 +38,8 @@ public class GlideListener implements RequestListener {
 	}
 
 	@Override
-	public boolean onResourceReady(Object resource, Object model,
-			Target target, boolean isFromMemoryCache, boolean isFirstResource) {
+	public boolean onResourceReady(Object resource, Object model, Target target, boolean isFromMemoryCache,
+			boolean isFirstResource) {
 		if (Type == SETBACKGROUD) {
 			view.setBackgroundColor(Color.parseColor("#ffffff"));
 		} else if (Type == SETSCALTYPE) {

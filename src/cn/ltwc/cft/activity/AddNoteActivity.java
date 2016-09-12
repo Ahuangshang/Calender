@@ -66,8 +66,7 @@ public class AddNoteActivity extends BaseActivity {
 		// TODO Auto-generated method stub
 		SureClick();
 		// addContent.setMovementMethod(ScrollingMovementMethod.getInstance());
-		addContent.setSelection(addContent.getText().length(), addContent
-				.getText().length());
+		addContent.setSelection(addContent.getText().length(), addContent.getText().length());
 		ViewTreeObserver vto = root.getViewTreeObserver();
 		vto.addOnGlobalLayoutListener(new OnGlobalLayoutListener() {
 
@@ -83,44 +82,35 @@ public class AddNoteActivity extends BaseActivity {
 				Log.d("AA", "Size:" + heightDifference);
 				if (heightDifference > screenHeight / 3) {
 					// 软键盘弹起
-					Log.d("AA",
-							"新高度:"
-									+ (screenHeight - heightDifference
-											- topHeight - BitMapUtil.dip2px(
-											AddNoteActivity.this, 30)));
+					Log.d("AA", "新高度:" + (screenHeight - heightDifference - topHeight
+							- BitMapUtil.dip2px(AddNoteActivity.this, 30)));
 					LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-							ViewGroup.LayoutParams.MATCH_PARENT, screenHeight
-									- heightDifference
-									- topHeight
-									- BitMapUtil.dip2px(AddNoteActivity.this,
-											30));
+							ViewGroup.LayoutParams.MATCH_PARENT,
+							screenHeight - heightDifference - topHeight - BitMapUtil.dip2px(AddNoteActivity.this, 30));
 					addContent.setLayoutParams(params);
 
 				} else {
 					// 软键盘关闭
 					LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-							ViewGroup.LayoutParams.MATCH_PARENT,
-							ViewGroup.LayoutParams.MATCH_PARENT);
+							ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 					addContent.setLayoutParams(params);
 				}
 
 			}
 		});
 
-		top.getViewTreeObserver().addOnGlobalLayoutListener(
-				new OnGlobalLayoutListener() {
+		top.getViewTreeObserver().addOnGlobalLayoutListener(new OnGlobalLayoutListener() {
 
-					@SuppressWarnings("deprecation")
-					@Override
-					public void onGlobalLayout() {
-						// TODO Auto-generated method stub
-						top.getViewTreeObserver().removeGlobalOnLayoutListener(
-								this);
-						topHeight = top.getHeight();
-						Log.d("AA", "初始高度：" + topHeight);
+			@SuppressWarnings("deprecation")
+			@Override
+			public void onGlobalLayout() {
+				// TODO Auto-generated method stub
+				top.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+				topHeight = top.getHeight();
+				Log.d("AA", "初始高度：" + topHeight);
 
-					}
-				});
+			}
+		});
 	}
 
 	/**
@@ -134,18 +124,15 @@ public class AddNoteActivity extends BaseActivity {
 				String noteTitle = addTitle.getText().toString();
 				String noteContent = addContent.getText().toString();
 
-				if (TextUtils.isEmpty(noteTitle)
-						|| TextUtils.isEmpty(noteContent)) {
+				if (TextUtils.isEmpty(noteTitle) || TextUtils.isEmpty(noteContent)) {
 					// 如果输入框中有一个没有内容
 					show("请确认标题或内容不为空");
 				} else {
 					String time = getCurrentTime();
-					NoteBean notebean = new NoteBean(noteTitle, noteContent,
-							time, System.currentTimeMillis() + "");
+					NoteBean notebean = new NoteBean(noteTitle, noteContent, time, System.currentTimeMillis() + "");
 					if (flag) {
 						// 修改记事
-						NoteDB.getInstance().update(notebean,
-								bean.getCurrentTime());
+						NoteDB.getInstance().update(notebean, bean.getCurrentTime());
 					} else {
 						NoteDB.getInstance().addNote(notebean);
 					}

@@ -12,4 +12,9 @@ public class ScreenUtils {
 		return dm.heightPixels;
 	}
 
+	public static int getScreenWith(Context mContext) {
+		Resources resources = mContext.getResources();
+		DisplayMetrics dm = resources.getDisplayMetrics();
+		return dm.widthPixels;
+	}
 }

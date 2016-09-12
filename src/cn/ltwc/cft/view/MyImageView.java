@@ -114,8 +114,7 @@ public class MyImageView extends ImageView {
 		mMinZoom = 0.9f * scale;
 		mMaxZoom = 3 * scale;
 		matrix.postScale(scale, scale);
-		matrix.postTranslate((viewWidth - w * scale) / 2F, (viewHeight - h
-				* scale) / 2F);
+		matrix.postTranslate((viewWidth - w * scale) / 2F, (viewHeight - h * scale) / 2F);
 	}
 
 	protected float getValue(Matrix matrix, int whichValue) {
@@ -150,8 +149,7 @@ public class MyImageView extends ImageView {
 	}
 
 	@Override
-	protected void onLayout(boolean changed, int left, int top, int right,
-			int bottom) {
+	protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
 		super.onLayout(changed, left, top, right, bottom);
 		mThisWidth = right - left;
 		mThisHeight = bottom - top;
@@ -175,8 +173,7 @@ public class MyImageView extends ImageView {
 		center(true, true);
 	}
 
-	protected void zoomTo(final float scale, final float centerX,
-			final float centerY, final float durationMs) {
+	protected void zoomTo(final float scale, final float centerX, final float centerY, final float durationMs) {
 		final float incrementPerMs = (scale - getScale()) / durationMs;
 		final float oldScale = getScale();
 		final long startTime = System.currentTimeMillis();
@@ -311,8 +308,7 @@ public class MyImageView extends ImageView {
 
 	@Override
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
-		if (keyCode == KeyEvent.KEYCODE_BACK && event.isTracking()
-				&& !event.isCanceled()) {
+		if (keyCode == KeyEvent.KEYCODE_BACK && event.isTracking() && !event.isCanceled()) {
 			if (getScale() > mMinZoom) {
 				zoomTo(mMinZoom);
 				return true;

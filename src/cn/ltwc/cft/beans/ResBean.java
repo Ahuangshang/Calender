@@ -49,8 +49,7 @@ public class ResBean {
 
 	@Override
 	public String toString() {
-		return "ResBean [res_code=" + res_code + ", res_error=" + res_error
-				+ ", res_body=" + res_body + "]";
+		return "ResBean [res_code=" + res_code + ", res_error=" + res_error + ", res_body=" + res_body + "]";
 	}
 
 }

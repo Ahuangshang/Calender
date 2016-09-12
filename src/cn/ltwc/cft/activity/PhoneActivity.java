@@ -28,8 +28,7 @@ import com.google.gson.reflect.TypeToken;
  */
 public class PhoneActivity extends BaseActivity implements ServiceResponce {
 	@SuppressWarnings("unused")
-	private TextView phonetext, citytext, provincetext, suppliertext, suittext,
-			retMsgtext;
+	private TextView phonetext, citytext, provincetext, suppliertext, suittext, retMsgtext;
 	private EditText getphone;
 	private LinearLayout linearLayout;
 	private RelativeLayout relativeLayout;
@@ -127,9 +126,8 @@ public class PhoneActivity extends BaseActivity implements ServiceResponce {
 
 			Gson gson = new Gson();
 
-			ReturnBack back = gson.fromJson(result,
-					new TypeToken<ReturnBack>() {
-					}.getType());
+			ReturnBack back = gson.fromJson(result, new TypeToken<ReturnBack>() {
+			}.getType());
 			if (back.getErrNum() == 0) {
 
 				BackDate retData = back.getRetData();

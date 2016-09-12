@@ -19,8 +19,7 @@ public class AutoGridLayoutManager extends GridLayoutManager {
 	private int measuredWidth = 0;
 	private int measuredHeight = 0;
 
-	public AutoGridLayoutManager(Context context, AttributeSet attrs,
-			int defStyleAttr, int defStyleRes) {
+	public AutoGridLayoutManager(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
 		super(context, attrs, defStyleAttr, defStyleRes);
 	}
 
@@ -28,14 +27,12 @@ public class AutoGridLayoutManager extends GridLayoutManager {
 		super(context, spanCount);
 	}
 
-	public AutoGridLayoutManager(Context context, int spanCount,
-			int orientation, boolean reverseLayout) {
+	public AutoGridLayoutManager(Context context, int spanCount, int orientation, boolean reverseLayout) {
 		super(context, spanCount, orientation, reverseLayout);
 	}
 
 	@Override
-	public void onMeasure(RecyclerView.Recycler recycler,
-			RecyclerView.State state, int widthSpec, int heightSpec) {
+	public void onMeasure(RecyclerView.Recycler recycler, RecyclerView.State state, int widthSpec, int heightSpec) {
 		if (measuredHeight <= 0) {
 			View view = null;
 			try {

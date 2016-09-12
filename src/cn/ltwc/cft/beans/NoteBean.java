@@ -52,8 +52,7 @@ public class NoteBean implements Parcelable {
 		super();
 	}
 
-	public NoteBean(String noteTitle, String noteContent, String completeTime,
-			String currentTime) {
+	public NoteBean(String noteTitle, String noteContent, String completeTime, String currentTime) {
 		super();
 		this.noteTitle = noteTitle;
 		this.noteContent = noteContent;
@@ -63,8 +62,8 @@ public class NoteBean implements Parcelable {
 
 	@Override
 	public String toString() {
-		return "NoteBean [noteTitle=" + noteTitle + ", noteContent="
-				+ noteContent + ", completeTime=" + completeTime + "]";
+		return "NoteBean [noteTitle=" + noteTitle + ", noteContent=" + noteContent + ", completeTime=" + completeTime
+				+ "]";
 	}
 
 	@Override

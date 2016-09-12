@@ -68,8 +68,7 @@ public class BitMapUtil {
 	 * @return
 	 */
 	public static Bitmap view2Bitmap(View view) {
-		final Bitmap bmp = Bitmap.createBitmap(view.getWidth(),
-				view.getHeight(), Bitmap.Config.ARGB_8888);
+		final Bitmap bmp = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
 		view.draw(new Canvas(bmp));
 		return bmp;
 	}
@@ -81,8 +80,7 @@ public class BitMapUtil {
 	 * @param filePath
 	 * @throws IOException
 	 */
-	public static void saveImg(Bitmap qrcodeBitmap, String filePath,
-			SaveImgListener listener) throws IOException {
+	public static void saveImg(Bitmap qrcodeBitmap, String filePath, SaveImgListener listener) throws IOException {
 		File img = new File(filePath);
 		if (!img.exists()) {
 			img.mkdirs();
@@ -100,8 +98,7 @@ public class BitMapUtil {
 	 * @throws IOException
 	 * @throws FileNotFoundException
 	 */
-	public static void save(Bitmap bm, File file, SaveImgListener listener)
-			throws IOException, FileNotFoundException {
+	public static void save(Bitmap bm, File file, SaveImgListener listener) throws IOException, FileNotFoundException {
 		// 如果父目录不存在 则创建
 		if (!file.getParentFile().exists()) {
 			file.getParentFile().mkdirs();

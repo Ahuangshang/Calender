@@ -37,8 +37,7 @@ public class PhotoView extends ImageView implements IPhotoView {
 		this(context, attr, 0, rootView);
 	}
 
-	public PhotoView(Context context, AttributeSet attr, int defStyle,
-			RelativeLayout rootView) {
+	public PhotoView(Context context, AttributeSet attr, int defStyle, RelativeLayout rootView) {
 		super(context, attr, defStyle);
 		super.setScaleType(ScaleType.MATRIX);
 		mAttacher = new PhotoViewAttacher(this, rootView);
@@ -134,8 +133,7 @@ public class PhotoView extends ImageView implements IPhotoView {
 	}
 
 	@Override
-	public void setOnMatrixChangeListener(
-			PhotoViewAttacher.OnMatrixChangedListener listener) {
+	public void setOnMatrixChangeListener(PhotoViewAttacher.OnMatrixChangedListener listener) {
 		mAttacher.setOnMatrixChangeListener(listener);
 	}
 
@@ -145,14 +143,12 @@ public class PhotoView extends ImageView implements IPhotoView {
 	}
 
 	@Override
-	public void setOnPhotoTapListener(
-			PhotoViewAttacher.OnPhotoTapListener listener) {
+	public void setOnPhotoTapListener(PhotoViewAttacher.OnPhotoTapListener listener) {
 		mAttacher.setOnPhotoTapListener(listener);
 	}
 
 	@Override
-	public void setOnViewTapListener(
-			PhotoViewAttacher.OnViewTapListener listener) {
+	public void setOnViewTapListener(PhotoViewAttacher.OnViewTapListener listener) {
 		mAttacher.setOnViewTapListener(listener);
 	}
 

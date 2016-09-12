@@ -36,8 +36,7 @@ public class HLUtil {
 	public static String getHoliday(String nHolidayDay) {
 		String holiday = "";
 		for (int i = 0; i < Constant.holiday.length; i++) {
-			if (nHolidayDay.indexOf(Constant.holiday[i]) != -1
-					|| Constant.holiday[i].indexOf(nHolidayDay) != -1) {
+			if (nHolidayDay.indexOf(Constant.holiday[i]) != -1 || Constant.holiday[i].indexOf(nHolidayDay) != -1) {
 				holiday = Constant.holiday[i];
 				return holiday;
 			}
@@ -184,20 +183,16 @@ public class HLUtil {
 		boolean isLeapyear;
 		int totalDay;
 		isLeapyear = SpecialCalendar.getInstance().isLeapYear(year);
-		totalDay = SpecialCalendar.getInstance().getDaysOfMonth(isLeapyear,
-				month);
+		totalDay = SpecialCalendar.getInstance().getDaysOfMonth(isLeapyear, month);
 		return totalDay;
 	}
 
 	private static RiqiBean setRiQIBean(int year, int month, int day) {
 		RiqiBean newBean = new RiqiBean();
 		newBean = LunarCalendar.getInstance().getRiqiBeanInfo(year, month, day);
-		YiJiBean yibean = HuangLi.getInstance().quearHuangli(year + "",
-				month + "", day + "");
-		newBean.setYi(TextUtils.isEmpty(yibean.getYi()) ? "诸事不宜" : yibean
-				.getYi());
-		newBean.setJi(TextUtils.isEmpty(yibean.getJi()) ? "黄道吉日，诸事大吉" : yibean
-				.getJi());
+		YiJiBean yibean = HuangLi.getInstance().quearHuangli(year + "", month + "", day + "");
+		newBean.setYi(TextUtils.isEmpty(yibean.getYi()) ? "诸事不宜" : yibean.getYi());
+		newBean.setJi(TextUtils.isEmpty(yibean.getJi()) ? "黄道吉日，诸事大吉" : yibean.getJi());
 		return newBean;
 	}
 
@@ -210,8 +205,8 @@ public class HLUtil {
 	 * @param msgText
 	 * @param imgPath
 	 */
-	public static void shareMsg(Context context, String activityTitle,
-			String msgTitle, String msgText, String imgPath) {
+	public static void shareMsg(Context context, String activityTitle, String msgTitle, String msgText,
+			String imgPath) {
 		Intent intent = new Intent(Intent.ACTION_SEND);
 		if (imgPath == null || imgPath.equals("")) {
 			intent.setType("text/plain"); // 纯文本
@@ -241,8 +236,7 @@ public class HLUtil {
 	 * @param imgPath
 	 *            分享图片的地址
 	 */
-	public static void toMyShare(Context context, String type, String msgText,
-			String imgPath) {
+	public static void toMyShare(Context context, String type, String msgText, String imgPath) {
 		Intent intent = new Intent(context, ShareActivity.class);
 		intent.putExtra(Constant.TYPE, type);
 		intent.putExtra(Constant.SHARE_TYPE_TEXT, msgText);
@@ -263,8 +257,7 @@ public class HLUtil {
 		intent.addCategory(Intent.CATEGORY_DEFAULT);
 		intent.setType(type);
 		PackageManager pManager = context.getPackageManager();
-		mApps = pManager.queryIntentActivities(intent,
-				PackageManager.COMPONENT_ENABLED_STATE_DEFAULT);
+		mApps = pManager.queryIntentActivities(intent, PackageManager.COMPONENT_ENABLED_STATE_DEFAULT);
 		return mApps;
 	}
 

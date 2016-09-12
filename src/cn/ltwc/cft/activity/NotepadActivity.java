@@ -81,8 +81,7 @@ public class NotepadActivity extends BaseActivity {
 		list.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				// TODO Auto-generated method stub
 				Intent intent = new Intent(c, AddNoteActivity.class);
 				intent.putExtra(Constant.NOTE_BEAN, notes.get(position));
@@ -93,8 +92,7 @@ public class NotepadActivity extends BaseActivity {
 		list.setOnItemLongClickListener(new OnItemLongClickListener() {
 
 			@Override
-			public boolean onItemLongClick(AdapterView<?> parent, View view,
-					int position, long id) {
+			public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 				// TODO Auto-generated method stub
 				dialog(position);
 				return true;
@@ -124,8 +122,7 @@ public class NotepadActivity extends BaseActivity {
 		builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				NoteDB.getInstance().deleteItem(
-						notes.get(position).getCurrentTime());
+				NoteDB.getInstance().deleteItem(notes.get(position).getCurrentTime());
 				reflushData();
 				dialog.dismiss();
 			}

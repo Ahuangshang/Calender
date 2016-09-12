@@ -40,10 +40,8 @@ public class MyX5WebView extends Activity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		// 沉浸式导航栏
-		getWindow()
-				.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-		getWindow().addFlags(
-				WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+		getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+		getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
 		AppManager.getInstance().addActivity(this);
 		setContentView(R.layout.activity_myx5_web);
 		initView();
@@ -178,8 +176,7 @@ public class MyX5WebView extends Activity {
 
 			data.putInt("DefaultVideoScreen", 2);// 1：以页面内开始播放，2：以全屏开始播放；不设置默认：1
 
-			webView.getX5WebViewExtension().invokeMiscMethod("setVideoParams",
-					data);
+			webView.getX5WebViewExtension().invokeMiscMethod("setVideoParams", data);
 		}
 	}
 
@@ -195,8 +192,7 @@ public class MyX5WebView extends Activity {
 
 			data.putInt("DefaultVideoScreen", 2);// 1：以页面内开始播放，2：以全屏开始播放；不设置默认：1
 
-			webView.getX5WebViewExtension().invokeMiscMethod("setVideoParams",
-					data);
+			webView.getX5WebViewExtension().invokeMiscMethod("setVideoParams", data);
 		}
 	}
 
@@ -212,8 +208,7 @@ public class MyX5WebView extends Activity {
 
 			data.putInt("DefaultVideoScreen", 2);// 1：以页面内开始播放，2：以全屏开始播放；不设置默认：1
 
-			webView.getX5WebViewExtension().invokeMiscMethod("setVideoParams",
-					data);
+			webView.getX5WebViewExtension().invokeMiscMethod("setVideoParams", data);
 		}
 	}
 
@@ -229,8 +224,7 @@ public class MyX5WebView extends Activity {
 
 			data.putInt("DefaultVideoScreen", 1);// 1：以页面内开始播放，2：以全屏开始播放；不设置默认：1
 
-			webView.getX5WebViewExtension().invokeMiscMethod("setVideoParams",
-					data);
+			webView.getX5WebViewExtension().invokeMiscMethod("setVideoParams", data);
 		}
 	}
 
@@ -240,8 +234,7 @@ public class MyX5WebView extends Activity {
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		// Check if the key event was the Back button and if there's history
-		if ((keyCode == KeyEvent.KEYCODE_BACK) && webView != null
-				&& webView.canGoBack()) {
+		if ((keyCode == KeyEvent.KEYCODE_BACK) && webView != null && webView.canGoBack()) {
 			// 返回键退回
 			webView.goBack();
 			return true;

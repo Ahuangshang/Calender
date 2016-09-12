@@ -77,18 +77,11 @@ public class JokeActivity extends BaseActivity implements ServiceResponce {
 		});
 		listJoke.setOnItemLongClickListener(new OnItemLongClickListener() {
 			@Override
-			public boolean onItemLongClick(AdapterView<?> parent, View view,
-					int position, long id) {
+			public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 				JokeListBean bean = jokeList.get(position);
-				HLUtil.toMyShare(
-						c,
-						Constant.SHARE_TYPE_TEXT,
-						"\t\t\t\t王朝黄历内涵段子\n"
-								+ bean.getJokeContent()
-										.replaceAll(" ", "")
-										.replaceAll("\r\n\r\r\r\r\r\r\r\r",
-												"\r\n")
-										.replaceAll("\r\r\r\r\r\r\r\r", ""),
+				HLUtil.toMyShare(c, Constant.SHARE_TYPE_TEXT,
+						"\t\t\t\t王朝黄历内涵段子\n" + bean.getJokeContent().replaceAll(" ", "")
+								.replaceAll("\r\n\r\r\r\r\r\r\r\r", "\r\n").replaceAll("\r\r\r\r\r\r\r\r", ""),
 						null);
 				return false;
 			}
@@ -102,23 +95,19 @@ public class JokeActivity extends BaseActivity implements ServiceResponce {
 		hideWaitingDialog();
 		try {
 			JSONObject jsonObject = new JSONObject(result);
-			JSONObject jsonObject2 = jsonObject
-					.getJSONObject("showapi_res_body");
+			JSONObject jsonObject2 = jsonObject.getJSONObject("showapi_res_body");
 			JSONArray array = jsonObject2.getJSONArray("contentlist");
 			for (int i = 0; i < array.length(); i++) {
 				JSONObject jsonObject3 = array.getJSONObject(i);
-				String text = jsonObject3.getString("text")
-						.replace("&nbsp", "").replaceAll("\\　", "")
-						.replaceAll("\\<p>", "").replaceAll("\\</p>", "\r\n")
-						.replaceAll("\\<br />", "")
+				String text = jsonObject3.getString("text").replace("&nbsp", "").replaceAll("\\　", "")
+						.replaceAll("\\<p>", "").replaceAll("\\</p>", "\r\n").replaceAll("\\<br />", "")
 						.replaceAll("\\&hellip;", "...").replaceAll("\\\t", "")
 						.replaceAll("\r\n", "\r\n\r\r\r\r\r\r\r\r");
 				;
 				String title = jsonObject3.getString("title");
 				String ct = jsonObject3.getString("ct");
 				String type = jsonObject3.getString("type");
-				JokeListBean bean = new JokeListBean(ct, title,
-						"\r\r\r\r\r\r\r\r" + text, type);
+				JokeListBean bean = new JokeListBean(ct, title, "\r\r\r\r\r\r\r\r" + text, type);
 				jokeList.add(bean);
 			}
 			// Log.e(TAG, jokeList.toString()+1232144);

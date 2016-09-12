@@ -44,8 +44,7 @@ public class HistoryOnTodayAdapter extends BaseAdapter {
 		View vv = null;
 		ViewHodler hodler;
 		if (convertView == null) {
-			vv = LayoutInflater.from(context).inflate(
-					R.layout.item_history_on_today, null);
+			vv = LayoutInflater.from(context).inflate(R.layout.item_history_on_today, null);
 			hodler = new ViewHodler();
 			hodler.year = (TextView) vv.findViewById(R.id.year);
 			hodler.title = (TextView) vv.findViewById(R.id.title);

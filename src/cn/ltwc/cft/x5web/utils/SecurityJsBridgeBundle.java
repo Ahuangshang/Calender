@@ -19,8 +19,7 @@ public abstract class SecurityJsBridgeBundle {
 
 	public abstract void onCallMethod();
 
-	public SecurityJsBridgeBundle(String JsBlockName, String methodName)
-			throws Exception {
+	public SecurityJsBridgeBundle(String JsBlockName, String methodName) throws Exception {
 		if (methodName == null) {
 			throw new Exception("methodName can not be null!");
 		}
@@ -48,14 +47,9 @@ public abstract class SecurityJsBridgeBundle {
 		}
 		String injectCode = "javascript:(function JsAddJavascriptInterface_(){ "
 				+ "if (typeof(window.jsInterface)!='undefined') {"
-				+ "console.log('window.jsInterface_js_interface_name is exist!!');}   "
-				+ "else {"
-				+ data.get(BLOCK)
-				+ data.get(METHOD)
-				+ "window.jsBridge = {"
-				+ "onButtonClick:function(arg0) {"
-				+ "return prompt('MyApp:'+JSON.stringify({obj:'jsInterface',func:'onButtonClick',args:[arg0]}));"
-				+ "},"
+				+ "console.log('window.jsInterface_js_interface_name is exist!!');}   " + "else {" + data.get(BLOCK)
+				+ data.get(METHOD) + "window.jsBridge = {" + "onButtonClick:function(arg0) {"
+				+ "return prompt('MyApp:'+JSON.stringify({obj:'jsInterface',func:'onButtonClick',args:[arg0]}));" + "},"
 				+
 
 				"onImageClick:function(arg0,arg1,arg2) {"

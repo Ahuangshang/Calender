@@ -27,7 +27,6 @@
             android:layout_height="match_parent"
             android:layout_above="@+id/indicator"
             android:layout_below="@id/title"
-            android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp" />
 
         <cn.ltwc.cft.view.PageIndicatorView

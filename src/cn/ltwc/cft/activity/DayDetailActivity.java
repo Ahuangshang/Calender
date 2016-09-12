@@ -22,8 +22,7 @@ import cn.ltwc.cft.utils.HLUtil;
 import cn.ltwc.cft.view.MyScrollView;
 import cn.ltwc.cft.view.TitleView;
 
-public class DayDetailActivity extends BaseActivity implements OnClickListener,
-		ScrollViewListener {
+public class DayDetailActivity extends BaseActivity implements OnClickListener, ScrollViewListener {
 	private RiqiBean bean;
 	private boolean is;// 是否放假
 	private TextView year, month, monthEN, day;// 阳历年月日
@@ -73,22 +72,20 @@ public class DayDetailActivity extends BaseActivity implements OnClickListener,
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
 				// TODO Auto-generated method stub
-				return DayDetailActivity.this.gestureDetector
-						.onTouchEvent(event);
+				return DayDetailActivity.this.gestureDetector.onTouchEvent(event);
 			}
 		});
 
 	}
 
 	private void setTitle() {
-		title.setTitletext(bean.getYear() + "年" + bean.getyMonth() + "月"
-				+ bean.getyDay() + "日" + HLUtil.getWeek(bean.getWeek()));
+		title.setTitletext(
+				bean.getYear() + "年" + bean.getyMonth() + "月" + bean.getyDay() + "日" + HLUtil.getWeek(bean.getWeek()));
 	}
 
 	@SuppressLint({ "ClickableViewAccessibility", "InflateParams" })
 	private void addView() {
-		showView = LayoutInflater.from(c).inflate(R.layout.day_detail_layout,
-				null);
+		showView = LayoutInflater.from(c).inflate(R.layout.day_detail_layout, null);
 		viewInitView();
 		viewBindView();
 		showView.setOnTouchListener(new OnTouchListener() {
@@ -96,8 +93,7 @@ public class DayDetailActivity extends BaseActivity implements OnClickListener,
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
 				// TODO Auto-generated method stub
-				return DayDetailActivity.this.gestureDetector
-						.onTouchEvent(event);
+				return DayDetailActivity.this.gestureDetector.onTouchEvent(event);
 
 			}
 		});
@@ -138,8 +134,7 @@ public class DayDetailActivity extends BaseActivity implements OnClickListener,
 		month.setText(bean.getyMonth() + "月");
 		day.setText(bean.getyDay() + "");
 		monthEN.setText(HLUtil.setENMonth(bean.getyMonth()));
-		nMonth.setText(bean.getnYear() + bean.getnAnimal() + "年"
-				+ bean.getnMonth());
+		nMonth.setText(bean.getnYear() + bean.getnAnimal() + "年" + bean.getnMonth());
 		nDay.setText(bean.getnDay());
 		week.setText(HLUtil.getWeek(bean.getWeek()));
 		nHoliday.setText(HLUtil.getHoliday(bean.getnHolidayDay()));
@@ -166,27 +161,20 @@ public class DayDetailActivity extends BaseActivity implements OnClickListener,
 			nDay.setTextColor(this.getResources().getColor(R.color.red));
 			week.setTextColor(this.getResources().getColor(R.color.red));
 			nHoliday.setTextColor(this.getResources().getColor(R.color.red));
-			nianDivider.setBackgroundColor(this.getResources().getColor(
-					R.color.red));
-			nongliDivider.setBackgroundColor(this.getResources().getColor(
-					R.color.red));
+			nianDivider.setBackgroundColor(this.getResources().getColor(R.color.red));
+			nongliDivider.setBackgroundColor(this.getResources().getColor(R.color.red));
 			nongli.setBackgroundResource(R.drawable.day_detail_nongli_red_bg);
 		} else {
 			year.setTextColor(this.getResources().getColor(R.color.main_color));
 			month.setTextColor(this.getResources().getColor(R.color.main_color));
 			day.setTextColor(this.getResources().getColor(R.color.main_color));
-			monthEN.setTextColor(this.getResources().getColor(
-					R.color.main_color));
-			nMonth.setTextColor(this.getResources()
-					.getColor(R.color.main_color));
+			monthEN.setTextColor(this.getResources().getColor(R.color.main_color));
+			nMonth.setTextColor(this.getResources().getColor(R.color.main_color));
 			nDay.setTextColor(this.getResources().getColor(R.color.main_color));
 			week.setTextColor(this.getResources().getColor(R.color.main_color));
-			nHoliday.setTextColor(this.getResources().getColor(
-					R.color.main_color));
-			nianDivider.setBackgroundColor(this.getResources().getColor(
-					R.color.main_color));
-			nongliDivider.setBackgroundColor(this.getResources().getColor(
-					R.color.main_color));
+			nHoliday.setTextColor(this.getResources().getColor(R.color.main_color));
+			nianDivider.setBackgroundColor(this.getResources().getColor(R.color.main_color));
+			nongliDivider.setBackgroundColor(this.getResources().getColor(R.color.main_color));
 			nongli.setBackgroundResource(R.drawable.day_detail_nongli_balck_bg);
 		}
 
@@ -194,16 +182,13 @@ public class DayDetailActivity extends BaseActivity implements OnClickListener,
 
 	private class MyGestureListener extends SimpleOnGestureListener {
 		@Override
-		public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
-				float velocityY) {
+		public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
 			int gvFlag = 0; // 每次添加gridview到viewflipper中时给的标记
-			if (e1.getX() - e2.getX() > 120
-					&& (Math.abs(e1.getY() - e2.getY()) < 120)) {
+			if (e1.getX() - e2.getX() > 120 && (Math.abs(e1.getY() - e2.getY()) < 120)) {
 				// 像右滑动
 				enterNextDay(gvFlag);
 				return true;
-			} else if (e1.getX() - e2.getX() < -120
-					&& (Math.abs(e1.getY() - e2.getY()) < 120)) {
+			} else if (e1.getX() - e2.getX() < -120 && (Math.abs(e1.getY() - e2.getY()) < 120)) {
 				// 向左滑动
 				enterPrevDay(gvFlag);
 				return true;
@@ -237,13 +222,11 @@ public class DayDetailActivity extends BaseActivity implements OnClickListener,
 		bean = HLUtil.preDay(bean);
 		setTitle();
 		addView();
-		flushView(gvFlag,
-				AnimationUtils.loadAnimation(c, R.anim.push_right_in),
+		flushView(gvFlag, AnimationUtils.loadAnimation(c, R.anim.push_right_in),
 				AnimationUtils.loadAnimation(c, R.anim.push_right_out));
 	}
 
-	private void flushView(int gvFlag, Animation inAnimation,
-			Animation outAnimation) {
+	private void flushView(int gvFlag, Animation inAnimation, Animation outAnimation) {
 		gvFlag++;
 		vf.addView(showView, gvFlag);
 		vf.setInAnimation(inAnimation);
@@ -284,8 +267,7 @@ public class DayDetailActivity extends BaseActivity implements OnClickListener,
 	}
 
 	@Override
-	public void onScrollChanged(MyScrollView scrollView, int x, int y,
-			int oldx, int oldy) {
+	public void onScrollChanged(MyScrollView scrollView, int x, int y, int oldx, int oldy) {
 		// TODO Auto-generated method stub
 		if (y - oldy > 200 || y - oldy < -200) {
 			myScrollView.scrollTo(x, y);
