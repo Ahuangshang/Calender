@@ -1,5 +1,8 @@
 package cn.ltwc.cft.activity;
 
+import com.tencent.smtt.sdk.WebChromeClient;
+import com.tencent.smtt.sdk.WebView;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.res.Configuration;
@@ -19,9 +22,6 @@ import cn.ltwc.cft.data.Constant;
 import cn.ltwc.cft.view.TitleView;
 import cn.ltwc.cft.x5web.utils.WebViewJavaScriptFunction;
 import cn.ltwc.cft.x5web.utils.X5WebView;
-
-import com.tencent.smtt.sdk.WebChromeClient;
-import com.tencent.smtt.sdk.WebView;
 
 @SuppressLint("InlinedApi")
 public class MyX5WebView extends Activity {

@@ -15,4 +15,9 @@
     <dimen name="playqueue_dialog_height">300dp</dimen>
     <dimen name="playqueue_dialog_select_item_from_top">90dp</dimen>
  	<dimen name="item_with">84dp</dimen>
+ 	  <!-- 日期高度为calender_item_height*6 -->
+    <dimen name="calender_height">240dip</dimen>
+    <dimen name="mindistance">10dip</dimen>
+     <dimen name="calender_item_height">50dip</dimen>
+    <dimen name="calender_item_text_height">28dip</dimen>
 </resources>

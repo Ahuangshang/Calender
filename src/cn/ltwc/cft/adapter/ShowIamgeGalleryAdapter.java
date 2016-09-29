@@ -2,6 +2,8 @@ package cn.ltwc.cft.adapter;
 
 import java.util.List;
 
+import com.bumptech.glide.Glide;
+
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
 import android.view.View;
@@ -11,8 +13,6 @@ import android.widget.RelativeLayout;
 import cn.ltwc.cft.R;
 import cn.ltwc.cft.beans.TiangouBean;
 import cn.ltwc.cft.gallery.PhotoView;
-
-import com.bumptech.glide.Glide;
 
 public class ShowIamgeGalleryAdapter extends PagerAdapter {
 	private RelativeLayout root;

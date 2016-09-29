@@ -2,6 +2,9 @@ package cn.ltwc.cft.activity;
 
 import java.net.URLDecoder;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -15,9 +18,6 @@ import cn.ltwc.cft.R;
 import cn.ltwc.cft.http.HttpFactory;
 import cn.ltwc.cft.http.ServiceResponce;
 import cn.ltwc.cft.view.TitleView;
-
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 /**
  * 

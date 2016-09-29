@@ -2,12 +2,12 @@ package cn.ltwc.cft.utils;
 
 import java.io.File;
 
-import android.content.Context;
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.GlideBuilder;
 import com.bumptech.glide.load.engine.cache.InternalCacheDiskCacheFactory;
 import com.bumptech.glide.module.GlideModule;
+
+import android.content.Context;
 
 /**
  * TODO:Glide全局配置类（一定要在manifest里面申明如下内容）

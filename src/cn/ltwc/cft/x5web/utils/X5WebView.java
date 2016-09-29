@@ -3,6 +3,16 @@ package cn.ltwc.cft.x5web.utils;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.tencent.smtt.export.external.interfaces.IX5WebChromeClient.CustomViewCallback;
+import com.tencent.smtt.export.external.interfaces.JsPromptResult;
+import com.tencent.smtt.export.external.interfaces.JsResult;
+import com.tencent.smtt.sdk.ValueCallback;
+import com.tencent.smtt.sdk.WebChromeClient;
+import com.tencent.smtt.sdk.WebSettings;
+import com.tencent.smtt.sdk.WebSettings.LayoutAlgorithm;
+import com.tencent.smtt.sdk.WebView;
+import com.tencent.smtt.sdk.WebViewClient;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -22,16 +32,6 @@ import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import cn.ltwc.cft.R;
-
-import com.tencent.smtt.export.external.interfaces.IX5WebChromeClient.CustomViewCallback;
-import com.tencent.smtt.export.external.interfaces.JsPromptResult;
-import com.tencent.smtt.export.external.interfaces.JsResult;
-import com.tencent.smtt.sdk.ValueCallback;
-import com.tencent.smtt.sdk.WebChromeClient;
-import com.tencent.smtt.sdk.WebSettings;
-import com.tencent.smtt.sdk.WebSettings.LayoutAlgorithm;
-import com.tencent.smtt.sdk.WebView;
-import com.tencent.smtt.sdk.WebViewClient;
 
 public class X5WebView extends WebView {
 	public static final int FILE_CHOOSER = 0;

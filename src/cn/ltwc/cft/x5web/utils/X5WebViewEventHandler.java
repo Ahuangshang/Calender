@@ -2,6 +2,13 @@ package cn.ltwc.cft.x5web.utils;
 
 import java.util.HashMap;
 
+import com.tencent.smtt.export.external.extension.interfaces.IX5WebChromeClientExtension;
+import com.tencent.smtt.export.external.extension.interfaces.IX5WebViewExtension;
+import com.tencent.smtt.export.external.extension.proxy.ProxyWebViewClientExtension;
+import com.tencent.smtt.export.external.interfaces.IX5WebViewBase.HitTestResult;
+import com.tencent.smtt.export.external.interfaces.JsResult;
+import com.tencent.smtt.sdk.WebViewCallbackClient;
+
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,13 +18,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.webkit.ValueCallback;
-
-import com.tencent.smtt.export.external.extension.interfaces.IX5WebChromeClientExtension;
-import com.tencent.smtt.export.external.extension.interfaces.IX5WebViewExtension;
-import com.tencent.smtt.export.external.extension.proxy.ProxyWebViewClientExtension;
-import com.tencent.smtt.export.external.interfaces.IX5WebViewBase.HitTestResult;
-import com.tencent.smtt.export.external.interfaces.JsResult;
-import com.tencent.smtt.sdk.WebViewCallbackClient;
 
 public class X5WebViewEventHandler extends ProxyWebViewClientExtension implements IX5WebChromeClientExtension {
 

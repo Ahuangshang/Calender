@@ -180,14 +180,11 @@ public class CalendarAdapter extends BaseAdapter {
 			}
 			if (currentFlag_ == position) {
 				drawable = new ColorDrawable(Color.rgb(198, 226, 255));// #C6E2FF
-
 				convertView.setBackgroundResource(R.drawable.select_bg);
 			}
 			if (currentFlag == position) {
 				// 设置当天的背景
-
 				drawable = new ColorDrawable(Color.rgb(79, 210, 190));// #4FD2BE
-
 				convertView.setBackgroundResource(R.drawable.current_bg);
 
 			}

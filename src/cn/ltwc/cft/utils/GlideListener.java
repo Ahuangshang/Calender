@@ -1,11 +1,11 @@
 package cn.ltwc.cft.utils;
 
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
+
 import android.graphics.Color;
 import android.view.View;
 import android.widget.ImageView;
-
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
 
 /**
  * Glide加载图片的监听回调 Created by LZL on 16/3/25.

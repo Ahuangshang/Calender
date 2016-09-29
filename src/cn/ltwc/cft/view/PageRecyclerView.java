@@ -1,12 +1,12 @@
 package cn.ltwc.cft.view;
 
+import java.util.List;
+
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
-
-import java.util.List;
 
 /**
  * Created by shichaohui on 2015/7/9 0009.

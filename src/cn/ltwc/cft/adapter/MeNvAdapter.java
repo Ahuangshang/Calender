@@ -2,6 +2,8 @@ package cn.ltwc.cft.adapter;
 
 import java.util.ArrayList;
 
+import com.bumptech.glide.Glide;
+
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,8 +13,6 @@ import cn.ltwc.cft.beans.TiangouBean;
 import cn.ltwc.cft.myinterface.MeNvItemImgClickListener;
 import cn.ltwc.cft.rvholder.MeiNvHolder;
 import cn.ltwc.cft.utils.GlideListener;
-
-import com.bumptech.glide.Glide;
 
 public class MeNvAdapter extends RecyclerView.Adapter<MeiNvHolder> {
 	private String SRC = "http://tnfs.tngou.net/image";// 图片地址共有部分

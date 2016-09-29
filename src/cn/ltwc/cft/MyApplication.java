@@ -2,14 +2,14 @@ package cn.ltwc.cft;
 
 import java.io.File;
 
-import android.app.Application;
-
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
 import com.nostra13.universalimageloader.utils.StorageUtils;
 import com.tencent.smtt.sdk.TbsDownloader;
+
+import android.app.Application;
 
 /**
  * 

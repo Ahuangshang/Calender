@@ -49,7 +49,7 @@
 
         <!-- 日历视图 -->
 
-        <cn.ltwc.cft.view.MyScrollView
+        <cn.ltwc.cft.view.ContainerLayout
             android:id="@+id/scrollview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -60,7 +60,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 layout="@layout/calendar" />
-        </cn.ltwc.cft.view.MyScrollView>
+        </cn.ltwc.cft.view.ContainerLayout>
 
         <!-- 菜单组 -->
 
