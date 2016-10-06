@@ -183,12 +183,12 @@ public class DayDetailActivity extends BaseActivity implements OnClickListener, 
 	private class MyGestureListener extends SimpleOnGestureListener {
 		@Override
 		public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-			int gvFlag = 0; // 每次添加gridview到viewflipper中时给的标记
-			if (e1.getX() - e2.getX() > 120 && (Math.abs(e1.getY() - e2.getY()) < 120)) {
+			int gvFlag = 0; // 每次添加gridView到viewFlipper中时给的标记
+			if (e1.getX() - e2.getX() > 120 && (Math.abs(e1.getY() - e2.getY()) < 200)) {
 				// 像右滑动
 				enterNextDay(gvFlag);
 				return true;
-			} else if (e1.getX() - e2.getX() < -120 && (Math.abs(e1.getY() - e2.getY()) < 120)) {
+			} else if (e1.getX() - e2.getX() < -120 && (Math.abs(e1.getY() - e2.getY()) < 200)) {
 				// 向左滑动
 				enterPrevDay(gvFlag);
 				return true;

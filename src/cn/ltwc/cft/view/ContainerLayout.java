@@ -358,7 +358,7 @@ public class ContainerLayout extends LinearLayout {
 		}.start();
 	}
 
-	private void collapse() {
+	public void collapse() {
 		post(new Runnable() {
 			public void run() {
 				mHeader.scrollTo(mHeader.getScrollX(), hideTop);
@@ -369,6 +369,13 @@ public class ContainerLayout extends LinearLayout {
 				isInAnimation = false;
 			}
 		});
+	}
+
+	public void collapse2() {
+		if (mContent.getTop() == mHeader.getBottom()) {
+			return;
+		}
+		collapse();
 	}
 
 	/**

@@ -112,7 +112,7 @@ public class MainActivity extends BaseActivity implements OnClickListener, Servi
 		gestureDetector = new GestureDetector(c, new MyGestureListener());
 		flipper = (ViewFlipper) findViewById(R.id.flipper);
 		flipper.removeAllViews();
-		calV = new CalendarAdapter(c, getResources(), jumpMonth, jumpYear, year_c, month_c, day_c);
+		calV = new CalendarAdapter(c, jumpMonth, jumpYear, year_c, month_c, day_c);
 		addGridView();
 		gridView.setAdapter(calV);
 		flipper.addView(gridView, 0);
@@ -232,7 +232,7 @@ public class MainActivity extends BaseActivity implements OnClickListener, Servi
 			// 得到当前日期在GridView里的下标
 			int pos = ((CalendarAdapter) gridView.getAdapter()).currentFlag;
 			if (pos != -1 && istotoday) {
-				myscrollview.setRowNum((pos / 7));
+				// myscrollview.setRowNum((pos / 7));
 				setChooseBg(pos);
 				showNongLi(LunarCalendar.getInstance().getCalendarInfoByChooseDay(chooseYear, chooseMonth, chooseDay),
 						chooseYear + "", chooseMonth + "", chooseDay + "");
@@ -247,47 +247,47 @@ public class MainActivity extends BaseActivity implements OnClickListener, Servi
 			}
 		}
 		flipper.removeAllViews();
-		calV = new CalendarAdapter(c, getResources(), jumpMonth_c, jumpYear_c, year, month, day);
+		calV = new CalendarAdapter(c, jumpMonth_c, jumpYear_c, year, month, day);
 		addGridView();
 		gridView.setAdapter(calV);
 		flipper.addView(gridView, 0);
 		addTextToTopTextView(currentMonth);
-		// show(LunarCalendar.getInstance().getCalendarInfoByChooseDay(chooseYear,
-		// chooseMonth, chooseDay));// 得到跳转后的农历信息
 		showNongLi(LunarCalendar.getInstance().getCalendarInfoByChooseDay(chooseYear, chooseMonth, chooseDay),
 				chooseYear + "", chooseMonth + "", chooseDay + "");
 		int position = ((CalendarAdapter) gridView.getAdapter()).currentFlag_;
 		myscrollview.setRowNum((position / 7));
+		myscrollview.collapse2();
 	}
 
 	/**
 	 * 设置选择日期的背景
 	 */
 	private void setChooseBg(int position) {
-		// 循环遍历GridView里面所有的子项，将背景设为默认状态
-		for (int i = 0; i < gridView.getChildCount(); i++) {
-			gridView.getChildAt(i).setBackgroundColor(0Xffffff);// 设置背景
-			gridView.getChildAt(i).findViewById(R.id.bg).setBackgroundColor(0Xffffff);
+		try {
+			// 循环遍历GridView里面所有的子项，将背景设为默认状态
+			for (int i = 0; i < gridView.getChildCount(); i++) {
+				gridView.getChildAt(i).setBackgroundColor(0Xffffff);// 设置背景
+				gridView.getChildAt(i).findViewById(R.id.bg).setBackgroundColor(0Xffffff);
+			}
+			int resid;
+			if (position == calV.currentFlag) {
+				resid = R.drawable.current_bg;
+			} else {
+				// 设置选中日期的背景
+				resid = R.drawable.select_bg;
+			}
+			gridView.getChildAt(position).findViewById(R.id.bg).setBackgroundResource(resid);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		// Drawable drawable;
-		int resid;
-		if (position == calV.currentFlag) {
-			// drawable = new ColorDrawable(Color.rgb(79, 210, 190));
-			resid = R.drawable.current_bg;
-		} else {
-			// 设置选中日期的背景
-			// drawable = new ColorDrawable(Color.rgb(198, 226, 255));
-			resid = R.drawable.select_bg;
-		}
-		// gridView.getChildAt(position).setBackgroundDrawable(drawable);
-		// gridView.getChildAt(position).setBackgroundResource(resid);
-		gridView.getChildAt(position).findViewById(R.id.bg).setBackgroundResource(resid);
+		myscrollview.setRowNum((position / 7));
+		myscrollview.collapse2();
 	}
 
 	private class MyGestureListener extends SimpleOnGestureListener {
 		@Override
 		public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-			int gvFlag = 0; // 每次添加gridview到viewflipper中时给的标记
+			int gvFlag = 0; // 每次添加gridView到viewFlipper中时给的标记
 			try {
 				if (e1.getX() - e2.getX() > 120) {
 					// 像左滑动
@@ -332,12 +332,15 @@ public class MainActivity extends BaseActivity implements OnClickListener, Servi
 	 *            画面退出动画
 	 */
 	private void flushView(int gvFlag, Animation inAnimation, Animation outAnimation) {
-		calV = new CalendarAdapter(c, this.getResources(), jumpMonth, jumpYear, year_c, month_c, chooseday);
+		calV = new CalendarAdapter(c, jumpMonth, jumpYear, year_c, month_c, chooseday);
 		gridView.setAdapter(calV);
+		int position = calV.currentFlag_;
+		myscrollview.setRowNum((position / 7));
 		if (calV.flag) {
 			chooseday = 1;
 			myscrollview.setRowNum(0);
 		}
+		myscrollview.collapse2();
 		addTextToTopTextView(currentMonth); // 移动到下一月后，将当月显示在头标题中
 		gvFlag++;
 		flipper.addView(gridView, gvFlag);
@@ -371,8 +374,6 @@ public class MainActivity extends BaseActivity implements OnClickListener, Servi
 	 */
 	public void addTextToTopTextView(TextView view) {
 		StringBuffer textDate = new StringBuffer();
-		// draw = getResources().getDrawable(R.drawable.top_day);
-		// view.setBackgroundDrawable(draw);
 		textDate.append(calV.getShowYear()).append("年").append(calV.getShowMonth()).append("月").append("\t");
 		view.setText(textDate);
 	}
@@ -387,11 +388,6 @@ public class MainActivity extends BaseActivity implements OnClickListener, Servi
 
 		gridView = new MyGridView(c);
 		gridView.setNumColumns(7);
-		// gridView.setColumnWidth(40);
-		// // gridView.setStretchMode(GridView.STRETCH_COLUMN_WIDTH);
-		// if (width == 720 && height == 1280) {
-		// gridView.setColumnWidth(40);
-		// }
 		gridView.setGravity(Gravity.CENTER_VERTICAL);
 		// 去除gridView边框
 		gridView.setVerticalSpacing(0);
@@ -413,7 +409,7 @@ public class MainActivity extends BaseActivity implements OnClickListener, Servi
 				// =====================================
 				// TODO Auto-generated method stub
 				// 点击任何一个item，得到这个item的日期(排除点击的是周日到周六(点击不响应))
-				myscrollview.setRowNum((position / 7));
+				// myscrollview.setRowNum((position / 7));
 				int startPosition = calV.getStartPositon();
 				int endPosition = calV.getEndPosition();
 
@@ -552,8 +548,6 @@ public class MainActivity extends BaseActivity implements OnClickListener, Servi
 						int month = Integer.parseInt(str.substring(str.indexOf("年") + 1, str.indexOf("月")));// 得到选择的月份
 						int day = Integer.parseInt(str.substring(str.indexOf("月") + 1, str.length()));// 得到选中的日期
 						chooseday = day;// 轮子选择器得到的时间为选择时间
-						// Log.i("MainActivity", "year=" + year + "****month="
-						// + month);
 						// =========设置当前日历界面到选择的界面===============
 						int jumpYear_c = year - cyear;
 						int jumpMonth_c = month - cmonth;

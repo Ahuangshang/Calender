@@ -9,8 +9,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.RelativeSizeSpan;
@@ -40,13 +38,8 @@ public class CalendarAdapter extends BaseAdapter {
 	private int lastDaysOfMonth = 0; // 上一个月的总天数
 	private Context context;
 	private String[] dayNumber = new String[42]; // 一个GridView中的日期存入此数组中
-	// private static String week[] = {"周日","周一","周二","周三","周四","周五","周六"};
 	private SpecialCalendar sc = null;
 	private LunarCalendar lc = null;
-	@SuppressWarnings("unused")
-	private Resources res = null;
-	@SuppressWarnings("unused")
-	private Drawable drawable = null;
 	private String currentYear = "";// 当前年份
 	private String currentMonth = "";// 当前月份
 	private String currentDay = "";// 当前日期
@@ -77,14 +70,11 @@ public class CalendarAdapter extends BaseAdapter {
 
 	}
 
-	public CalendarAdapter(Context context, Resources rs, int jumpMonth, int jumpYear, int year_c, int month_c,
-			int day_c) {
+	public CalendarAdapter(Context context, int jumpMonth, int jumpYear, int year_c, int month_c, int day_c) {
 		this();
 		this.context = context;
 		sc = SpecialCalendar.getInstance();
 		lc = LunarCalendar.getInstance();
-		this.res = rs;
-
 		int stepYear = year_c + jumpYear;
 		int stepMonth = month_c + jumpMonth;
 		if (stepMonth > 0) {
@@ -119,8 +109,6 @@ public class CalendarAdapter extends BaseAdapter {
 		this.context = context;
 		sc = SpecialCalendar.getInstance();
 		lc = LunarCalendar.getInstance();
-		this.res = rs;
-		currentYear = String.valueOf(year);// 得到跳转到的年份
 		currentMonth = String.valueOf(month); // 得到跳转到的月份
 		currentDay = String.valueOf(day); // 得到跳转到的天
 		getCalendar(Integer.parseInt(currentYear), Integer.parseInt(currentMonth));
@@ -178,23 +166,15 @@ public class CalendarAdapter extends BaseAdapter {
 		if (position < daysOfMonth + dayOfWeek && position >= dayOfWeek) {
 			// 当前月信息显示
 			holder.textView.setTextColor(Color.BLACK);// 当月字体设黑
-
-			drawable = new ColorDrawable(Color.rgb(23, 126, 214));
 			if (position % 7 == 0 || position % 7 == 6) {
 				holder.textView.setTextColor(Color.rgb(238, 113, 113));// 周末字体设置为红色
-
 			}
 			if (currentFlag_ == position) {
-				drawable = new ColorDrawable(Color.rgb(198, 226, 255));// #C6E2FF
-				// convertView.setBackgroundResource(R.drawable.select_bg);
 				holder.bg.setBackgroundResource(R.drawable.select_bg);
 			}
 			if (currentFlag == position && (currentFlag_ == -1 || currentFlag_ == currentFlag)) {
 				// 设置当天的背景
-				drawable = new ColorDrawable(Color.rgb(79, 210, 190));// #4FD2BE
-				// convertView.setBackgroundResource(R.drawable.current_bg);
 				holder.bg.setBackgroundResource(R.drawable.current_bg);
-
 			}
 			// =================得到中国传统节假日=========================
 			List<Integer> list = new ArrayList<Integer>();// 保存当月中国的传统节日
@@ -242,8 +222,6 @@ public class CalendarAdapter extends BaseAdapter {
 					if (list.get(i) == position) {
 						// 设置中国传统节假日
 						holder.textView.setTextColor(Color.rgb(238, 113, 113));// 中国传统节假日字体设红
-
-						drawable = new ColorDrawable(Color.rgb(238, 113, 113));
 					}
 				}
 			}
@@ -261,25 +239,15 @@ public class CalendarAdapter extends BaseAdapter {
 		daysOfMonth = sc.getDaysOfMonth(isLeapyear, month); // 某月的总天数
 		dayOfWeek = sc.getWeekdayOfMonth(year, month); // 某月第一天为星期几
 		lastDaysOfMonth = sc.getDaysOfMonth(isLeapyear, month - 1); // 上一个月的总天数
-		// Log.d("DAY", isLeapyear + " ====== " + daysOfMonth
-		// + " ============ " + dayOfWeek + " ========= "
-		// + lastDaysOfMonth);
 		getweek(year, month);
 	}
 
 	// 将一个月中的每一天的值添加入数组dayNuber中
 	private void getweek(int year, int month) {
 		int j = 1;
-
 		String lunarDay = "";
-
 		// 得到当前月的所有日程日期(这些日期需要标记)
-
 		for (int i = 0; i < dayNumber.length; i++) {
-			// 周一
-			// if(i<7){
-			// dayNumber[i]=week[i]+"."+" ";
-			// }
 			if (i < dayOfWeek) { // 前一个月
 				int temp = lastDaysOfMonth - dayOfWeek + 1;
 				lunarDay = lc.getLunarDate(year, month - 1, temp + i, false);
