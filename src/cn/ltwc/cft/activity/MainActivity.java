@@ -10,6 +10,8 @@ import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.text.TextUtils;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
@@ -45,10 +47,8 @@ import cn.ltwc.cft.datapick.PickUtils.CallBack;
 import cn.ltwc.cft.db.HuangLi;
 import cn.ltwc.cft.http.HttpFactory;
 import cn.ltwc.cft.http.ServiceResponce;
-import cn.ltwc.cft.myinterface.ScrollViewListener;
 import cn.ltwc.cft.view.ContainerLayout;
 import cn.ltwc.cft.view.MyGridView;
-import cn.ltwc.cft.view.MyScrollView;
 
 /**
  * 
@@ -58,7 +58,7 @@ import cn.ltwc.cft.view.MyScrollView;
  * @Modified_By:
  */
 @SuppressLint({ "ResourceAsColor", "SimpleDateFormat" })
-public class MainActivity extends BaseActivity implements ScrollViewListener, OnClickListener, ServiceResponce {
+public class MainActivity extends BaseActivity implements OnClickListener, ServiceResponce {
 	public GridView menu;// 菜单
 	private List<MenuBean> MenuList;// 菜单的集合
 	// ---------------------------------
@@ -267,6 +267,7 @@ public class MainActivity extends BaseActivity implements ScrollViewListener, On
 		// 循环遍历GridView里面所有的子项，将背景设为默认状态
 		for (int i = 0; i < gridView.getChildCount(); i++) {
 			gridView.getChildAt(i).setBackgroundColor(0Xffffff);// 设置背景
+			gridView.getChildAt(i).findViewById(R.id.bg).setBackgroundColor(0Xffffff);
 		}
 		// Drawable drawable;
 		int resid;
@@ -279,7 +280,8 @@ public class MainActivity extends BaseActivity implements ScrollViewListener, On
 			resid = R.drawable.select_bg;
 		}
 		// gridView.getChildAt(position).setBackgroundDrawable(drawable);
-		gridView.getChildAt(position).setBackgroundResource(resid);
+		// gridView.getChildAt(position).setBackgroundResource(resid);
+		gridView.getChildAt(position).findViewById(R.id.bg).setBackgroundResource(resid);
 	}
 
 	private class MyGestureListener extends SimpleOnGestureListener {
@@ -287,14 +289,10 @@ public class MainActivity extends BaseActivity implements ScrollViewListener, On
 		public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
 			int gvFlag = 0; // 每次添加gridview到viewflipper中时给的标记
 			try {
-				// if (e1.getX() - e2.getX() > 120 && e1.getY() <
-				// BitMapUtil.dip2px(c, 350))
 				if (e1.getX() - e2.getX() > 120) {
 					// 像左滑动
 					enterNextMonth(gvFlag);
 					return true;
-					// (e1.getX() - e2.getX() < -120 && e1.getY() <
-					// BitMapUtil.dip2px(c, 350))
 				}
 				if (e1.getX() - e2.getX() < -120) {
 					// 向右滑动
@@ -389,15 +387,16 @@ public class MainActivity extends BaseActivity implements ScrollViewListener, On
 
 		gridView = new MyGridView(c);
 		gridView.setNumColumns(7);
-		gridView.setColumnWidth(40);
-		// gridView.setStretchMode(GridView.STRETCH_COLUMN_WIDTH);
-		if (width == 720 && height == 1280) {
-			gridView.setColumnWidth(40);
-		}
+		// gridView.setColumnWidth(40);
+		// // gridView.setStretchMode(GridView.STRETCH_COLUMN_WIDTH);
+		// if (width == 720 && height == 1280) {
+		// gridView.setColumnWidth(40);
+		// }
 		gridView.setGravity(Gravity.CENTER_VERTICAL);
 		// 去除gridView边框
 		gridView.setVerticalSpacing(0);
 		gridView.setHorizontalSpacing(0);
+		gridView.setSelector(new ColorDrawable(Color.TRANSPARENT));// 去除点击效果
 		gridView.setOnTouchListener(new OnTouchListener() {
 			// 将GridView中的触摸事件回传给gestureDetector
 			public boolean onTouch(View v, MotionEvent event) {
@@ -488,15 +487,6 @@ public class MainActivity extends BaseActivity implements ScrollViewListener, On
 			return true;
 		}
 		return super.onKeyDown(keyCode, event);
-	}
-
-	@Override
-	public void onScrollChanged(MyScrollView scrollView, int x, int y, int oldx, int oldy) {
-		// TODO Auto-generated method stub
-		// if (y - oldy > 200 || y - oldy < -200) {
-		// myscrollview.scrollTo(x, y);
-		// }
-
 	}
 
 	public RiqiBean getRbean() {

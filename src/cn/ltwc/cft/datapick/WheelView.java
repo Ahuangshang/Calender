@@ -42,7 +42,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Interpolator;
 import android.widget.Scroller;
+import cn.ltwc.cft.MyApplication;
 import cn.ltwc.cft.R;
+import cn.ltwc.cft.utils.BitMapUtil;
 
 /**
  * 
@@ -68,22 +70,22 @@ public class WheelView extends View {
 	private static final int[] SHADOWS_COLORS = new int[] { 0xFF111111, 0x00AAAAAA, 0x00AAAAAA };
 
 	/** Additional items height (is added to standard text item height) */
-	private static final int ADDITIONAL_ITEM_HEIGHT = 15;
+	private static final int ADDITIONAL_ITEM_HEIGHT = BitMapUtil.dip2px(MyApplication.getInstance(), 7.5f);;
 
 	/** Text size */
-	private static final int TEXT_SIZE = 50;
+	private static final int TEXT_SIZE = BitMapUtil.dip2px(MyApplication.getInstance(), 25);
 
 	/** Top and bottom items offset (to hide that) */
 	private static final int ITEM_OFFSET = TEXT_SIZE / 5;
 
 	/** Additional width for items layout */
-	private static final int ADDITIONAL_ITEMS_SPACE = 10;
+	private static final int ADDITIONAL_ITEMS_SPACE = BitMapUtil.dip2px(MyApplication.getInstance(), 5);;
 
 	/** Label offset */
-	private static final int LABEL_OFFSET = 8;
+	private static final int LABEL_OFFSET = BitMapUtil.dip2px(MyApplication.getInstance(), 4);;
 
 	/** Left and right padding value */
-	private static final int PADDING = 10;
+	private static final int PADDING = BitMapUtil.dip2px(MyApplication.getInstance(), 5);;
 
 	/** Default count of visible items */
 	private static final int DEF_VISIBLE_ITEMS = 5;

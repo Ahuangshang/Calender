@@ -147,12 +147,18 @@ public class CalendarAdapter extends BaseAdapter {
 	@SuppressLint("InflateParams")
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-
+		Holder holder;
 		if (convertView == null) {
 			convertView = LayoutInflater.from(context).inflate(R.layout.calendar_item, null);
 			convertView.setBackgroundColor(0Xffffff);// 设置背景
+			holder = new Holder();
+			holder.textView = (TextView) convertView.findViewById(R.id.tvtext);
+			holder.bg = convertView.findViewById(R.id.bg);
+			convertView.setTag(holder);
+		} else {
+			holder = (Holder) convertView.getTag();
 		}
-		TextView textView = (TextView) convertView.findViewById(R.id.tvtext);
+
 		String d = dayNumber[position].split("\\.")[0];
 		String dv = dayNumber[position].split("\\.")[1];
 
@@ -166,26 +172,28 @@ public class CalendarAdapter extends BaseAdapter {
 		}
 		// sp.setSpan(new ForegroundColorSpan(Color.MAGENTA), 14, 16,
 		// Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-		textView.setText(sp);
-		textView.setTextColor(Color.GRAY);
+		holder.textView.setText(sp);
+		holder.textView.setTextColor(Color.GRAY);
 
 		if (position < daysOfMonth + dayOfWeek && position >= dayOfWeek) {
 			// 当前月信息显示
-			textView.setTextColor(Color.BLACK);// 当月字体设黑
+			holder.textView.setTextColor(Color.BLACK);// 当月字体设黑
 
 			drawable = new ColorDrawable(Color.rgb(23, 126, 214));
 			if (position % 7 == 0 || position % 7 == 6) {
-				textView.setTextColor(Color.rgb(238, 113, 113));// 周末字体设置为红色
+				holder.textView.setTextColor(Color.rgb(238, 113, 113));// 周末字体设置为红色
 
 			}
 			if (currentFlag_ == position) {
 				drawable = new ColorDrawable(Color.rgb(198, 226, 255));// #C6E2FF
-				convertView.setBackgroundResource(R.drawable.select_bg);
+				// convertView.setBackgroundResource(R.drawable.select_bg);
+				holder.bg.setBackgroundResource(R.drawable.select_bg);
 			}
-			if (currentFlag == position) {
+			if (currentFlag == position && (currentFlag_ == -1 || currentFlag_ == currentFlag)) {
 				// 设置当天的背景
 				drawable = new ColorDrawable(Color.rgb(79, 210, 190));// #4FD2BE
-				convertView.setBackgroundResource(R.drawable.current_bg);
+				// convertView.setBackgroundResource(R.drawable.current_bg);
+				holder.bg.setBackgroundResource(R.drawable.current_bg);
 
 			}
 			// =================得到中国传统节假日=========================
@@ -233,7 +241,7 @@ public class CalendarAdapter extends BaseAdapter {
 				for (int i = 0; i < list.size(); i++) {
 					if (list.get(i) == position) {
 						// 设置中国传统节假日
-						textView.setTextColor(Color.rgb(238, 113, 113));// 中国传统节假日字体设红
+						holder.textView.setTextColor(Color.rgb(238, 113, 113));// 中国传统节假日字体设红
 
 						drawable = new ColorDrawable(Color.rgb(238, 113, 113));
 					}
@@ -390,5 +398,10 @@ public class CalendarAdapter extends BaseAdapter {
 
 	public void setCyclical(String cyclical) {
 		this.cyclical = cyclical;
+	}
+
+	class Holder {
+		TextView textView;
+		View bg;
 	}
 }

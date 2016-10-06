@@ -146,7 +146,11 @@ public class ContainerLayout extends LinearLayout {
 			} else {
 				if (mContent.getTop() == mHeader.getBottom()) {
 					// 如果头部完全展开则直接拦截
-					intercepted = true;
+					if (Math.abs(deltaY) > 5) {
+						intercepted = true;
+					} else {
+						intercepted = false;
+					}
 				} else {
 					// mContent.getTop() - mHeader.getTop() == hideBottom -
 					// hideTop
@@ -172,6 +176,7 @@ public class ContainerLayout extends LinearLayout {
 			}
 			break;
 		case MotionEvent.ACTION_UP:
+		case MotionEvent.ACTION_CANCEL:
 			intercepted = false;
 			mLastYIntercept = 0;
 			mLastXIntercept = 0;
