@@ -26,9 +26,9 @@ import cn.ltwc.cft.view.TitleView;
 public class MoreActivity extends BaseActivity {
 	private TitleView title;
 	private ListView list;
-	private String al[] = { "手机号码归属地查询", "中华军事", "内涵段子", "宅男天堂", "历史上的今天", "QQ空間遊戲" };// 数据集合
+	private String al[] = { "手机号码归属地查询", "中华军事", "内涵段子", "宅男天堂", "历史上的今天", "QQ空間遊戲", "wifi密码查看" };// 数据集合
 	private int al2[] = { R.drawable.phone, R.drawable.zhonghuajunshi, R.drawable.joke, R.drawable.zhainan,
-			R.drawable.todayonhistory, R.drawable.qq };
+			R.drawable.todayonhistory, R.drawable.qq, R.drawable.qq };
 
 	public MoreActivity() {
 		super(R.layout.activity_more);
@@ -93,6 +93,10 @@ public class MoreActivity extends BaseActivity {
 					qq.putExtra(Constant.WEBURL, "http://mfkp.qzapp.z.qq.com/qshow/cgi-bin/wl_card_mainpage");
 					qq.putExtra(Constant.WEBTITLE, "QQ");
 					startActivity(qq);
+					break;
+				case 6:
+					Intent wifi = new Intent(c, ShowWifiPakActivity.class);
+					startActivity(wifi);
 					break;
 
 				}
