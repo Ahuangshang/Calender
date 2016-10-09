@@ -90,6 +90,7 @@ public class MainActivity extends BaseActivity implements OnClickListener, Servi
 		getCurrentDay();
 		instance = this;
 		int a=3;	
+		int b=4;
 	}
 
 	private void getCurrentDay() {
