@@ -89,7 +89,7 @@ public class MainActivity extends BaseActivity implements OnClickListener, Servi
 		// TODO Auto-generated constructor stub
 		getCurrentDay();
 		instance = this;
-
+		int a=3;	
 	}
 
 	private void getCurrentDay() {
