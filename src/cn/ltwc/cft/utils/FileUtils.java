@@ -1,14 +1,19 @@
 package cn.ltwc.cft.utils;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import android.content.Context;
 import android.text.TextUtils;
 import cn.ltwc.cft.MyApplication;
+import cn.ltwc.cft.beans.CityCodeBean;
 
 public class FileUtils {
 	/**
@@ -99,4 +104,68 @@ public class FileUtils {
 		return cachePath;
 	}
 
+	/**
+	 * 读取目录下的城市信息
+	 * 
+	 * @param fileName
+	 * @return
+	 */
+	private static List<CityCodeBean> readCity() {
+		String fileName = "city.txt";
+		List<CityCodeBean> cities = new ArrayList<CityCodeBean>();
+		InputStreamReader inputReader = null;
+		try {
+			inputReader = new InputStreamReader(MyApplication.getInstance()
+					.getAssets().open(fileName));
+			BufferedReader bufReader = new BufferedReader(inputReader);
+			String line = "";
+			while ((line = bufReader.readLine()) != null) {
+				String city = line.substring(0, line.indexOf(":"));
+				String code = line.substring(line.indexOf(":") + 1,
+						line.length());
+				CityCodeBean bean = new CityCodeBean(city, code);
+				cities.add(bean);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (inputReader != null) {
+				try {
+					inputReader.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return cities;
+	}
+	/**
+	 * 获取城市的code
+	 * @param city
+	 * @return
+	 */
+	public static String getCityCode(String city) {
+		if (city.endsWith("市")) {
+			city = city.substring(0, city.length() - 1);
+		}
+		String code = "";
+		List<CityCodeBean> cities = readCity();
+		for (int i = 0; i < cities.size(); i++) {
+			if (city.equals(cities.get(i).getCity())) {
+				code = cities.get(i).getCode();
+				return code;
+			}
+		}
+		if(TextUtils.isEmpty(code)){
+			for (int i = 0; i < cities.size(); i++) {
+				if (city.contains(cities.get(i).getCity())) {
+					code = cities.get(i).getCode();
+					return code;
+				}
+			}
+		}
+
+		return code;
+	}
 }
