@@ -10,10 +10,10 @@ import cn.ltwc.cft.MyApplication;
 import cn.ltwc.cft.beans.NoteBean;
 
 public class NoteDB extends SQLiteOpenHelper {
-	private static String notedbName = "Note.db";// 数据库的名字
+	private static String notedbName = "citycode.db";// 数据库的名字
 	private static int version = 1;// 数据库版本号
 	private static NoteDB instance = new NoteDB();// 本类的操作对象
-	private String noteTableName = "note";// 数据库的表名
+	private String noteTableName = "city_code";// 数据库的表名
 
 	private NoteDB() {
 		super(MyApplication.getInstance(), notedbName, null, version);
@@ -31,9 +31,11 @@ public class NoteDB extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
+		// String CreatTableSql = "create table " + noteTableName
+		// +
+		// "(title varchar(17),content varchar(1001),completeTime varchar(20),currentTime varchar(100))";
 		String CreatTableSql = "create table " + noteTableName
-				+ "(title varchar(17),content varchar(1001),completeTime varchar(20),currentTime varchar(100))";
-
+				+ "(city varchar(17),code varchar(30))";
 		db.execSQL(CreatTableSql);
 
 	}
@@ -50,12 +52,29 @@ public class NoteDB extends SQLiteOpenHelper {
 	 * @param notebean
 	 *            记事的bean
 	 */
+	public void add(String city, String code) {
+		String sql = "insert into " + noteTableName + "(city,code) values(?,?)";
+		SQLiteDatabase db = getWritableDatabase();
+		db.execSQL(sql, new String[] { city, code });
+		db.close();
+	}
+
+	/**
+	 * 向数据库中加入记事
+	 * 
+	 * @param notebean
+	 *            记事的bean
+	 */
 	public void addNote(NoteBean notebean) {
 
-		String sql = "insert into " + noteTableName + "(title,content,completeTime,currentTime) values(?,?,?,?)";
+		String sql = "insert into " + noteTableName
+				+ "(title,content,completeTime,currentTime) values(?,?,?,?)";
 		SQLiteDatabase db = getWritableDatabase();
-		db.execSQL(sql, new String[] { notebean.getNoteTitle(), notebean.getNoteContent(), notebean.getCompleteTime(),
-				notebean.getCurrentTime() });
+		db.execSQL(
+				sql,
+				new String[] { notebean.getNoteTitle(),
+						notebean.getNoteContent(), notebean.getCompleteTime(),
+						notebean.getCurrentTime() });
 		db.close();
 	}
 
@@ -71,12 +90,16 @@ public class NoteDB extends SQLiteOpenHelper {
 		SQLiteDatabase db = getReadableDatabase();
 		Cursor cursor = db.rawQuery(sql, null);
 		while (cursor.moveToNext()) {
-			String title = cursor.getString(cursor.getColumnIndex("title"));
-			String content = cursor.getString(cursor.getColumnIndex("content"));
-			String completeTime = cursor.getString(cursor.getColumnIndex("completeTime"));
-			String currentTime = cursor.getString(cursor.getColumnIndex("currentTime"));
-			NoteBean noteBean = new NoteBean(title, content, completeTime, currentTime);
-			temp.add(noteBean);
+			// String title = cursor.getString(cursor.getColumnIndex("title"));
+			// String content =
+			// cursor.getString(cursor.getColumnIndex("content"));
+			// String completeTime =
+			// cursor.getString(cursor.getColumnIndex("completeTime"));
+			// String currentTime =
+			// cursor.getString(cursor.getColumnIndex("currentTime"));
+			// NoteBean noteBean = new NoteBean(title, content, completeTime,
+			// currentTime);
+			// temp.add(noteBean);
 		}
 		for (int i = temp.size() - 1; i >= 0; i--) {
 			allNote.add(temp.get(i));
@@ -94,12 +117,17 @@ public class NoteDB extends SQLiteOpenHelper {
 	 */
 	public void update(NoteBean notebean, String currentTime) {
 
-		String sql = "update " + noteTableName
-				+ " set title=?,content=?,completeTime=?,currentTime=? where currentTime='" + currentTime + "'";
+		String sql = "update "
+				+ noteTableName
+				+ " set title=?,content=?,completeTime=?,currentTime=? where currentTime='"
+				+ currentTime + "'";
 		SQLiteDatabase db = getWritableDatabase();
 
-		db.execSQL(sql, new String[] { notebean.getNoteTitle(), notebean.getNoteContent(), notebean.getCompleteTime(),
-				notebean.getCurrentTime() });
+		db.execSQL(
+				sql,
+				new String[] { notebean.getNoteTitle(),
+						notebean.getNoteContent(), notebean.getCompleteTime(),
+						notebean.getCurrentTime() });
 		db.close();
 	}
 

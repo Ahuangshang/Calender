@@ -25,7 +25,7 @@ public class HttpCore extends AsyncTask<RequestParams, Integer, String> {
 		String httpUrl = requestParams.getHttpUrl();
 		String httpParam = requestParams.getHttpParam();
 		String apiKey = requestParams.getApiKey();
-
+		requestFlag=requestParams.getRequestFlag();
 		responce = requestParams.getResponce();
 
 		// 2.更具配置发送不同的网络请求

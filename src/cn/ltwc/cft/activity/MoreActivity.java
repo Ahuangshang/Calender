@@ -26,9 +26,16 @@ import cn.ltwc.cft.view.TitleView;
 public class MoreActivity extends BaseActivity {
 	private TitleView title;
 	private ListView list;
-	private String al[] = { "手机号码归属地查询", "中华军事", "内涵段子", "宅男天堂", "历史上的今天", "QQ空間遊戲", "wifi密码查看" };// 数据集合
-	private int al2[] = { R.drawable.phone, R.drawable.zhonghuajunshi, R.drawable.joke, R.drawable.zhainan,
-			R.drawable.todayonhistory, R.drawable.qq, R.drawable.qq };
+	// private String al[] = { "手机号码归属地查询", "中华军事", "内涵段子", "宅男天堂", "历史上的今天",
+	// "QQ空間遊戲", "wifi密码查看" };// 数据集合
+	private String al[] = { "手机号码归属地查询", "中华军事", "内涵段子", "宅男天堂", "历史上的今天",
+			"QQ空間遊戲" };// 数据集合
+	// private int al2[] = { R.drawable.phone, R.drawable.zhonghuajunshi,
+	// R.drawable.joke, R.drawable.zhainan,
+	// R.drawable.todayonhistory, R.drawable.qq, R.drawable.qq };
+	private int al2[] = { R.drawable.phone, R.drawable.zhonghuajunshi,
+			R.drawable.joke, R.drawable.zhainan, R.drawable.todayonhistory,
+			R.drawable.qq };
 
 	public MoreActivity() {
 		super(R.layout.activity_more);
@@ -67,7 +74,8 @@ public class MoreActivity extends BaseActivity {
 		list.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
 				switch (position) {
 				case 0:
 					startActivity(new Intent(c, PhoneActivity.class));
@@ -75,7 +83,8 @@ public class MoreActivity extends BaseActivity {
 				case 1:
 					// Intent intent = new Intent(c, MyWebViewActivity.class);
 					Intent intent = new Intent(c, MyX5WebView.class);
-					intent.putExtra(Constant.WEBURL, "http://military.china.com/");
+					intent.putExtra(Constant.WEBURL,
+							"http://military.china.com/");
 					intent.putExtra(Constant.WEBTITLE, "中华军事");
 					startActivity(intent);
 					break;
@@ -90,14 +99,15 @@ public class MoreActivity extends BaseActivity {
 					break;
 				case 5:
 					Intent qq = new Intent(c, MyX5WebView.class);
-					qq.putExtra(Constant.WEBURL, "http://mfkp.qzapp.z.qq.com/qshow/cgi-bin/wl_card_mainpage");
+					qq.putExtra(Constant.WEBURL,
+							"http://mfkp.qzapp.z.qq.com/qshow/cgi-bin/wl_card_mainpage");
 					qq.putExtra(Constant.WEBTITLE, "QQ");
 					startActivity(qq);
 					break;
-				case 6:
-					Intent wifi = new Intent(c, ShowWifiPakActivity.class);
-					startActivity(wifi);
-					break;
+				// case 6:
+				// Intent wifi = new Intent(c, ShowWifiPakActivity.class);
+				// startActivity(wifi);
+				// break;
 
 				}
 			}
@@ -137,10 +147,13 @@ public class MoreActivity extends BaseActivity {
 			// TODO Auto-generated method stub
 
 			if (convertView == null) {
-				convertView = LayoutInflater.from(c).inflate(R.layout.more_adapter, null);
+				convertView = LayoutInflater.from(c).inflate(
+						R.layout.more_adapter, null);
 			}
-			TextView text = (TextView) convertView.findViewById(R.id.more_adapter_txt);
-			ImageView icon = (ImageView) convertView.findViewById(R.id.more_adapter_img);
+			TextView text = (TextView) convertView
+					.findViewById(R.id.more_adapter_txt);
+			ImageView icon = (ImageView) convertView
+					.findViewById(R.id.more_adapter_img);
 			text.setText(al[position]);
 			icon.setImageResource(al2[position]);
 			return convertView;

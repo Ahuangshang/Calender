@@ -120,7 +120,13 @@
         <!-- Glide是允许多个设置Model的所以必然会有冲突（如果有多个lib项目的话），可以使用 -->
         <!-- <meta-data android:name="cn.ltwc.cft.utils.MyGlideModule" tools:node=”remove” /> -->
         <!-- 来避免这一类的问题 -->
-
+        <!-- 设置key -->
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="05486ec67898b29d8e45e6a23d784891" />
+        <!-- 定位需要的服务 -->
+        <service android:name="com.amap.api.location.APSService" >
+        </service>
     </application>
 
 </manifest>

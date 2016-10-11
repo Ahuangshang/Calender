@@ -8,6 +8,7 @@
 	<classpathentry kind="lib" path="libs/glide-3.6.1.jar"/>
 	<classpathentry kind="lib" path="libs/tbs_sdk_thirdapp_v2.1.2.1096_36511_shareonly_obfs_20160727_105850.jar"/>
 	<classpathentry kind="lib" path="libs/RootTools.jar"/>
+	<classpathentry kind="lib" path="libs/AMap_Location_V3.00_20160922.jar"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>

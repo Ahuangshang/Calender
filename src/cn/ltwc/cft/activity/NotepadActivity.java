@@ -36,19 +36,21 @@ public class NotepadActivity extends BaseActivity {
 	public NotepadActivity() {
 		super(R.layout.activity_notepad);
 		// TODO Auto-generated constructor stub
+		reflushData();
 	}
 
 	@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		reflushData();
+		//reflushData();
 	}
 
 	private void reflushData() {
+		 NoteDB.getInstance().add("北京", "101010100");
 		List<NoteBean> temp = NoteDB.getInstance().getAll();
 		notes.clear();
-		notes.addAll(temp);
+		//notes.addAll(temp);
 		adapter.notifyDataSetChanged();
 	}
 
