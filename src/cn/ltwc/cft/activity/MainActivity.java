@@ -44,8 +44,11 @@ import cn.ltwc.cft.AppManager;
 import cn.ltwc.cft.R;
 import cn.ltwc.cft.adapter.CalendarAdapter;
 import cn.ltwc.cft.adapter.MenuAdp;
+import cn.ltwc.cft.adapter.XiaoMIWeatherAdapter;
 import cn.ltwc.cft.beans.MenuBean;
 import cn.ltwc.cft.beans.RiqiBean;
+import cn.ltwc.cft.beans.XiaomiWeather;
+import cn.ltwc.cft.beans.XiaomiZhishuList;
 import cn.ltwc.cft.beans.YiJiBean;
 import cn.ltwc.cft.data.Constant;
 import cn.ltwc.cft.data.LunarCalendar;
@@ -55,9 +58,11 @@ import cn.ltwc.cft.datapick.PickUtils.CallBack;
 import cn.ltwc.cft.db.HuangLi;
 import cn.ltwc.cft.http.HttpFactory;
 import cn.ltwc.cft.http.ServiceResponce;
+import cn.ltwc.cft.utils.FileUtils;
 import cn.ltwc.cft.utils.Utils;
 import cn.ltwc.cft.view.ContainerLayout;
 import cn.ltwc.cft.view.MyGridView;
+import cn.ltwc.cft.view.MyListView;
 
 /**
  * 
@@ -97,6 +102,7 @@ public class MainActivity extends BaseActivity implements OnClickListener,
 	private AMapLocationClientOption locationOption = new AMapLocationClientOption();
 
 	private TextView weather;
+	private MyListView myListView;
 
 	public MainActivity() {
 		super(R.layout.activity_main);
@@ -156,6 +162,7 @@ public class MainActivity extends BaseActivity implements OnClickListener,
 		int position = ((CalendarAdapter) gridView.getAdapter()).currentFlag_;
 		myscrollview.setRowNum(position / 7);
 		weather = (TextView) findViewById(R.id.weather);
+		myListView = (MyListView) findViewById(R.id.my_list_view);
 	}
 
 	@Override
@@ -645,7 +652,10 @@ public class MainActivity extends BaseActivity implements OnClickListener,
 				setLotter(object);
 			} else if (responseFlag == 2) {
 				setWeather(object);
+			} else if (responseFlag == 3) {
+				setXiaoMILayout(object);
 			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -688,6 +698,46 @@ public class MainActivity extends BaseActivity implements OnClickListener,
 				blue.setText(blueq);
 
 			}
+		}
+	}
+
+	/**
+	 * 设置小米的指数布局
+	 * 
+	 * @param object
+	 */
+	private void setXiaoMILayout(JSONObject object) {
+		// TODO Auto-generated method stub
+		// Log.d("AA", "小米：" + object);
+		JSONArray array = object.optJSONArray("data");
+		if (array != null) {
+			List<XiaomiWeather> datas = new ArrayList<XiaomiWeather>();
+			for (int i = 0; i < array.length(); i++) {
+				JSONObject obj = array.optJSONObject(i);
+				String title = obj.optString("title");
+				List<XiaomiZhishuList> listZhishu = new ArrayList<XiaomiZhishuList>();
+				JSONArray arr = obj.optJSONArray("list");
+				if (arr != null) {
+					for (int j = 0; j < arr.length(); j++) {
+						JSONObject o = arr.optJSONObject(j);
+						Log.d("AA", "小米：" + o);
+						JSONObject data = o.optJSONObject("data");
+						String image = data.optString("image");
+						String summary = data.optString("summary");
+						String t = data.optString("title");
+						String headPic = data.optString("headPic");
+						String channelId = data.optString("channelId");
+						XiaomiZhishuList bean = new XiaomiZhishuList(image,
+								summary, t, headPic, channelId);
+						listZhishu.add(bean);
+					}
+				}
+				XiaomiWeather weather = new XiaomiWeather(title, listZhishu);
+				datas.add(weather);
+			}
+			Log.d("AA", "小米：" + datas.size());
+			XiaoMIWeatherAdapter adapter = new XiaoMIWeatherAdapter(c, datas);
+			myListView.setAdapter(adapter);
 		}
 	}
 
@@ -747,7 +797,10 @@ public class MainActivity extends BaseActivity implements OnClickListener,
 				// 解析定位结果
 				stopLocation();
 				String result = Utils.getLocationStr(loc);
-				Log.d("AA", result);
+				String code = FileUtils.getCityCode(result);
+				if (!TextUtils.isEmpty(code)) {
+					HttpFactory.getLayout(MainActivity.this, code, 3);
+				}
 				HttpFactory.getWeather(MainActivity.this, result, 2);
 			} else {
 				weather.setText("定位失败");

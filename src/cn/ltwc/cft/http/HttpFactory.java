@@ -313,6 +313,7 @@ public class HttpFactory {
 			int requestFlag) {
 		RequestParams params = new RequestParams();
 		params.setApiKey("7b46d11c52681dd472628478b912ebff");
+
 		String httpParam = "location=" + URLEncoder.encode(city)
 				+ "&language=zh-Hans&unit=c";
 		params.setHttpParam(httpParam);
@@ -323,5 +324,21 @@ public class HttpFactory {
 		HttpCore core = new HttpCore();
 		core.execute(params);
 
+	}
+
+	@SuppressWarnings("deprecation")
+	public static void getLayout(ServiceResponce responce, String code,
+			int requestFlag) {
+		// TODO Auto-generated method stub
+		RequestParams params = new RequestParams();
+		String httpParam = "channel=03-1&r=CN&l=zh_cn&locationKey="
+				+ URLEncoder.encode("weathercn:" + code);
+		params.setHttpParam(httpParam);
+		params.setHttpUrl(HttpUrls.GET_XIAO_MI_LAYOUT);
+		params.setRequestMethod(HttpConfig.METHOD_GET_HUC_JSON);
+		params.setResponce(responce);
+		params.setRequestFlag(requestFlag);
+		HttpCore core = new HttpCore();
+		core.execute(params);
 	}
 }

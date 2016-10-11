@@ -18,4 +18,5 @@ public class HttpUrls {
 	public static final String LOTTER_TYPE = "http://apis.baidu.com/apistore/lottery/lotterylist";// 彩票类型接口
 	public static final String LOTTER_SSQ = "http://apis.baidu.com/apistore/lottery/lotteryquery";// 双色球开奖结果查询
 	public static final String GET_CURRENT_WEATHER = "http://apis.baidu.com/thinkpage/weather_api/currentweather";
+	public static final String GET_XIAO_MI_LAYOUT = "http://adv.sec.miui.com/info/layout";
 }
