@@ -13,7 +13,7 @@ import cn.ltwc.cft.R;
 
 /**
  * Title:日历和内容的容器，处理滑动冲突和 Description:
- *
+ * 
  * @author LZL
  * @date 2016/9/27.
  */
@@ -87,7 +87,8 @@ public class ContainerLayout extends LinearLayout {
 	}
 
 	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
-	public ContainerLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+	public ContainerLayout(Context context, AttributeSet attrs,
+			int defStyleAttr, int defStyleRes) {
 		super(context, attrs, defStyleAttr, defStyleRes);
 	}
 
@@ -101,9 +102,12 @@ public class ContainerLayout extends LinearLayout {
 
 	private void init() {
 		if (mHeader == null && mContent == null) {
-			minDistance = getResources().getDimensionPixelOffset(R.dimen.mindistance);
-			int headerId = getResources().getIdentifier("flipper", "id", getContext().getPackageName());
-			int contentId = getResources().getIdentifier("view_content", "id", getContext().getPackageName());
+			minDistance = getResources().getDimensionPixelOffset(
+					R.dimen.mindistance);
+			int headerId = getResources().getIdentifier("flipper", "id",
+					getContext().getPackageName());
+			int contentId = getResources().getIdentifier("view_content", "id",
+					getContext().getPackageName());
 			if (headerId != 0 && contentId != 0) {
 				mHeader = findViewById(headerId);
 				mContent = (ViewGroup) findViewById(contentId);
@@ -154,7 +158,8 @@ public class ContainerLayout extends LinearLayout {
 				} else {
 					// mContent.getTop() - mHeader.getTop() == hideBottom -
 					// hideTop
-					if (mContent.getTop() - mHeader.getTop() == hideBottom - hideTop) {
+					if (mContent.getTop() - mHeader.getTop() == hideBottom
+							- hideTop) {
 						// 头部完全收缩
 						if (canChildScrollDown(mContent)) {
 							// 底部还可以继续往下滚动
@@ -213,7 +218,8 @@ public class ContainerLayout extends LinearLayout {
 		case MotionEvent.ACTION_UP:
 			if (deltaY > 0) {
 				// 从上向下滚动,判断一下最终距离
-				if (mContent.getTop() - mHeader.getTop() >= 2 * (hideBottom - hideTop) || deltaY > minDistance) {
+				if (mContent.getTop() - mHeader.getTop() >= 2 * (hideBottom - hideTop)
+						|| deltaY > minDistance) {
 					// 拉伸的长度足够,可以展开，如果还没有完全展开则使用动画
 					// 向下拉伸长度够了，可以展开
 					smoothExpand(-deltaY);
@@ -225,8 +231,8 @@ public class ContainerLayout extends LinearLayout {
 			} else {
 				// 从下向上滚动不拦截
 				if (mHeader.getScrollY() >= hideBottom - hideTop
-						|| (scrollCountY >= hideBottom - hideTop && mHeader.getScrollY() == 0)
-						|| deltaY < -minDistance) {
+						|| (scrollCountY >= hideBottom - hideTop && mHeader
+								.getScrollY() == 0) || deltaY < -minDistance) {
 					// 拉伸的长度足够,可以展开，如果还没有完全展开则使用动画
 					smoothCollapse(-deltaY);
 				} else {
@@ -245,7 +251,7 @@ public class ContainerLayout extends LinearLayout {
 
 	/**
 	 * 判断scrollview / listview是否能滑动
-	 *
+	 * 
 	 * @param view
 	 * @return
 	 */
@@ -253,8 +259,10 @@ public class ContainerLayout extends LinearLayout {
 		if (Build.VERSION.SDK_INT < 14) {
 			if (view instanceof AbsListView) {
 				final AbsListView absListView = (AbsListView) view;
-				return absListView.getChildCount() > 0 && (absListView.getFirstVisiblePosition() > 0
-						|| absListView.getChildAt(0).getTop() < absListView.getPaddingTop());
+				return absListView.getChildCount() > 0
+						&& (absListView.getFirstVisiblePosition() > 0 || absListView
+								.getChildAt(0).getTop() < absListView
+								.getPaddingTop());
 			} else {
 				return view.getScrollY() > 0;
 			}
@@ -266,18 +274,19 @@ public class ContainerLayout extends LinearLayout {
 
 	/**
 	 * 设置当前选中日期所属行
-	 *
+	 * 
 	 * @param rowNum
 	 */
 	public void setRowNum(int rowNum) {
-		int dimensionPixelSize = getResources().getDimensionPixelSize(R.dimen.calender_item_height);
+		int dimensionPixelSize = getResources().getDimensionPixelSize(
+				R.dimen.calender_item_height);
 		hideTop = rowNum * dimensionPixelSize;
 		hideBottom = (rowNum + 1) * dimensionPixelSize;
 	}
 
 	/**
 	 * 惯性展开
-	 *
+	 * 
 	 * @param deltaY
 	 */
 	private void smoothExpand(int deltaY) {
@@ -291,11 +300,13 @@ public class ContainerLayout extends LinearLayout {
 						public void run() {
 							scrollCountY += distanceY;
 							if (scrollCountY >= 0 && scrollCountY <= hideTop) {
-								mHeader.scrollTo(mHeader.getScrollX(), scrollCountY);
+								mHeader.scrollTo(mHeader.getScrollX(),
+										scrollCountY);
 							} else {
 								mHeader.scrollTo(mHeader.getScrollX(), hideTop);
 							}
-							LayoutParams params2 = (LayoutParams) mContent.getLayoutParams();
+							LayoutParams params2 = (LayoutParams) mContent
+									.getLayoutParams();
 							params2.setMargins(0, -scrollCountY, 0, 0);
 							mContent.setLayoutParams(params2);
 
@@ -311,7 +322,8 @@ public class ContainerLayout extends LinearLayout {
 					public void run() {
 						mHeader.scrollTo(mHeader.getScrollX(), 0);
 						scrollCountY = 0;
-						LayoutParams params = (LayoutParams) mContent.getLayoutParams();
+						LayoutParams params = (LayoutParams) mContent
+								.getLayoutParams();
 						params.setMargins(0, 0, 0, 0);
 						mContent.setLayoutParams(params);
 						isInAnimation = false;
@@ -323,7 +335,7 @@ public class ContainerLayout extends LinearLayout {
 
 	/**
 	 * 惯性收缩
-	 *
+	 * 
 	 * @param deltaY
 	 */
 	public void smoothCollapse(int deltaY) {
@@ -331,17 +343,20 @@ public class ContainerLayout extends LinearLayout {
 		new Thread("Thread#smoothCollapse") {
 			@Override
 			public void run() {
-				while (Math.abs(scrollCountY + distanceY) <= Math.abs(headerOriginalHeight - hideBottom + hideTop)) {
+				while (Math.abs(scrollCountY + distanceY) <= Math
+						.abs(headerOriginalHeight - hideBottom + hideTop)) {
 					isInAnimation = true;
 					post(new Runnable() {
 						public void run() {
 							scrollCountY += distanceY;
 							if (scrollCountY >= 0 && scrollCountY <= hideTop) {
-								mHeader.scrollTo(mHeader.getScrollX(), scrollCountY);
+								mHeader.scrollTo(mHeader.getScrollX(),
+										scrollCountY);
 							} else {
 								mHeader.scrollTo(mHeader.getScrollX(), hideTop);
 							}
-							LayoutParams params2 = (LayoutParams) mContent.getLayoutParams();
+							LayoutParams params2 = (LayoutParams) mContent
+									.getLayoutParams();
 							params2.setMargins(0, -scrollCountY, 0, 0);
 							mContent.setLayoutParams(params2);
 
@@ -363,8 +378,10 @@ public class ContainerLayout extends LinearLayout {
 			public void run() {
 				mHeader.scrollTo(mHeader.getScrollX(), hideTop);
 				scrollCountY = headerOriginalHeight - hideBottom + hideTop;
-				LayoutParams params2 = (LayoutParams) mContent.getLayoutParams();
-				params2.setMargins(0, -(headerOriginalHeight - hideBottom + hideTop), 0, 0);
+				LayoutParams params2 = (LayoutParams) mContent
+						.getLayoutParams();
+				params2.setMargins(0,
+						-(headerOriginalHeight - hideBottom + hideTop), 0, 0);
 				mContent.setLayoutParams(params2);
 				isInAnimation = false;
 			}
@@ -380,7 +397,7 @@ public class ContainerLayout extends LinearLayout {
 
 	/**
 	 * 手指移动时的
-	 *
+	 * 
 	 * @param distanceY
 	 */
 	private void moveToScroll(float distanceY) {
@@ -406,14 +423,19 @@ public class ContainerLayout extends LinearLayout {
 				// 日历头滑动到了顶部
 				mHeader.scrollTo(mHeader.getScrollX(), hideTop);
 
-				if (scrollCountY <= headerOriginalHeight - hideBottom + hideTop + distanceY) {
-					if (scrollCountY <= headerOriginalHeight - hideBottom + hideTop) {
-						LayoutParams params2 = (LayoutParams) mContent.getLayoutParams();
+				if (scrollCountY <= headerOriginalHeight - hideBottom + hideTop
+						+ distanceY) {
+					if (scrollCountY <= headerOriginalHeight - hideBottom
+							+ hideTop) {
+						LayoutParams params2 = (LayoutParams) mContent
+								.getLayoutParams();
 						params2.setMargins(0, -scrollCountY, 0, 0);
 						mContent.setLayoutParams(params2);
 					} else {
-						LayoutParams params2 = (LayoutParams) mContent.getLayoutParams();
-						params2.setMargins(0, -(headerOriginalHeight - hideBottom + hideTop), 0, 0);
+						LayoutParams params2 = (LayoutParams) mContent
+								.getLayoutParams();
+						params2.setMargins(0, -(headerOriginalHeight
+								- hideBottom + hideTop), 0, 0);
 						mContent.setLayoutParams(params2);
 					}
 				}

@@ -2,16 +2,20 @@ package cn.ltwc.cft.adapter;
 
 import java.util.List;
 
-import cn.ltwc.cft.R;
-import cn.ltwc.cft.beans.XiaomiWeather;
-import cn.ltwc.cft.view.MyListView;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+import cn.ltwc.cft.R;
+import cn.ltwc.cft.activity.ZhishuDetailActivity;
+import cn.ltwc.cft.beans.XiaomiWeather;
+import cn.ltwc.cft.view.MyListView;
 
 public class XiaoMIWeatherAdapter extends BaseAdapter {
 	private Context context;
@@ -41,7 +45,7 @@ public class XiaoMIWeatherAdapter extends BaseAdapter {
 		return position;
 	}
 
-	@SuppressLint("InflateParams") 
+	@SuppressLint("InflateParams")
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
@@ -56,11 +60,26 @@ public class XiaoMIWeatherAdapter extends BaseAdapter {
 		} else {
 			holde = (Holder) convertView.getTag();
 		}
-		holde.title.setText(datas.get(position).getTitle());
-		XiaoMIZhishuAdapter ada = new XiaoMIZhishuAdapter(context, datas.get(
-				position).getListZhishu());
+		final XiaomiWeather model = datas.get(position);
+		holde.title.setText(model.getTitle());
+		XiaoMIZhishuAdapter ada = new XiaoMIZhishuAdapter(context,
+				model.getListZhishu());
 		holde.erList.setAdapter(ada);
+		holde.erList.setOnItemClickListener(new OnItemClickListener() {
 
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int i,
+					long id) {
+				Intent intent = new Intent(context, ZhishuDetailActivity.class);
+				intent.putExtra("channelId", model.getListZhishu().get(i)
+						.getChannelId());
+				intent.putExtra("headPic", model.getListZhishu().get(i)
+						.getHeadPic());
+				intent.putExtra("indexType", model.getListZhishu().get(i)
+						.getIndexType());
+				context.startActivity(intent);
+			}
+		});
 		return convertView;
 	}
 

@@ -29,7 +29,8 @@ public class HistoryOnTodayImgBean {
 
 	@Override
 	public String toString() {
-		return "HistoryOnTodayImgBean [imgTitle=" + imgTitle + ", imgUrl=" + imgUrl + "]";
+		return "HistoryOnTodayImgBean [imgTitle=" + imgTitle + ", imgUrl="
+				+ imgUrl + "]";
 	}
 
 }

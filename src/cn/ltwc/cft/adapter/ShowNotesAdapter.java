@@ -63,8 +63,11 @@ public class ShowNotesAdapter extends BaseAdapter {
 		if (position == 0) {
 			hodler.title.setVisibility(View.VISIBLE);
 		} else {
-			sh = ((NoteBean) getItem(position - 1)).getCompleteTime().substring(0,
-					((NoteBean) getItem(position - 1)).getCompleteTime().lastIndexOf("-"));
+			sh = ((NoteBean) getItem(position - 1)).getCompleteTime()
+					.substring(
+							0,
+							((NoteBean) getItem(position - 1))
+									.getCompleteTime().lastIndexOf("-"));
 			if (sh.equals(title)) {
 				hodler.title.setVisibility(View.GONE);
 			} else {

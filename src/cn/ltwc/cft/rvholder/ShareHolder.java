@@ -22,7 +22,8 @@ public class ShareHolder extends RecyclerView.ViewHolder {
 		item = itemView.findViewById(R.id.item);
 	}
 
-	public void itemClick(final ResolveInfo info, final PagerRecyclerItemClickListener listener) {
+	public void itemClick(final ResolveInfo info,
+			final PagerRecyclerItemClickListener listener) {
 		item.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {

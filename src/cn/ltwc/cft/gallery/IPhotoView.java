@@ -106,7 +106,8 @@ public interface IPhotoView {
 	 * @param listener
 	 *            - Listener to be registered.
 	 */
-	void setOnMatrixChangeListener(PhotoViewAttacher.OnMatrixChangedListener listener);
+	void setOnMatrixChangeListener(
+			PhotoViewAttacher.OnMatrixChangedListener listener);
 
 	/**
 	 * Register a callback to be invoked when the Photo displayed by this View

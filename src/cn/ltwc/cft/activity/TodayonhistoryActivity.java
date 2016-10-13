@@ -33,7 +33,8 @@ import cn.ltwc.cft.view.TitleView;
  * @author LZL
  * 
  */
-public class TodayonhistoryActivity extends BaseActivity implements ServiceResponce {
+public class TodayonhistoryActivity extends BaseActivity implements
+		ServiceResponce {
 	private int month_c = 0;
 	private int day_c = 0;
 	private String currentDate = "";
@@ -59,7 +60,8 @@ public class TodayonhistoryActivity extends BaseActivity implements ServiceRespo
 		// TODO Auto-generated method stub
 		title = (TitleView) findViewById(R.id.title);
 		historyLv = (ListView) findViewById(R.id.history_lv);
-		head = LayoutInflater.from(this).inflate(R.layout.history_head_view, null);
+		head = LayoutInflater.from(this).inflate(R.layout.history_head_view,
+				null);
 		headTitle = (TextView) head.findViewById(R.id.head_title);
 		headTitle.setText("历史上的" + month_c + "月" + day_c + "日" + "都发生了什么");
 	}
@@ -113,8 +115,10 @@ public class TodayonhistoryActivity extends BaseActivity implements ServiceRespo
 
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Intent intent = new Intent(TodayonhistoryActivity.this, MyX5WebView.class);
-				intent.putExtra(Constant.WEBURL, "http://www.todayonhistory.com");
+				Intent intent = new Intent(TodayonhistoryActivity.this,
+						MyX5WebView.class);
+				intent.putExtra(Constant.WEBURL,
+						"http://www.todayonhistory.com");
 				intent.putExtra(Constant.WEBTITLE, "历史上的今天");
 				startActivity(intent);
 				// startActivity(new Intent(TodayonhistoryActivity.this,
@@ -124,7 +128,8 @@ public class TodayonhistoryActivity extends BaseActivity implements ServiceRespo
 		historyLv.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
 				// TODO Auto-generated method stub
 				// Intent intent = new Intent(TodayonhistoryActivity.this,
 				// HistoryDetailActivity.class);
@@ -133,7 +138,8 @@ public class TodayonhistoryActivity extends BaseActivity implements ServiceRespo
 				if (position == 0) {
 					return;
 				}
-				Intent intent = new Intent(TodayonhistoryActivity.this, HistoryDetailJUHEActivity.class);
+				Intent intent = new Intent(TodayonhistoryActivity.this,
+						HistoryDetailJUHEActivity.class);
 				intent.putExtra("bean", juheList.get(position - 1));
 				startActivity(intent);
 			}
@@ -179,7 +185,8 @@ public class TodayonhistoryActivity extends BaseActivity implements ServiceRespo
 					String title = object.optString("title");
 					String data = object.optString("date");
 					String e_id = object.optString("e_id");
-					HistoryOnTodayBeanJUHE beanJUHE = new HistoryOnTodayBeanJUHE(data, title, e_id);
+					HistoryOnTodayBeanJUHE beanJUHE = new HistoryOnTodayBeanJUHE(
+							data, title, e_id);
 					juheList.add(beanJUHE);
 				}
 				juheAdapter.notifyDataSetChanged();

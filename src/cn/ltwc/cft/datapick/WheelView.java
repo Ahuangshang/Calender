@@ -67,25 +67,31 @@ public class WheelView extends View {
 	private static final int ITEMS_TEXT_COLOR = 0xFFBBBBBB;
 
 	/** Top and bottom shadows colors */
-	private static final int[] SHADOWS_COLORS = new int[] { 0xFF111111, 0x00AAAAAA, 0x00AAAAAA };
+	private static final int[] SHADOWS_COLORS = new int[] { 0xFF111111,
+			0x00AAAAAA, 0x00AAAAAA };
 
 	/** Additional items height (is added to standard text item height) */
-	private static final int ADDITIONAL_ITEM_HEIGHT = BitMapUtil.dip2px(MyApplication.getInstance(), 7.5f);;
+	private static final int ADDITIONAL_ITEM_HEIGHT = BitMapUtil.dip2px(
+			MyApplication.getInstance(), 7.5f);;
 
 	/** Text size */
-	private static final int TEXT_SIZE = BitMapUtil.dip2px(MyApplication.getInstance(), 25);
+	private static final int TEXT_SIZE = BitMapUtil.dip2px(
+			MyApplication.getInstance(), 25);
 
 	/** Top and bottom items offset (to hide that) */
 	private static final int ITEM_OFFSET = TEXT_SIZE / 5;
 
 	/** Additional width for items layout */
-	private static final int ADDITIONAL_ITEMS_SPACE = BitMapUtil.dip2px(MyApplication.getInstance(), 5);;
+	private static final int ADDITIONAL_ITEMS_SPACE = BitMapUtil.dip2px(
+			MyApplication.getInstance(), 5);;
 
 	/** Label offset */
-	private static final int LABEL_OFFSET = BitMapUtil.dip2px(MyApplication.getInstance(), 4);;
+	private static final int LABEL_OFFSET = BitMapUtil.dip2px(
+			MyApplication.getInstance(), 4);;
 
 	/** Left and right padding value */
-	private static final int PADDING = BitMapUtil.dip2px(MyApplication.getInstance(), 5);;
+	private static final int PADDING = BitMapUtil.dip2px(
+			MyApplication.getInstance(), 5);;
 
 	/** Default count of visible items */
 	private static final int DEF_VISIBLE_ITEMS = 5;
@@ -417,28 +423,33 @@ public class WheelView extends View {
 	@SuppressWarnings("deprecation")
 	private void initResourcesIfNecessary() {
 		if (itemsPaint == null) {
-			itemsPaint = new TextPaint(Paint.ANTI_ALIAS_FLAG | Paint.FAKE_BOLD_TEXT_FLAG);
+			itemsPaint = new TextPaint(Paint.ANTI_ALIAS_FLAG
+					| Paint.FAKE_BOLD_TEXT_FLAG);
 			// itemsPaint.density = getResources().getDisplayMetrics().density;
 			itemsPaint.setTextSize(TEXT_SIZE);
 		}
 
 		if (valuePaint == null) {
-			valuePaint = new TextPaint(Paint.ANTI_ALIAS_FLAG | Paint.FAKE_BOLD_TEXT_FLAG | Paint.DITHER_FLAG);
+			valuePaint = new TextPaint(Paint.ANTI_ALIAS_FLAG
+					| Paint.FAKE_BOLD_TEXT_FLAG | Paint.DITHER_FLAG);
 			// valuePaint.density = getResources().getDisplayMetrics().density;
 			valuePaint.setTextSize(TEXT_SIZE);
 			valuePaint.setShadowLayer(0.1f, 0, 0.1f, 0xFFC0C0C0);
 		}
 
 		if (centerDrawable == null) {
-			centerDrawable = getContext().getResources().getDrawable(R.drawable.wheel_val);
+			centerDrawable = getContext().getResources().getDrawable(
+					R.drawable.wheel_val);
 		}
 
 		if (topShadow == null) {
-			topShadow = new GradientDrawable(Orientation.TOP_BOTTOM, SHADOWS_COLORS);
+			topShadow = new GradientDrawable(Orientation.TOP_BOTTOM,
+					SHADOWS_COLORS);
 		}
 
 		if (bottomShadow == null) {
-			bottomShadow = new GradientDrawable(Orientation.BOTTOM_TOP, SHADOWS_COLORS);
+			bottomShadow = new GradientDrawable(Orientation.BOTTOM_TOP,
+					SHADOWS_COLORS);
 		}
 
 		setBackgroundResource(R.drawable.wheel_bg);
@@ -456,7 +467,8 @@ public class WheelView extends View {
 			return 0;
 		}
 
-		int desired = getItemHeight() * visibleItems - ITEM_OFFSET * 2 - ADDITIONAL_ITEM_HEIGHT;
+		int desired = getItemHeight() * visibleItems - ITEM_OFFSET * 2
+				- ADDITIONAL_ITEM_HEIGHT;
 
 		// Check against our minimum height
 		desired = Math.max(desired, getSuggestedMinimumHeight());
@@ -531,10 +543,11 @@ public class WheelView extends View {
 
 		String maxText = null;
 		int addItems = visibleItems / 2;
-		for (int i = Math.max(currentItem - addItems, 0); i < Math.min(currentItem + visibleItems,
-				adapter.getItemsCount()); i++) {
+		for (int i = Math.max(currentItem - addItems, 0); i < Math.min(
+				currentItem + visibleItems, adapter.getItemsCount()); i++) {
 			String text = adapter.getItem(i);
-			if (text != null && (maxText == null || maxText.length() < text.length())) {
+			if (text != null
+					&& (maxText == null || maxText.length() < text.length())) {
 				maxText = text;
 			}
 		}
@@ -575,7 +588,8 @@ public class WheelView extends View {
 
 		int maxLength = getMaxTextLength();
 		if (maxLength > 0) {
-			double textWidth = Math.ceil(Layout.getDesiredWidth("0", itemsPaint));
+			double textWidth = Math.ceil(Layout
+					.getDesiredWidth("0", itemsPaint));
 			itemsWidth = (int) (maxLength * textWidth);
 		} else {
 			itemsWidth = 0;
@@ -584,7 +598,8 @@ public class WheelView extends View {
 
 		labelWidth = 0;
 		if (label != null && label.length() > 0) {
-			labelWidth = (int) Math.ceil(Layout.getDesiredWidth(label, valuePaint));
+			labelWidth = (int) Math.ceil(Layout.getDesiredWidth(label,
+					valuePaint));
 		}
 
 		boolean recalculate = false;
@@ -613,7 +628,8 @@ public class WheelView extends View {
 				itemsWidth = labelWidth = 0;
 			}
 			if (labelWidth > 0) {
-				double newWidthItems = (double) itemsWidth * pureWidth / (itemsWidth + labelWidth);
+				double newWidthItems = (double) itemsWidth * pureWidth
+						/ (itemsWidth + labelWidth);
 				itemsWidth = (int) newWidthItems;
 				labelWidth = pureWidth - itemsWidth;
 			} else {
@@ -638,17 +654,23 @@ public class WheelView extends View {
 	 */
 	private void createLayouts(int widthItems, int widthLabel) {
 		if (itemsLayout == null || itemsLayout.getWidth() > widthItems) {
-			itemsLayout = new StaticLayout(buildText(isScrollingPerformed), itemsPaint, widthItems,
-					widthLabel > 0 ? Layout.Alignment.ALIGN_OPPOSITE : Layout.Alignment.ALIGN_CENTER, 1,
+			itemsLayout = new StaticLayout(buildText(isScrollingPerformed),
+					itemsPaint, widthItems,
+					widthLabel > 0 ? Layout.Alignment.ALIGN_OPPOSITE
+							: Layout.Alignment.ALIGN_CENTER, 1,
 					ADDITIONAL_ITEM_HEIGHT, false);
 		} else {
 			itemsLayout.increaseWidthTo(widthItems);
 		}
 
-		if (!isScrollingPerformed && (valueLayout == null || valueLayout.getWidth() > widthItems)) {
-			String text = getAdapter() != null ? getAdapter().getItem(currentItem) : null;
-			valueLayout = new StaticLayout(text != null ? text : "", valuePaint, widthItems,
-					widthLabel > 0 ? Layout.Alignment.ALIGN_OPPOSITE : Layout.Alignment.ALIGN_CENTER, 1,
+		if (!isScrollingPerformed
+				&& (valueLayout == null || valueLayout.getWidth() > widthItems)) {
+			String text = getAdapter() != null ? getAdapter().getItem(
+					currentItem) : null;
+			valueLayout = new StaticLayout(text != null ? text : "",
+					valuePaint, widthItems,
+					widthLabel > 0 ? Layout.Alignment.ALIGN_OPPOSITE
+							: Layout.Alignment.ALIGN_CENTER, 1,
 					ADDITIONAL_ITEM_HEIGHT, false);
 		} else if (isScrollingPerformed) {
 			valueLayout = null;
@@ -658,7 +680,8 @@ public class WheelView extends View {
 
 		if (widthLabel > 0) {
 			if (labelLayout == null || labelLayout.getWidth() > widthLabel) {
-				labelLayout = new StaticLayout(label, valuePaint, widthLabel, Layout.Alignment.ALIGN_NORMAL, 1,
+				labelLayout = new StaticLayout(label, valuePaint, widthLabel,
+						Layout.Alignment.ALIGN_NORMAL, 1,
 						ADDITIONAL_ITEM_HEIGHT, false);
 			} else {
 				labelLayout.increaseWidthTo(widthLabel);
@@ -724,7 +747,8 @@ public class WheelView extends View {
 		topShadow.setBounds(0, 0, getWidth(), getHeight() / visibleItems);
 		topShadow.draw(canvas);
 
-		bottomShadow.setBounds(0, getHeight() - getHeight() / visibleItems, getWidth(), getHeight());
+		bottomShadow.setBounds(0, getHeight() - getHeight() / visibleItems,
+				getWidth(), getHeight());
 		bottomShadow.draw(canvas);
 	}
 
@@ -786,7 +810,8 @@ public class WheelView extends View {
 	private void drawCenterRect(Canvas canvas) {
 		int center = getHeight() / 2;
 		int offset = getItemHeight() / 2;
-		centerDrawable.setBounds(0, center - offset, getWidth(), center + offset);
+		centerDrawable.setBounds(0, center - offset, getWidth(), center
+				+ offset);
 		centerDrawable.draw(canvas);
 	}
 
@@ -798,7 +823,8 @@ public class WheelView extends View {
 			return true;
 		}
 
-		if (!gestureDetector.onTouchEvent(event) && event.getAction() == MotionEvent.ACTION_UP) {
+		if (!gestureDetector.onTouchEvent(event)
+				&& event.getAction() == MotionEvent.ACTION_UP) {
 			justify();
 		}
 		return true;
@@ -861,17 +887,21 @@ public class WheelView extends View {
 			return false;
 		}
 
-		public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+		public boolean onScroll(MotionEvent e1, MotionEvent e2,
+				float distanceX, float distanceY) {
 			startScrolling();
 			doScroll((int) -distanceY);
 			return true;
 		}
 
-		public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+		public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
+				float velocityY) {
 			lastScrollY = currentItem * getItemHeight() + scrollingOffset;
-			int maxY = isCyclic ? 0x7FFFFFFF : adapter.getItemsCount() * getItemHeight();
+			int maxY = isCyclic ? 0x7FFFFFFF : adapter.getItemsCount()
+					* getItemHeight();
 			int minY = isCyclic ? -maxY : 0;
-			scroller.fling(0, lastScrollY, 0, (int) -velocityY / 2, 0, 0, minY, maxY);
+			scroller.fling(0, lastScrollY, 0, (int) -velocityY / 2, 0, 0, minY,
+					maxY);
 			setNextMessage(MESSAGE_SCROLL);
 			return true;
 		}
@@ -939,8 +969,10 @@ public class WheelView extends View {
 		lastScrollY = 0;
 		int offset = scrollingOffset;
 		int itemHeight = getItemHeight();
-		boolean needToIncrease = offset > 0 ? currentItem < adapter.getItemsCount() : currentItem > 0;
-		if ((isCyclic || needToIncrease) && Math.abs((float) offset) > (float) itemHeight / 2) {
+		boolean needToIncrease = offset > 0 ? currentItem < adapter
+				.getItemsCount() : currentItem > 0;
+		if ((isCyclic || needToIncrease)
+				&& Math.abs((float) offset) > (float) itemHeight / 2) {
 			if (offset < 0)
 				offset += itemHeight + MIN_DELTA_FOR_SCROLLING;
 			else

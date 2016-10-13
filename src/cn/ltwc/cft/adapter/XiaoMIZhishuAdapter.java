@@ -2,11 +2,6 @@ package cn.ltwc.cft.adapter;
 
 import java.util.List;
 
-import com.bumptech.glide.Glide;
-
-import cn.ltwc.cft.R;
-import cn.ltwc.cft.beans.XiaomiZhishuList;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -15,6 +10,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import cn.ltwc.cft.R;
+import cn.ltwc.cft.beans.XiaomiZhishuList;
+
+import com.bumptech.glide.Glide;
 
 public class XiaoMIZhishuAdapter extends BaseAdapter {
 	private Context context;
@@ -65,13 +64,11 @@ public class XiaoMIZhishuAdapter extends BaseAdapter {
 				.into(holder.img);
 		holder.erTitle.setText(list.get(position).getTitle());
 		holder.erContent.setText(list.get(position).getSummary());
-
 		return convertView;
 	}
 
 	class Holder {
 		private ImageView img;
 		private TextView erTitle, erContent;
-
 	}
 }

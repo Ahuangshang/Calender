@@ -47,10 +47,13 @@ public class JokeAdapter extends BaseAdapter {
 		// TODO Auto-generated method stub
 		ViewHodle viewHodle = null;
 		if (convertView == null) {
-			convertView = LayoutInflater.from(c).inflate(R.layout.joke_item, null);
+			convertView = LayoutInflater.from(c).inflate(R.layout.joke_item,
+					null);
 			viewHodle = new ViewHodle();
-			viewHodle.title = (TextView) convertView.findViewById(R.id.joke_item_title);
-			viewHodle.content = (TextView) convertView.findViewById(R.id.joke_item_content);
+			viewHodle.title = (TextView) convertView
+					.findViewById(R.id.joke_item_title);
+			viewHodle.content = (TextView) convertView
+					.findViewById(R.id.joke_item_content);
 			convertView.setTag(viewHodle);
 		} else {
 			viewHodle = (ViewHodle) convertView.getTag();

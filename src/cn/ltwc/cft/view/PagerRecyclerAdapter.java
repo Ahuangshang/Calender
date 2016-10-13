@@ -33,8 +33,8 @@ public class PagerRecyclerAdapter extends PagerAdapter {
 	private PagerRecyclerItemClickListener listener;
 	private View itemView;
 
-	public PagerRecyclerAdapter(Context c, List<ResolveInfo> list, int spanRow, int spanColumn,
-			PagerRecyclerItemClickListener listener) {
+	public PagerRecyclerAdapter(Context c, List<ResolveInfo> list, int spanRow,
+			int spanColumn, PagerRecyclerItemClickListener listener) {
 		super();
 		this.c = c;
 		this.list = list;
@@ -72,10 +72,12 @@ public class PagerRecyclerAdapter extends PagerAdapter {
 				temp.add(list.get(i));
 			}
 		}
-		itemView = LayoutInflater.from(c).inflate(R.layout.item_pager_recycler, null);
+		itemView = LayoutInflater.from(c).inflate(R.layout.item_pager_recycler,
+				null);
 		RecyclerView rv = (RecyclerView) itemView.findViewById(R.id.rv);
 
-		rv.setLayoutManager(new StaggeredGridLayoutManager(spanRow, StaggeredGridLayoutManager.HORIZONTAL));
+		rv.setLayoutManager(new StaggeredGridLayoutManager(spanRow,
+				StaggeredGridLayoutManager.HORIZONTAL));
 		List<ResolveInfo> temp2 = new ArrayList<ResolveInfo>();
 		for (int i = 0; i < num; i++) {
 			temp2.add(null);

@@ -31,7 +31,8 @@ public class PageIndicatorView extends LinearLayout {
 		this(context, attrs, 0);
 	}
 
-	public PageIndicatorView(Context context, AttributeSet attrs, int defStyleAttr) {
+	public PageIndicatorView(Context context, AttributeSet attrs,
+			int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 		init(context);
 	}
@@ -70,7 +71,8 @@ public class PageIndicatorView extends LinearLayout {
 			indicatorViews.add(view);
 		}
 		if (indicatorViews.size() > 0) {
-			indicatorViews.get(0).setBackgroundResource(android.R.drawable.presence_online);
+			indicatorViews.get(0).setBackgroundResource(
+					android.R.drawable.presence_online);
 		}
 	}
 
@@ -83,9 +85,11 @@ public class PageIndicatorView extends LinearLayout {
 	public void setSelectedPage(int selected) {
 		for (int i = 0; i < indicatorViews.size(); i++) {
 			if (i == selected) {
-				indicatorViews.get(i).setBackgroundResource(android.R.drawable.presence_online);
+				indicatorViews.get(i).setBackgroundResource(
+						android.R.drawable.presence_online);
 			} else {
-				indicatorViews.get(i).setBackgroundResource(android.R.drawable.presence_invisible);
+				indicatorViews.get(i).setBackgroundResource(
+						android.R.drawable.presence_invisible);
 			}
 		}
 	}

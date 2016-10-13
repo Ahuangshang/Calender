@@ -16,7 +16,8 @@ import cn.ltwc.cft.gallery.HackyViewPager;
  * @author LZL
  * 
  */
-public class ShowImageGallery extends BaseActivity implements OnPageChangeListener {
+public class ShowImageGallery extends BaseActivity implements
+		OnPageChangeListener {
 	private RelativeLayout root;
 	private HackyViewPager pager;
 	private List<TiangouBean> imgList;// 图片信息的集合

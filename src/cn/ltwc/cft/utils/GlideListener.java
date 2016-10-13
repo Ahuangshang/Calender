@@ -1,11 +1,11 @@
 package cn.ltwc.cft.utils;
 
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
-
 import android.graphics.Color;
 import android.view.View;
 import android.widget.ImageView;
+
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 
 /**
  * Glide加载图片的监听回调 Created by LZL on 16/3/25.
@@ -25,7 +25,8 @@ public class GlideListener implements RequestListener {
 	}
 
 	@Override
-	public boolean onException(Exception e, Object model, Target target, boolean isFirstResource) {
+	public boolean onException(Exception e, Object model, Target target,
+			boolean isFirstResource) {
 		if (Type == SETBACKGROUD) {
 			view.setBackgroundColor(Color.parseColor("#e1e1e1"));
 		} else if (Type == SETSCALTYPE) {
@@ -38,8 +39,8 @@ public class GlideListener implements RequestListener {
 	}
 
 	@Override
-	public boolean onResourceReady(Object resource, Object model, Target target, boolean isFromMemoryCache,
-			boolean isFirstResource) {
+	public boolean onResourceReady(Object resource, Object model,
+			Target target, boolean isFromMemoryCache, boolean isFirstResource) {
 		if (Type == SETBACKGROUD) {
 			view.setBackgroundColor(Color.parseColor("#ffffff"));
 		} else if (Type == SETSCALTYPE) {

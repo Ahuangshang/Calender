@@ -87,11 +87,12 @@ public class JokeListBean {
 
 	@Override
 	public String toString() {
-		return "JokeListBean [BillNo=" + BillNo + ", JokeTitle=" + JokeTitle + ", JokeContent=" + JokeContent
-				+ ", Type=" + Type + "]";
+		return "JokeListBean [BillNo=" + BillNo + ", JokeTitle=" + JokeTitle
+				+ ", JokeContent=" + JokeContent + ", Type=" + Type + "]";
 	}
 
-	public JokeListBean(String billNo, String jokeTitle, String jokeContent, String type) {
+	public JokeListBean(String billNo, String jokeTitle, String jokeContent,
+			String type) {
 		super();
 		BillNo = billNo;
 		JokeTitle = jokeTitle;

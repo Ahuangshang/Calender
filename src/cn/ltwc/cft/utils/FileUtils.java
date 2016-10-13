@@ -140,8 +140,10 @@ public class FileUtils {
 		}
 		return cities;
 	}
+
 	/**
 	 * 获取城市的code
+	 * 
 	 * @param city
 	 * @return
 	 */
@@ -157,7 +159,7 @@ public class FileUtils {
 				return code;
 			}
 		}
-		if(TextUtils.isEmpty(code)){
+		if (TextUtils.isEmpty(code)) {
 			for (int i = 0; i < cities.size(); i++) {
 				if (city.contains(cities.get(i).getCity())) {
 					code = cities.get(i).getCode();

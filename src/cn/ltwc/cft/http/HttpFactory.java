@@ -341,4 +341,24 @@ public class HttpFactory {
 		HttpCore core = new HttpCore();
 		core.execute(params);
 	}
+
+	/**
+	 * 获取指数详情
+	 * 
+	 * @param responce
+	 * @param channelId
+	 */
+	public static void loadZhishuDetail(ServiceResponce responce,
+			String channelId) {
+		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub
+		RequestParams params = new RequestParams();
+		String httpParam = "channel=" + channelId + "&r=CN&l=zh_cn";
+		params.setHttpParam(httpParam);
+		params.setHttpUrl(HttpUrls.GET_XIAO_MI_LAYOUT);
+		params.setRequestMethod(HttpConfig.METHOD_GET_HUC_JSON);
+		params.setResponce(responce);
+		HttpCore core = new HttpCore();
+		core.execute(params);
+	}
 }

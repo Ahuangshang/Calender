@@ -2,13 +2,6 @@ package cn.ltwc.cft.adapter;
 
 import java.util.ArrayList;
 
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
-import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -21,6 +14,13 @@ import android.widget.TextView;
 import cn.ltwc.cft.MyApplication;
 import cn.ltwc.cft.R;
 import cn.ltwc.cft.beans.TiangouBean;
+
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
 public class MeiNvAdapter extends BaseAdapter {
 	private String SRC = "http://tnfs.tngou.net/image";
@@ -36,7 +36,8 @@ public class MeiNvAdapter extends BaseAdapter {
 		this.context = c;
 		this.al = al;
 		// 1.配制ImageLoaderConfiguration(主要是配制图片的缓存【是否缓存到内存卡和内存】)
-		imageLoaderConfiguration = MyApplication.getInstance().getImageLoaderConfiguration();
+		imageLoaderConfiguration = MyApplication.getInstance()
+				.getImageLoaderConfiguration();
 		// 2.配制DisplayImageOptions(主要是配制图片在显示过程中的一些参数【图片加载失败，图片地址不存在所显示的默认图片】)
 		initDisplayImageOptions();
 		// 3.按照参数配制去显示图片(ImageLoader)
@@ -69,7 +70,8 @@ public class MeiNvAdapter extends BaseAdapter {
 
 		ViewHloder hloder;
 		if (v == null) {
-			v = LayoutInflater.from(context).inflate(R.layout.zhainan_item, null);
+			v = LayoutInflater.from(context).inflate(R.layout.zhainan_item,
+					null);
 			hloder = new ViewHloder();
 			hloder.title = (TextView) v.findViewById(R.id.zainan_title);
 			hloder.Img = (ImageView) v.findViewById(R.id.zainan_img);
@@ -81,7 +83,8 @@ public class MeiNvAdapter extends BaseAdapter {
 		}
 		hloder.title.setText(al.get(position).getTitle());// 标题
 		// 图像加载器.显示图片(图片地址,imageView,显示参数【DisplayImageOptions】)
-		imageLoader.displayImage(SRC + al.get(position).getImg(), hloder.Img, displayImageOptions);
+		imageLoader.displayImage(SRC + al.get(position).getImg(), hloder.Img,
+				displayImageOptions);
 
 		// Log.e(TAG, al.get(position).getTitle() + al.get(position).getImg());
 		return v;
@@ -96,7 +99,8 @@ public class MeiNvAdapter extends BaseAdapter {
 	 * 2.配制DisplayImageOptions(主要是配制图片在显示过程中的一些参数【图片加载失败，图片地址不存在所显示的默认图片】)
 	 */
 	private void initDisplayImageOptions() {
-		displayImageOptions = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.img_loading_default_big) // 设置图片在下载期间显示的图片
+		displayImageOptions = new DisplayImageOptions.Builder()
+				.showImageOnLoading(R.drawable.img_loading_default_big) // 设置图片在下载期间显示的图片
 				.showImageForEmptyUri(R.drawable.img_loading_empty_big)// 设置图片Uri为空或是错误的时候显示的图片
 				.showImageOnFail(R.drawable.img_loading_fail_big) // 设置图片加载/解码过程中错误时候显示的图片
 				.cacheInMemory(true)// 设置下载的图片是否缓存在内存中

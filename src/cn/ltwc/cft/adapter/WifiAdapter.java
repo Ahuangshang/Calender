@@ -1,6 +1,7 @@
 package cn.ltwc.cft.adapter;
 
 import java.util.List;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -45,14 +46,16 @@ public class WifiAdapter extends BaseAdapter {
 		// TODO Auto-generated method stub
 		Holder holer;
 		if (convertView == null) {
-			convertView = LayoutInflater.from(con).inflate(R.layout.item_wifi_psk, null);
+			convertView = LayoutInflater.from(con).inflate(
+					R.layout.item_wifi_psk, null);
 			holer = new Holder();
 			holer.txt = (TextView) convertView.findViewById(R.id.txt);
 			convertView.setTag(holer);
 		} else {
 			holer = (Holder) convertView.getTag();
 		}
-		holer.txt.setText("Wifi:" + wifiInfos.get(position).Ssid + "\n密码:" + wifiInfos.get(position).Password);
+		holer.txt.setText("Wifi:" + wifiInfos.get(position).Ssid + "\n密码:"
+				+ wifiInfos.get(position).Password);
 		return convertView;
 	}
 

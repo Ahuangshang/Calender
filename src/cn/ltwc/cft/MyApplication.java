@@ -2,14 +2,14 @@ package cn.ltwc.cft;
 
 import java.io.File;
 
+import android.app.Application;
+
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
 import com.nostra13.universalimageloader.utils.StorageUtils;
 import com.tencent.smtt.sdk.TbsDownloader;
-
-import android.app.Application;
 
 /**
  * 
@@ -57,10 +57,13 @@ public class MyApplication extends Application {
 	 */
 	private void initImageLoaderConfiguration() {
 		// 配制文件被缓存的路径
-		File cacheDir = StorageUtils.getOwnCacheDirectory(instance.getApplicationContext(),
-				"/CalenderForTang/" + "imgCache");
+		File cacheDir = StorageUtils.getOwnCacheDirectory(
+				instance.getApplicationContext(), "/CalenderForTang/"
+						+ "imgCache");
 
-		imageLoaderConfiguration = new ImageLoaderConfiguration.Builder(instance).threadPoolSize(3)
+		imageLoaderConfiguration = new ImageLoaderConfiguration.Builder(
+				instance)
+				.threadPoolSize(3)
 				// 线程池内加载的数量
 				.threadPriority(Thread.NORM_PRIORITY - 2)
 				// 设置优先级
@@ -74,7 +77,8 @@ public class MyApplication extends Application {
 				// 缓存的文件数量
 				.discCache(new UnlimitedDiscCache(cacheDir))
 				// 自定义缓存路径
-				.imageDownloader(new BaseImageDownloader(instance, 5 * 1000, 30 * 1000)) // connectTimeout
+				.imageDownloader(
+						new BaseImageDownloader(instance, 5 * 1000, 30 * 1000)) // connectTimeout
 				// (5s)超时时间
 				// .writeDebugLogs() // Remove for release app
 				.build();// 开始构建

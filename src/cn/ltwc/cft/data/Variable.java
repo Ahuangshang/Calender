@@ -11,7 +11,8 @@ import cn.ltwc.cft.R;
  */
 public class Variable {
 
-	public static int Icon[] = { R.drawable.menu_jishiben, R.drawable.menu_jinianri, R.drawable.menu_load,
+	public static int Icon[] = { R.drawable.menu_jishiben,
+			R.drawable.menu_jinianri, R.drawable.menu_load,
 			R.drawable.menu_more, R.drawable.menu_jintian };// 右侧菜单的图标
 	public static String Name[] = { "记事本", "纪念日", "登陆", "更多", "今日" };// 右侧菜单的名字
 

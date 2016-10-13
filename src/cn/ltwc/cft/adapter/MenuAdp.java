@@ -55,7 +55,8 @@ public class MenuAdp extends BaseAdapter {
 		// TODO Auto-generated method stub
 		ViewHodle hodle = null;
 		if (convertView == null) {
-			convertView = LayoutInflater.from(c).inflate(R.layout.menu_grid, null);
+			convertView = LayoutInflater.from(c).inflate(R.layout.menu_grid,
+					null);
 			hodle = new ViewHodle();
 			hodle.menuIcon = (ImageView) convertView.findViewById(R.id.rmimg);
 			hodle.menuName = (TextView) convertView.findViewById(R.id.rmtxt);

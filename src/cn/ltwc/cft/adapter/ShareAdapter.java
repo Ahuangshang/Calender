@@ -18,7 +18,8 @@ public class ShareAdapter extends RecyclerView.Adapter<ShareHolder> {
 	// private MeNvItemImgClickListener listener;
 	private PagerRecyclerItemClickListener listener;
 
-	public ShareAdapter(Context c, List<ResolveInfo> list, PagerRecyclerItemClickListener listener) {
+	public ShareAdapter(Context c, List<ResolveInfo> list,
+			PagerRecyclerItemClickListener listener) {
 		super();
 		this.c = c;
 		this.list = list;
@@ -50,7 +51,8 @@ public class ShareAdapter extends RecyclerView.Adapter<ShareHolder> {
 	@Override
 	public ShareHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 		// TODO Auto-generated method stub
-		ShareHolder holder = new ShareHolder(LayoutInflater.from(c).inflate(R.layout.item_share_app, parent, false));
+		ShareHolder holder = new ShareHolder(LayoutInflater.from(c).inflate(
+				R.layout.item_share_app, parent, false));
 		return holder;
 	}
 

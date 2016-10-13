@@ -8,19 +8,11 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import com.amap.api.location.AMapLocation;
-import com.amap.api.location.AMapLocationClient;
-import com.amap.api.location.AMapLocationClientOption;
-import com.amap.api.location.AMapLocationListener;
-import com.amap.api.location.AMapLocationClientOption.AMapLocationMode;
-import com.amap.api.location.AMapLocationClientOption.AMapLocationProtocol;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.Gravity;
@@ -63,6 +55,13 @@ import cn.ltwc.cft.utils.Utils;
 import cn.ltwc.cft.view.ContainerLayout;
 import cn.ltwc.cft.view.MyGridView;
 import cn.ltwc.cft.view.MyListView;
+
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationClientOption;
+import com.amap.api.location.AMapLocationClientOption.AMapLocationMode;
+import com.amap.api.location.AMapLocationClientOption.AMapLocationProtocol;
+import com.amap.api.location.AMapLocationListener;
 
 /**
  * 
@@ -708,7 +707,6 @@ public class MainActivity extends BaseActivity implements OnClickListener,
 	 */
 	private void setXiaoMILayout(JSONObject object) {
 		// TODO Auto-generated method stub
-		// Log.d("AA", "小米：" + object);
 		JSONArray array = object.optJSONArray("data");
 		if (array != null) {
 			List<XiaomiWeather> datas = new ArrayList<XiaomiWeather>();
@@ -720,22 +718,21 @@ public class MainActivity extends BaseActivity implements OnClickListener,
 				if (arr != null) {
 					for (int j = 0; j < arr.length(); j++) {
 						JSONObject o = arr.optJSONObject(j);
-						Log.d("AA", "小米：" + o);
 						JSONObject data = o.optJSONObject("data");
 						String image = data.optString("image");
 						String summary = data.optString("summary");
 						String t = data.optString("title");
 						String headPic = data.optString("headPic");
 						String channelId = data.optString("channelId");
+						String indexType = data.optString("indexType");
 						XiaomiZhishuList bean = new XiaomiZhishuList(image,
-								summary, t, headPic, channelId);
+								summary, t, headPic, channelId, indexType);
 						listZhishu.add(bean);
 					}
 				}
 				XiaomiWeather weather = new XiaomiWeather(title, listZhishu);
 				datas.add(weather);
 			}
-			Log.d("AA", "小米：" + datas.size());
 			XiaoMIWeatherAdapter adapter = new XiaoMIWeatherAdapter(c, datas);
 			myListView.setAdapter(adapter);
 		}
@@ -797,6 +794,9 @@ public class MainActivity extends BaseActivity implements OnClickListener,
 				// 解析定位结果
 				stopLocation();
 				String result = Utils.getLocationStr(loc);
+				if (result.equals("定位失败")) {
+					result = "杭州";
+				}
 				String code = FileUtils.getCityCode(result);
 				if (!TextUtils.isEmpty(code)) {
 					HttpFactory.getLayout(MainActivity.this, code, 3);

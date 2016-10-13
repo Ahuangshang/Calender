@@ -6,9 +6,9 @@ package cn.ltwc.cft.utils;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
-import com.amap.api.location.AMapLocation;
-
 import android.text.TextUtils;
+
+import com.amap.api.location.AMapLocation;
 
 /**
  * 辅助工具类
@@ -81,7 +81,7 @@ public class Utils {
 			}
 		} else {
 			// 定位失败
-			sb.append("定位失败" + "\n");
+			sb.append("定位失败");
 			// sb.append("错误码:" + location.getErrorCode() + "\n");
 			// sb.append("错误信息:" + location.getErrorInfo() + "\n");
 			// sb.append("错误描述:" + location.getLocationDetail() + "\n");

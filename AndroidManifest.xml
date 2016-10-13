@@ -113,7 +113,8 @@
         </activity>
         <activity android:name="cn.ltwc.cft.activity.ShowWifiPakActivity" >
         </activity>
-
+		<activity android:name="cn.ltwc.cft.activity.ZhishuDetailActivity"
+		    android:screenOrientation="portrait"/>
         <meta-data
             android:name="cn.ltwc.cft.utils.MyGlideModule"
             android:value="GlideModule" />

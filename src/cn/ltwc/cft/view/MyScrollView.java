@@ -8,7 +8,8 @@ import cn.ltwc.cft.myinterface.ScrollViewListener;
 public class MyScrollView extends ScrollView {
 	private ScrollViewListener scrollViewListener = null;
 
-	public MyScrollView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+	public MyScrollView(Context context, AttributeSet attrs, int defStyleAttr,
+			int defStyleRes) {
 		super(context, attrs, defStyleAttr, defStyleRes);
 		// TODO Auto-generated constructor stub
 	}

@@ -31,7 +31,8 @@ import cn.ltwc.cft.view.PageIndicatorView;
 import cn.ltwc.cft.view.PagerRecyclerAdapter;
 
 @SuppressLint("InlinedApi")
-public class ShareActivity extends Activity implements OnClickListener, PagerRecyclerItemClickListener {
+public class ShareActivity extends Activity implements OnClickListener,
+		PagerRecyclerItemClickListener {
 	// 解决退出动画无效
 	protected int activityCloseEnterAnimation;
 	protected int activityCloseExitAnimation;
@@ -84,7 +85,8 @@ public class ShareActivity extends Activity implements OnClickListener, PagerRec
 		}
 		spanRow = 2;
 		spanColumn = 4;
-		PagerRecyclerAdapter adapter = new PagerRecyclerAdapter(this, list, spanRow, spanColumn, this);
+		PagerRecyclerAdapter adapter = new PagerRecyclerAdapter(this, list,
+				spanRow, spanColumn, this);
 		rv.setAdapter(adapter);
 		rv.setOffscreenPageLimit(getCount());
 	}
@@ -129,14 +131,17 @@ public class ShareActivity extends Activity implements OnClickListener, PagerRec
 	 * 解决退出动画无效的方法
 	 */
 	private void dealExitAniom() {
-		TypedArray activityStyle = getTheme().obtainStyledAttributes(new int[] { android.R.attr.windowAnimationStyle });
+		TypedArray activityStyle = getTheme().obtainStyledAttributes(
+				new int[] { android.R.attr.windowAnimationStyle });
 
 		int windowAnimationStyleResId = activityStyle.getResourceId(0, 0);
 
 		activityStyle.recycle();
 
-		activityStyle = getTheme().obtainStyledAttributes(windowAnimationStyleResId,
-				new int[] { android.R.attr.activityCloseEnterAnimation, android.R.attr.activityCloseExitAnimation });
+		activityStyle = getTheme().obtainStyledAttributes(
+				windowAnimationStyleResId,
+				new int[] { android.R.attr.activityCloseEnterAnimation,
+						android.R.attr.activityCloseExitAnimation });
 
 		activityCloseEnterAnimation = activityStyle.getResourceId(0, 0);
 
@@ -149,7 +154,8 @@ public class ShareActivity extends Activity implements OnClickListener, PagerRec
 	public void finish() {
 		super.finish();
 		// 要在结束时调用此方法，才能使退出动画起作用
-		overridePendingTransition(activityCloseEnterAnimation, activityCloseExitAnimation);
+		overridePendingTransition(activityCloseEnterAnimation,
+				activityCloseExitAnimation);
 
 	}
 
@@ -161,16 +167,22 @@ public class ShareActivity extends Activity implements OnClickListener, PagerRec
 		// 设置本Activity在父窗口的位置
 		super.onAttachedToWindow();
 		View view = getWindow().getDecorView();
-		WindowManager.LayoutParams lp = (WindowManager.LayoutParams) view.getLayoutParams();
+		WindowManager.LayoutParams lp = (WindowManager.LayoutParams) view
+				.getLayoutParams();
 		// lp.gravity = Gravity.RIGHT | Gravity.BOTTOM;
 		lp.gravity = Gravity.BOTTOM;
-		lp.x = getResources().getDimensionPixelSize(R.dimen.playqueue_dialog_marginright);
-		lp.y = getResources().getDimensionPixelSize(R.dimen.playqueue_dialog_marginbottom);
+		lp.x = getResources().getDimensionPixelSize(
+				R.dimen.playqueue_dialog_marginright);
+		lp.y = getResources().getDimensionPixelSize(
+				R.dimen.playqueue_dialog_marginbottom);
 		// lp.width = getResources().getDimensionPixelSize(
 		// R.dimen.playqueue_dialog_width);
 		lp.width = ScreenUtils.getScreenWith(ShareActivity.this);
 		Log.d("AA", "**" + lp.width);
-		Log.d("AA", "***" + getResources().getDimensionPixelSize(R.dimen.playqueue_dialog_width));
+		Log.d("AA",
+				"***"
+						+ getResources().getDimensionPixelSize(
+								R.dimen.playqueue_dialog_width));
 		// lp.height = getResources().getDimensionPixelSize(
 		// R.dimen.playqueue_dialog_height);
 		getWindowManager().updateViewLayout(view, lp);
@@ -190,7 +202,8 @@ public class ShareActivity extends Activity implements OnClickListener, PagerRec
 		Intent shareIntent = new Intent(Intent.ACTION_SEND);
 		Log.d("AA", info.activityInfo.packageName);
 		Log.d("AA", info.activityInfo.name);
-		shareIntent.setComponent(new ComponentName(info.activityInfo.packageName, info.activityInfo.name));
+		shareIntent.setComponent(new ComponentName(
+				info.activityInfo.packageName, info.activityInfo.name));
 		if (type.equals(Constant.SHARE_TYPE_TEXT)) {
 			shareIntent.putExtra(Intent.EXTRA_TEXT, msg);
 		} else if (type.equals(Constant.SHARE_TYPE_IMG)) {

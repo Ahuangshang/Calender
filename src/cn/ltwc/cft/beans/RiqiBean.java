@@ -19,8 +19,9 @@ public class RiqiBean implements Parcelable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public RiqiBean(int year, int yMonth, int yDay, int week, String nYear, String nMonth, String nDay, String nAnimal,
-			String nHolidayDay, String yi, String ji) {
+	public RiqiBean(int year, int yMonth, int yDay, int week, String nYear,
+			String nMonth, String nDay, String nAnimal, String nHolidayDay,
+			String yi, String ji) {
 		super();
 		this.year = year;
 		this.yMonth = yMonth;
@@ -125,9 +126,11 @@ public class RiqiBean implements Parcelable {
 
 	@Override
 	public String toString() {
-		return "RiqiBean [year=" + year + ", yMonth=" + yMonth + ", yDay=" + yDay + ", week=" + week + ", nYear="
-				+ nYear + ", nMonth=" + nMonth + ", nDay=" + nDay + ", nAnimal=" + nAnimal + ", nHolidayDay="
-				+ nHolidayDay + ", yi=" + yi + ", ji=" + ji + "]";
+		return "RiqiBean [year=" + year + ", yMonth=" + yMonth + ", yDay="
+				+ yDay + ", week=" + week + ", nYear=" + nYear + ", nMonth="
+				+ nMonth + ", nDay=" + nDay + ", nAnimal=" + nAnimal
+				+ ", nHolidayDay=" + nHolidayDay + ", yi=" + yi + ", ji=" + ji
+				+ "]";
 	}
 
 	@Override
