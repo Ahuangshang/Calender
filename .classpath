@@ -6,9 +6,9 @@
 	<classpathentry kind="lib" path="libs/gson-2.1.jar"/>
 	<classpathentry kind="lib" path="libs/universal-image-loader-1.9.1.jar"/>
 	<classpathentry kind="lib" path="libs/glide-3.6.1.jar"/>
-	<classpathentry kind="lib" path="libs/tbs_sdk_thirdapp_v2.1.2.1096_36511_shareonly_obfs_20160727_105850.jar"/>
 	<classpathentry kind="lib" path="libs/RootTools.jar"/>
 	<classpathentry kind="lib" path="libs/AMap_Location_V3.00_20160922.jar"/>
+	<classpathentry kind="lib" path="libs/tbs_sdk_thirdapp_v2.4.0.1073_36840_sharewithdownload_obfs_20161011_194834.jar"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>

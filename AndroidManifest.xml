@@ -113,8 +113,10 @@
         </activity>
         <activity android:name="cn.ltwc.cft.activity.ShowWifiPakActivity" >
         </activity>
-		<activity android:name="cn.ltwc.cft.activity.ZhishuDetailActivity"
-		    android:screenOrientation="portrait"/>
+        <activity
+            android:name="cn.ltwc.cft.activity.ZhishuDetailActivity"
+            android:screenOrientation="portrait" />
+
         <meta-data
             android:name="cn.ltwc.cft.utils.MyGlideModule"
             android:value="GlideModule" />
@@ -125,6 +127,9 @@
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="05486ec67898b29d8e45e6a23d784891" />
+        <meta-data
+            android:name="QBSDKAppKey"
+            android:value="3UAI5n6r09jj9IwUhQ4LfZbW" />
         <!-- 定位需要的服务 -->
         <service android:name="com.amap.api.location.APSService" >
         </service>

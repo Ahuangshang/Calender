@@ -69,6 +69,7 @@ public class ZhishuDetailActivity extends BaseActivity implements
 		titleView.setTitletext(title);
 		Glide.with(this).load(headPic).into(headImg);
 		list.addHeaderView(headView);
+		showWaitingDialog(this);
 		HttpFactory.loadZhishuDetail(this, channelId);
 
 		list.setOnScrollListener(new OnScrollListener() {
@@ -104,6 +105,7 @@ public class ZhishuDetailActivity extends BaseActivity implements
 
 	@Override
 	public void httpSuccess(String result, int responseFlag) {
+		hideWaitingDialog();
 		// TODO Auto-generated method stub
 		try {
 			JSONObject object = new JSONObject(result);
@@ -118,13 +120,14 @@ public class ZhishuDetailActivity extends BaseActivity implements
 	@Override
 	public void httpTimeOut(int responseFlag) {
 		// TODO Auto-generated method stub
-
+		hideWaitingDialog();
+		
 	}
 
 	@Override
 	public void httpError(int responseFlag) {
 		// TODO Auto-generated method stub
-
+		hideWaitingDialog();
 	}
 
 	private void setView(JSONObject object) {
@@ -170,10 +173,14 @@ public class ZhishuDetailActivity extends BaseActivity implements
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				// TODO Auto-generated method stub
-				Intent intent = new Intent(ZhishuDetailActivity.this,
-						MyX5WebView.class);
-				intent.putExtra(Constant.WEBURL, datas.get(position).getUrl());
-				startActivity(intent);
+				if (position > 0) {
+					Intent intent = new Intent(ZhishuDetailActivity.this,
+							MyX5WebView.class);
+					intent.putExtra(Constant.WEBURL, datas.get(position - 1)
+							.getUrl());
+					startActivity(intent);
+				}
+
 			}
 		});
 
