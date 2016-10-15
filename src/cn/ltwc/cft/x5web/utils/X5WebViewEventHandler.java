@@ -178,8 +178,8 @@ public class X5WebViewEventHandler extends ProxyWebViewClientExtension
 
 		@Override
 		public boolean onTouchEvent(MotionEvent event, View view) {
-//			Log.i("yuanhaizhou", "tbs_onTouchEvent view is "
-//					+ view.getClass().toString());
+			// Log.i("yuanhaizhou", "tbs_onTouchEvent view is "
+			// + view.getClass().toString());
 			return webView.tbs_onTouchEvent(event, view);
 		}
 
@@ -303,13 +303,13 @@ public class X5WebViewEventHandler extends ProxyWebViewClientExtension
 	@Override
 	public void jsExitFullScreen() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void jsRequestFullScreen() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

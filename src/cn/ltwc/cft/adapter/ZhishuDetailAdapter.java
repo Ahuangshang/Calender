@@ -93,7 +93,7 @@ public class ZhishuDetailAdapter extends BaseAdapter {
 					.into(holder.img);
 		}
 		holder.source.setText(bean.getSource());
-		
+
 		return convertView;
 	}
 

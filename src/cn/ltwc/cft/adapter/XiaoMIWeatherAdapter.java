@@ -75,6 +75,10 @@ public class XiaoMIWeatherAdapter extends BaseAdapter {
 						.getChannelId());
 				intent.putExtra("headPic", model.getListZhishu().get(i)
 						.getHeadPic());
+				intent.putExtra("title", model.getListZhishu().get(i)
+						.getTitle());
+				intent.putExtra("summary", model.getListZhishu().get(i)
+						.getSummary());
 				intent.putExtra("indexType", model.getListZhishu().get(i)
 						.getIndexType());
 				context.startActivity(intent);

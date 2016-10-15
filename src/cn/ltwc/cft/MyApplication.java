@@ -47,7 +47,7 @@ public class MyApplication extends Application {
 		super.onCreate();
 		instance = this;
 		initImageLoaderConfiguration();
-		}
+	}
 
 	/**
 	 * 配制ImageLoaderConfiguration(主要是配制图片的缓存【是否缓存到内存卡和内存】)

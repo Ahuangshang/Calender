@@ -18,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import cn.ltwc.cft.R;
 import cn.ltwc.cft.adapter.ZhishuDetailAdapter;
 import cn.ltwc.cft.beans.ZhishuDetailBean;
@@ -38,6 +39,8 @@ public class ZhishuDetailActivity extends BaseActivity implements
 	private String title;
 	private View headView;
 	private ImageView headImg;
+	private TextView headTitle, headContent;
+	private View headC;
 
 	public ZhishuDetailActivity() {
 		super(R.layout.activity_zhishu_detail);
@@ -52,6 +55,9 @@ public class ZhishuDetailActivity extends BaseActivity implements
 		headView = LayoutInflater.from(this).inflate(
 				R.layout.zhishu_detail_head, list, false);
 		headImg = (ImageView) headView.findViewById(R.id.head_pic);
+		headTitle = (TextView) headView.findViewById(R.id.head_title);
+		headContent = (TextView) headView.findViewById(R.id.head_content);
+		headC = headView.findViewById(R.id.head_c);
 		titleView.setTitleAlpha(0);
 	}
 
@@ -68,6 +74,8 @@ public class ZhishuDetailActivity extends BaseActivity implements
 		// TODO Auto-generated method stub
 		titleView.setTitletext(title);
 		Glide.with(this).load(headPic).into(headImg);
+		headTitle.setText(getIntent().getStringExtra("title"));
+		headContent.setText(getIntent().getStringExtra("summary"));
 		list.addHeaderView(headView);
 		showWaitingDialog(this);
 		HttpFactory.loadZhishuDetail(this, channelId);
@@ -94,10 +102,16 @@ public class ZhishuDetailActivity extends BaseActivity implements
 					top = BitMapUtil.dip2px(c, 50);
 				}
 				float y = BitMapUtil.dip2px(c, 180);
+				float hc = BitMapUtil.dip2px(c, 70);
 				if (y + h >= 2 * top) {
 					titleView.setTitleAlpha(0);
 				} else {
 					titleView.setTitleAlpha(1 - ((y + h - top) / top));
+				}
+				if ((y + h) <= (top + hc)) {
+					headC.setAlpha(0);
+				} else {
+					headC.setAlpha(((y + h) - (top + hc)) / (y - top - hc));
 				}
 			}
 		});
@@ -121,7 +135,7 @@ public class ZhishuDetailActivity extends BaseActivity implements
 	public void httpTimeOut(int responseFlag) {
 		// TODO Auto-generated method stub
 		hideWaitingDialog();
-		
+
 	}
 
 	@Override

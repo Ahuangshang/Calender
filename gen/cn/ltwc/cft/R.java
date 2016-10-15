@@ -2231,7 +2231,7 @@ containing a value of this type.
         public static final int action_mode_bar=0x7f06003f;
         public static final int action_mode_bar_stub=0x7f06003e;
         public static final int action_mode_close_button=0x7f060024;
-        public static final int action_settings=0x7f0600f5;
+        public static final int action_settings=0x7f0600f7;
         public static final int activity_chooser_view_content=0x7f060025;
         public static final int activity_phonenumber_Relative=0x7f06007e;
         public static final int activity_phonenumber_chaxun=0x7f060077;
@@ -2298,6 +2298,8 @@ containing a value of this type.
         public static final int expanded_menu=0x7f060039;
         public static final int flipper=0x7f060092;
         public static final int gallery=0x7f060056;
+        public static final int head_c=0x7f0600f5;
+        public static final int head_content=0x7f0600f6;
         public static final int head_pic=0x7f0600f4;
         public static final int head_title=0x7f0600ac;
         public static final int history_event=0x7f06005c;
