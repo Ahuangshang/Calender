@@ -22,6 +22,7 @@ import cn.ltwc.cft.x5web.utils.X5WebView;
 
 import com.tencent.smtt.sdk.WebChromeClient;
 import com.tencent.smtt.sdk.WebView;
+import com.tencent.smtt.sdk.WebViewClient;
 
 @SuppressLint("InlinedApi")
 public class MyX5WebView extends Activity {
@@ -83,7 +84,14 @@ public class MyX5WebView extends Activity {
 					bar.setVisibility(View.VISIBLE);
 				}
 			}
-
+			
+		});
+		webView.setWebViewClient(new WebViewClient(){
+			@Override
+			public boolean shouldOverrideUrlLoading(WebView arg0, String arg1) {
+				// TODO Auto-generated method stub
+				return super.shouldOverrideUrlLoading(arg0, arg1);
+			}
 		});
 		webView.addJavascriptInterface(new WebViewJavaScriptFunction() {
 

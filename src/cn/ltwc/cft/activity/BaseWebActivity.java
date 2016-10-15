@@ -136,7 +136,14 @@ public abstract class BaseWebActivity extends Activity {
 					}
 				}
 			}
-
+			
+		});
+		webView.setWebViewClient(new WebViewClient(){
+			@Override
+			public boolean shouldOverrideUrlLoading(WebView view, String url) {
+				// TODO Auto-generated method stub
+				return super.shouldOverrideUrlLoading(view, url);
+			}
 		});
 		webView.addJavascriptInterface(new Object() {
 			@JavascriptInterface
