@@ -84,7 +84,7 @@ public class MoreActivity extends BaseActivity {
 					// Intent intent = new Intent(c, MyWebViewActivity.class);
 					Intent intent = new Intent(c, MyX5WebView.class);
 					intent.putExtra(Constant.WEBURL,
-							"http://military.china.com/");
+							"http://3g.china.com/html/mili.html");
 					intent.putExtra(Constant.WEBTITLE, "中华军事");
 					startActivity(intent);
 					break;

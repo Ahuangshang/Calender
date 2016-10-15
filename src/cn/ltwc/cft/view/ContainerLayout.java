@@ -422,7 +422,6 @@ public class ContainerLayout extends LinearLayout {
 			} else if (scrollCountY > hideTop) {
 				// 日历头滑动到了顶部
 				mHeader.scrollTo(mHeader.getScrollX(), hideTop);
-
 				if (scrollCountY <= headerOriginalHeight - hideBottom + hideTop
 						+ distanceY) {
 					if (scrollCountY <= headerOriginalHeight - hideBottom

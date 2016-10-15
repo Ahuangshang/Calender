@@ -3,15 +3,12 @@ package cn.ltwc.cft;
 import java.io.File;
 
 import android.app.Application;
-import android.util.Log;
 
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
 import com.nostra13.universalimageloader.utils.StorageUtils;
-import com.tencent.smtt.sdk.QbSdk;
-import com.tencent.smtt.sdk.TbsListener;
 
 /**
  * 
@@ -49,42 +46,8 @@ public class MyApplication extends Application {
 		// TODO Auto-generated method stub
 		super.onCreate();
 		instance = this;
-		// 搜集本地tbs内核信息并上报服务器，服务器返回结果决定使用哪个内核。
-		//TbsDownloader.needDownload(getApplicationContext(), false);
-		QbSdk.PreInitCallback cb = new QbSdk.PreInitCallback() {
-
-			@Override
-			public void onViewInitFinished(boolean arg0) {
-				// TODO Auto-generated method stub
-				Log.e("AA", " onViewInitFinished is " + arg0);
-			}
-
-			@Override
-			public void onCoreInitFinished() {
-				// TODO Auto-generated method stub
-
-			}
-		};
-		QbSdk.setTbsListener(new TbsListener() {
-			@Override
-			public void onDownloadFinish(int i) {
-				Log.d("AA", "onDownloadFinish");
-			}
-
-			@Override
-			public void onInstallFinish(int i) {
-				Log.d("AA", "onInstallFinish");
-			}
-
-			@Override
-			public void onDownloadProgress(int i) {
-				Log.d("AA", "onDownloadProgress:" + i);
-			}
-		});
-
-		QbSdk.initX5Environment(getApplicationContext(), cb);
 		initImageLoaderConfiguration();
-	}
+		}
 
 	/**
 	 * 配制ImageLoaderConfiguration(主要是配制图片的缓存【是否缓存到内存卡和内存】)
