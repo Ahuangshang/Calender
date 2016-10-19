@@ -20,6 +20,7 @@ import cn.ltwc.cft.view.TitleView;
 import cn.ltwc.cft.x5web.utils.WebViewJavaScriptFunction;
 import cn.ltwc.cft.x5web.utils.X5WebView;
 
+import com.tencent.smtt.sdk.DownloadListener;
 import com.tencent.smtt.sdk.WebChromeClient;
 import com.tencent.smtt.sdk.WebView;
 import com.tencent.smtt.sdk.WebViewClient;
@@ -84,13 +85,27 @@ public class MyX5WebView extends Activity {
 					bar.setVisibility(View.VISIBLE);
 				}
 			}
-			
+
 		});
-		webView.setWebViewClient(new WebViewClient(){
+		webView.setWebViewClient(new WebViewClient() {
 			@Override
 			public boolean shouldOverrideUrlLoading(WebView arg0, String arg1) {
 				// TODO Auto-generated method stub
 				return super.shouldOverrideUrlLoading(arg0, arg1);
+			}
+
+		});
+		webView.setDownloadListener(new DownloadListener() {
+
+			@Override
+			public void onDownloadStart(String arg0, String arg1, String arg2,
+					String arg3, long arg4) {
+				// TODO Auto-generated method stub
+				Log.d("AA", "arg0" + arg0);
+				Log.d("AA", "arg1" + arg1);
+				Log.d("AA", "arg2" + arg2);
+				Log.d("AA", "arg3" + arg3);
+				Log.d("AA", "arg4=" + arg4);
 			}
 		});
 		webView.addJavascriptInterface(new WebViewJavaScriptFunction() {

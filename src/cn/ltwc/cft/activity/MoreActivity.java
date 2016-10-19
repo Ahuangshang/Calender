@@ -159,4 +159,5 @@ public class MoreActivity extends BaseActivity {
 			return convertView;
 		}
 	}
+
 }
