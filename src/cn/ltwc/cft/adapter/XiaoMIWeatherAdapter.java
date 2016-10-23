@@ -5,6 +5,7 @@ import java.util.List;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,11 +57,19 @@ public class XiaoMIWeatherAdapter extends BaseAdapter {
 			holde = new Holder();
 			holde.title = (TextView) convertView.findViewById(R.id.title);
 			holde.erList = (MyListView) convertView.findViewById(R.id.er_list);
+			holde.item = convertView.findViewById(R.id.item);
 			convertView.setTag(holde);
 		} else {
 			holde = (Holder) convertView.getTag();
 		}
 		final XiaomiWeather model = datas.get(position);
+		for (int i = 0; i < model.getListZhishu().size(); i++) {
+			if (TextUtils.isEmpty(model.getListZhishu().get(i).getChannelId())) {
+				holde.item.setVisibility(View.GONE);
+			} else {
+				holde.item.setVisibility(View.VISIBLE);
+			}
+		}
 		holde.title.setText(model.getTitle());
 		XiaoMIZhishuAdapter ada = new XiaoMIZhishuAdapter(context,
 				model.getListZhishu());
@@ -90,5 +99,6 @@ public class XiaoMIWeatherAdapter extends BaseAdapter {
 	class Holder {
 		private TextView title;
 		private MyListView erList;
+		private View item;
 	}
 }

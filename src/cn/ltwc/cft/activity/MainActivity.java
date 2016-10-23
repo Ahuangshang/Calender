@@ -720,6 +720,19 @@ public class MainActivity extends BaseActivity implements OnClickListener,
 						JSONObject o = arr.optJSONObject(j);
 						JSONObject data = o.optJSONObject("data");
 						String image = data.optString("image");
+						// String image = data.optString("images")
+						// .replace("[", "").replace("]", "");
+						// String[] temp = image.split(",");
+						// if (temp != null) {
+						// String[] images = new String[temp.length];
+						// for (int k = 0; k < temp.length; k++) {
+						// images[k] = temp[k].replaceAll("\"", "")
+						// .replaceAll("\\\\", "");
+						// }
+						// if (images.length >= 1) {
+						// image = images[0];
+						// }
+						// }
 						String summary = data.optString("summary");
 						String t = data.optString("title");
 						String headPic = data.optString("headPic");

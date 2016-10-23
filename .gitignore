@@ -4,5 +4,6 @@ build/
 .gradle/
 .hprof/
 bin/
+gen/
 *.iml
 local.properties
