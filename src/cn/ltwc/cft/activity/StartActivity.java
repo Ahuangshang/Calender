@@ -56,15 +56,14 @@ public class StartActivity extends Activity {
 			@Override
 			public void onViewInitFinished(boolean arg0) {
 				// TODO Auto-generated method stub
-
+				Message msg = new Message();
+				msg.what = 2;
+				handler.sendMessage(msg);
 			}
 
 			@Override
 			public void onCoreInitFinished() {
 				// TODO Auto-generated method stub
-				Message msg = new Message();
-				msg.what = 2;
-				handler.sendMessage(msg);
 
 			}
 		};
