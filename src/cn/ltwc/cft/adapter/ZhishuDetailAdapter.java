@@ -4,6 +4,7 @@ import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,6 +67,7 @@ public class ZhishuDetailAdapter extends BaseAdapter {
 			holder.img3 = (ImageView) convertView.findViewById(R.id.img_1_3);
 			holder.img = (ImageView) convertView.findViewById(R.id.img_2);
 			holder.source = (TextView) convertView.findViewById(R.id.source);
+			holder.item = convertView.findViewById(R.id.item);
 			convertView.setTag(holder);
 		} else {
 			holder = (Holder) convertView.getTag();
@@ -93,11 +95,16 @@ public class ZhishuDetailAdapter extends BaseAdapter {
 					.into(holder.img);
 		}
 		holder.source.setText(bean.getSource());
-
+		if (TextUtils.isEmpty(bean.getSummary())) {
+			holder.item.setVisibility(View.GONE);
+		} else {
+			holder.item.setVisibility(View.VISIBLE);
+		}
 		return convertView;
 	}
 
 	class Holder {
+		private View item;
 		private View layout1, layout2;
 		private TextView title1, content1, title2, content2;
 		private ImageView img1, img2, img3, img;

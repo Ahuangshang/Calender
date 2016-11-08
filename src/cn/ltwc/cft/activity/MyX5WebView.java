@@ -1,11 +1,29 @@
 package cn.ltwc.cft.activity;
 
+import java.io.File;
+import java.io.InputStream;
+import java.net.URLDecoder;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnDismissListener;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.PixelFormat;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -16,6 +34,7 @@ import android.widget.Toast;
 import cn.ltwc.cft.AppManager;
 import cn.ltwc.cft.R;
 import cn.ltwc.cft.data.Constant;
+import cn.ltwc.cft.utils.FileUtils;
 import cn.ltwc.cft.view.TitleView;
 import cn.ltwc.cft.x5web.utils.WebViewJavaScriptFunction;
 import cn.ltwc.cft.x5web.utils.X5WebView;
@@ -98,15 +117,22 @@ public class MyX5WebView extends Activity {
 		webView.setDownloadListener(new DownloadListener() {
 
 			@Override
-			public void onDownloadStart(String arg0, String arg1, String arg2,
-					String arg3, long arg4) {
+			public void onDownloadStart(String url, String userAgent,
+					String contentDisposition, String mimetype,
+					long contentLength) {
 				// TODO Auto-generated method stub
-				Log.d("AA", "arg0" + arg0);
-				Log.d("AA", "arg1" + arg1);
-				Log.d("AA", "arg2" + arg2);
-				Log.d("AA", "arg3" + arg3);
-				Log.d("AA", "arg4=" + arg4);
+				if (!Environment.getExternalStorageState().equals(
+						Environment.MEDIA_MOUNTED)) {
+					Toast t = Toast.makeText(MyX5WebView.this, "需要SD卡。",
+							Toast.LENGTH_LONG);
+					t.setGravity(Gravity.CENTER, 0, 0);
+					t.show();
+					return;
+				}
+				DownloaderTask task = new DownloaderTask();
+				task.execute(url);
 			}
+
 		});
 		webView.addJavascriptInterface(new WebViewJavaScriptFunction() {
 
@@ -273,6 +299,126 @@ public class MyX5WebView extends Activity {
 		// to the default
 		// system behavior (probably exit the activity)
 		return super.onKeyDown(keyCode, event);
+	}
+
+	// 内部类
+	private class DownloaderTask extends AsyncTask<String, Void, String> {
+
+		public DownloaderTask() {
+		}
+
+		@SuppressWarnings("deprecation")
+		@Override
+		protected String doInBackground(String... params) {
+			// TODO Auto-generated method stub
+			String url = params[0];
+			String fileName = url.substring(url.lastIndexOf("/") + 1);
+			fileName = URLDecoder.decode(fileName);
+			Log.i("AA", "fileName=" + fileName);
+
+			File directory = Environment.getExternalStorageDirectory();
+			File file = new File(directory, fileName);
+			if (file.exists()) {
+				Log.i("AA", "The file has already exists.");
+				return fileName;
+			}
+			try {
+				HttpClient client = new DefaultHttpClient();
+				// client.getParams().setIntParameter("http.socket.timeout",3000);//设置超时
+				HttpGet get = new HttpGet(url);
+				HttpResponse response = client.execute(get);
+				if (HttpStatus.SC_OK == response.getStatusLine()
+						.getStatusCode()) {
+					HttpEntity entity = response.getEntity();
+					InputStream input = entity.getContent();
+
+					FileUtils.writeToSDCard(fileName, input);
+
+					input.close();
+					// entity.consumeContent();
+					return fileName;
+				} else {
+					return null;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				return null;
+			}
+		}
+
+		@Override
+		protected void onCancelled() {
+			// TODO Auto-generated method stub
+			super.onCancelled();
+		}
+
+		@Override
+		protected void onPostExecute(String result) {
+			// TODO Auto-generated method stub
+			super.onPostExecute(result);
+			closeProgressDialog();
+			if (result == null) {
+				Toast t = Toast.makeText(MyX5WebView.this, "连接错误！请稍后再试！",
+						Toast.LENGTH_LONG);
+				t.setGravity(Gravity.CENTER, 0, 0);
+				t.show();
+				return;
+			}
+
+			Toast t = Toast.makeText(MyX5WebView.this, "已保存到SD卡。",
+					Toast.LENGTH_LONG);
+			t.setGravity(Gravity.CENTER, 0, 0);
+			t.show();
+			File directory = Environment.getExternalStorageDirectory();
+			File file = new File(directory, result);
+			Log.i("AA", "Path=" + file.getAbsolutePath());
+			Intent intent = FileUtils.getFileIntent(file);
+			startActivity(intent);
+		}
+
+		@Override
+		protected void onPreExecute() {
+			// TODO Auto-generated method stub
+			super.onPreExecute();
+			showProgressDialog();
+		}
+
+		@Override
+		protected void onProgressUpdate(Void... values) {
+			// TODO Auto-generated method stub
+			super.onProgressUpdate(values);
+		}
+
+	}
+
+	private ProgressDialog mDialog;
+
+	private void showProgressDialog() {
+		if (mDialog == null) {
+			mDialog = new ProgressDialog(MyX5WebView.this);
+			mDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);// 设置风格为圆形进度条
+			mDialog.setMessage("正在加载 ，请等待...");
+			mDialog.setIndeterminate(false);// 设置进度条是否为不明确
+			mDialog.setCancelable(true);// 设置进度条是否可以按退回键取消
+			mDialog.setCanceledOnTouchOutside(false);
+			mDialog.setOnDismissListener(new OnDismissListener() {
+
+				@Override
+				public void onDismiss(DialogInterface dialog) {
+					// TODO Auto-generated method stub
+					mDialog = null;
+				}
+			});
+			mDialog.show();
+
+		}
+	}
+
+	private void closeProgressDialog() {
+		if (mDialog != null) {
+			mDialog.dismiss();
+			mDialog = null;
+		}
 	}
 
 }
